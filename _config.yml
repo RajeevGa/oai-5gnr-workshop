@@ -5,7 +5,16 @@ author: "Rajeev Gangula"
 email: r.gangula@northeastern.edu
 
 # Theme
-theme: jekyll-theme-cayman
+remote_theme: just-the-docs/just-the-docs
+
+# Add these new features
+search_enabled: true
+enable_copy_code_button: true
+color_scheme: light
+
+# Navigation structure
+nav_sort: order
+
 # Or for more features: remote_theme: just-the-docs/just-the-docs
 
 # Navigation
