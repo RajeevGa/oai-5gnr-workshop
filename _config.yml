@@ -15,18 +15,6 @@ color_scheme: light
 # Navigation structure
 nav_sort: order
 
-# Or for more features: remote_theme: just-the-docs/just-the-docs
-
-# Navigation
-navbar:
-  - title: Home
-    url: /
-  - title: Pre-Workshop
-    url: /docs/pre-workshop/
-  - title: Workshop
-    url: /docs/workshop/
-  - title: Resources
-    url: /docs/resources/
 
 # Plugins
 plugins:
@@ -39,5 +27,5 @@ kramdown:
   syntax_highlighter: rouge
 
 # Build settings
-baseurl: "" # For GitHub Pages: /repository-name
+baseurl: "/oai-5gnr-workshop" # For GitHub Pages: /repository-name
 url: "https://RajeevGa.github.io"
