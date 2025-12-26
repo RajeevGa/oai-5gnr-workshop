@@ -9,18 +9,18 @@ Welcome to the complete OpenAirInterface 5G workshop tutorial!
 
 ## 📚 Course Structure
 
-### 🔧 [Pre-Workshop Preparation](/docs/pre-workshop/)
+### 🔧 [Pre-Workshop Preparation]({{ site.baseurl }}/docs/pre-workshop/)
 Get your system ready (2.5-3 hours self-paced)
 
-- [Module 0: Cloud Setup](/docs/pre-workshop/cloud-setup)
-- [Module 1: Linux Essentials](/docs/pre-workshop/module-1-linux)
-- [Module 2: Package Management](/docs/pre-workshop/module-2-packages)
-- [Module 3: Git & Version Control](/docs/pre-workshop/module-3-git)
-- [Module 4: Docker Basics](/docs/pre-workshop/module-4-docker)
-- [Module 5: C Compilation](/docs/pre-workshop/module-5-c-compilation)
-- [Module 6: Network Basics](/docs/pre-workshop/module-6-networking)
+- [Module 0: Cloud Setup]({{ site.baseurl }}/docs/pre-workshop/cloud-setup)
+- [Module 1: Linux Essentials]({{ site.baseurl }}/docs/pre-workshop/module-1-linux)
+- [Module 2: Package Management]({{ site.baseurl }}/docs/pre-workshop/module-2-packages)
+- [Module 3: Git & Version Control]({{ site.baseurl }}/docs/pre-workshop/module-3-git)
+- [Module 4: Docker Basics]({{ site.baseurl }}/docs/pre-workshop/module-4-docker)
+- [Module 5: C Compilation]({{ site.baseurl }}/docs/pre-workshop/module-5-c-compilation)
+- [Module 6: Network Basics]({{ site.baseurl }}/docs/pre-workshop/module-6-networking)
 
-### 📖 [Workshop Content](/docs/workshop/)
+### 📖 [Workshop Content]({{ site.baseurl }}/docs/workshop/)
 2-day intensive workshop
 
 **Day 1: 5G NR Fundamentals**
@@ -35,7 +35,7 @@ Get your system ready (2.5-3 hours self-paced)
 - Session 3: Running OAI Network
 - Session 4: Experiments
 
-### 🛠️ [Resources](/docs/resources/)
+### 🛠️ [Resources]({{ site.baseurl }}/docs/resources/)
 - Quick reference guides
 - Troubleshooting
 - FAQ
@@ -52,9 +52,9 @@ Get your system ready (2.5-3 hours self-paced)
 
 ## 📞 Contact
 
-- **Email:** your.email@example.com
-- **Issues:** [GitHub Issues](https://github.com/yourusername/oai-workshop-tutorial/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/oai-workshop-tutorial/discussions)
+- **Email:** r.gangula@northeastern.edu
+- **Issues:** [GitHub Issues](https://github.com/RajeevGa/oai-5gnr-workshop/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/RajeevGa/oai-5gnr-workshop/discussions)
 
 ---
 
