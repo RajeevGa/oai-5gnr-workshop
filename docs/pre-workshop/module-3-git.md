@@ -5,6 +5,7 @@ parent: Pre-Workshop Preparation
 nav_order: 3
 ---
 
+
 # 🚀 Module 3: Git and Version Control
 
 > **Duration:** 25 minutes | **Level:** Beginner | **Hands-on:** Yes
