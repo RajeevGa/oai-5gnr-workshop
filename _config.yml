@@ -1,24 +1,18 @@
 title: "OAI 5GNR Workshop"
 description: "Learning 5G NR with OpenAirInterface"
-author: "Rajeev Gangula"
-email: r.gangula@northeastern.edu
 
-# Theme (use 'theme' for local, not 'remote_theme')
-theme: just-the-docs
+# Works for BOTH local and GitHub!
+remote_theme: just-the-docs/just-the-docs
 
-# Features
 search_enabled: true
 enable_copy_code_button: true
 color_scheme: light
-
-# Navigation
 nav_sort: order
 
-# Build settings
 baseurl: "/oai-5gnr-workshop"
 url: "https://rajeevga.github.io"
 
-# Plugins
 plugins:
+  - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-sitemap
