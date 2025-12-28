@@ -8,7 +8,7 @@ has_children: true
 # 📖 Workshop Schedule
 
 **Duration:** 2 days, 12 hours total  
-**Format:** 70% Hands-on, 30% Theory
+**Format:** 60% Hands-on, 40% Theory
 
 ---
 
@@ -22,11 +22,8 @@ has_children: true
 
 ## Day 1: 5G NR Fundamentals
 
-**Morning:**
 - Introduction to 5G NR
 - 5G Architecture
-
-**Evening:**
 - Physical Layer
 - Procedures
 
@@ -35,12 +32,8 @@ has_children: true
 ---
 
 ## Day 2: OpenAirInterface Hands-on
-
-**Morning:**
 - OAI Introduction
 - Installation & Setup
-
-**Evening:**
 - Running 5G Network
 - Experiments & Analysis
 
@@ -73,18 +66,11 @@ By the end of the workshop, you will:
 
 ---
 
-## 🎓 Certificate
 
-Provided upon:
-- Full attendance (both days)
-- Successful 5G network deployment
-- Participation in hands-on exercises
-
----
 
 ## 📞 Workshop Information
 
-**Instructor:** Rajeev Gangula  
+**Instructors:** Rajeev Gangula  
 **Email:** r.gangula@northeastern.edu  
 **Locations:** Hyderabad & Bangalore
 

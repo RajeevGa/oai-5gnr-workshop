@@ -4,134 +4,109 @@ title: Home
 nav_order: 1
 ---
 
-# 🚀 OAI 5G NR Workshop
+# 🚀 Master 5G by Building It
 
-Welcome to the complete OpenAirInterface 5G workshop tutorial!
+Learn 5G by deploying real networks. This hands-on workshop takes you from basics to running a complete 5G system using OpenAirInterface, the leading open-source 5G platform.
 
----
-
-## 📋 Quick Navigation
-
-### 🔧 Pre-Workshop Preparation (2.5-3 hours)
-
-Complete these self-paced modules before the workshop:
-
-1. [Module 1: Linux Essentials](docs/pre-workshop/module-1-linux) - 45 min
-2. [Module 2: Package Management](docs/pre-workshop/module-2-packages) - 20 min  
-3. [Module 3: Git & Version Control](docs/pre-workshop/module-3-git) - 25 min
-4. [Module 4: Docker Basics](docs/pre-workshop/module-4-docker) - 30 min
-5. [Module 5: C Compilation](docs/pre-workshop/module-5-c-compilation) - 25 min
-6. [Module 6: Network Basics](docs/pre-workshop/module-6-networking) - 20 min
-
-### 📖 Workshop Content (Coming Soon)
-
-- **Day 1:** 5G NR Fundamentals
-- **Day 2:** OAI Hands-on
+**All you need:** A laptop, internet, and curiosity!
 
 ---
 
-## ✅ Pre-Workshop Checklist
+## 👥 Who Should Attend?
 
-Before attending the workshop, ensure you can:
+**Ideal for:**
+- B.Tech (final year), M.Tech, PhD students in ECE/CSE
+- Faculty members teaching wireless communications
+- Engineers exploring 5G technology
 
-**Linux Skills:**
-- ✓ Navigate Linux terminal confidently
-- ✓ Create, edit, and delete files
-- ✓ Understand file permissions (chmod)
-- ✓ Edit files with nano
-
-**Development Tools:**
-- ✓ Install packages with apt
-- ✓ Clone Git repositories
-- ✓ Run Docker containers
-- ✓ Compile C programs
-
-**System Ready:**
-- ✓ Ubuntu 22.04 installed (VM or cloud)
-- ✓ 8GB+ RAM, 50GB+ disk space
-- ✓ Internet connection working
-- ✓ Can check network connectivity
+**Prerequisites:**
+- Basic understanding of communication systems
+- Familiarity with digital communications concepts
+- Completed our [pre-workshop modules](docs/pre-workshop/) (2.5-3 hours)
 
 ---
 
-## 🎯 Quick Start
+## 🎓 What You'll Achieve
 
-**New to Linux?** Start with [Module 1: Linux Essentials](docs/pre-workshop/module-1-linux)
+**In just 2 days, you'll:**
+- 🏗️ Deploy your own 5G network from scratch
+- 📡 Connect devices and see real data flowing
+- 🔬 Analyze 5G protocols with professional tools
+- 🎯 Gain hands-on skills for 5G research and development
 
-**Already comfortable with basics?** Jump to [Module 3: Git](docs/pre-workshop/module-3-git)
-
-**Want to setup cloud VM?** Check [Cloud Setup Guide](docs/setup/cloud-setup)
-
----
-
-## 💡 Workshop Overview
-
-### What You'll Learn
-
-**Pre-Workshop (Self-paced):**
-- Master Linux command line
-- Use Git for version control
-- Run applications in Docker
-- Compile C programs
-- Understand networking basics
-
-**Day 1 (6 hours):**
-- 5G NR architecture and components
-- Physical layer fundamentals
-- 5G procedures and protocols
-- OpenAirInterface introduction
-
-**Day 2 (6 hours):**
-- Install and configure OAI
-- Deploy 5G Core Network
-- Run gNB and UE
-- Conduct experiments
-- Troubleshoot issues
+**By the end:** You'll confidently navigate 5G technology and have a working system to experiment with.
 
 ---
 
-## 🛠️ System Requirements
+## 📅 Workshop at a Glance
 
-**Minimum:**
-- Ubuntu 22.04 LTS
-- 4 CPU cores
-- 8GB RAM
-- 50GB free disk space
-- Stable internet connection
+**Duration:** 2 full days (6 hours/day)  
+**Format:** 70% Hands-on Labs, 30% Interactive Sessions  
+**Location:** Hyderabad & Bangalore
 
-**Recommended:**
-- 8+ CPU cores
-- 16GB RAM
-- 100GB SSD storage
-- Wired ethernet connection
+**Day 1:** 5G NR Fundamentals  
+Architecture • Protocols • Physical Layer • Procedures
 
----
+**Day 2:** OpenAirInterface Deployment  
+Installation • Configuration • Network Testing • Experimentation
 
-## 📞 Contact & Support
-
-**Instructor:** Rajeev Gangula  
-**Email:** r.gangula@northeastern.edu
-
-**Resources:**
-- [GitHub Repository](https://github.com/RajeevGa/oai-5gnr-workshop)
-- [Report Issues](https://github.com/RajeevGa/oai-5gnr-workshop/issues)
+[View Detailed Schedule →](docs/workshop/)
 
 ---
 
-## 🎓 About This Workshop
+## 🔧 Preparation Required
 
-This workshop provides hands-on experience with **OpenAirInterface (OAI)**, an open-source implementation of 5G NR. You'll learn to deploy, configure, and experiment with a complete 5G network stack.
+**Before attending, complete:**
 
-**Prerequisites:** Basic computer literacy, willingness to learn
+[6 Self-Paced Modules →](docs/pre-workshop/) (2.5-3 hours total)
 
-**Duration:** 2.5-3 hours pre-workshop + 2-day intensive workshop
+Linux • Git • Docker • C Compilation • Networking
 
-**Level:** Beginner to Intermediate
+---
+## 👨‍🏫 Instructors
+
+<div style="display: flex; gap: 30px; flex-wrap: wrap; margin: 30px 0;">
+
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/rajeev-gangula.jpg" alt="Rajeev Gangula" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Rajeev Gangula</h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">Northeastern University</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Boston, USA</p>
+    <div style="margin-top: 15px;">
+        <a href="https://rajeevga.github.io/" target="_blank" style="margin: 0 5px;">🌐 Website</a>
+        <a href="mailto:r.gangula@northeastern.edu" style="margin: 0 5px;">✉️ Email</a>
+    </div>
+</div>
+
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/rakesh-mundlamuri.jpg" alt="Rakesh Mundlamuri" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Rakesh Mundlamuri</h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">OpenAirInterface Software Alliance</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">France</p>
+    <div style="margin-top: 15px;">
+        <a href="https://www.linkedin.com/in/rakesh-mundlamuri-25089ba6/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
+
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/venkatareddy-akumalla.jpg" alt="Venkatareddy Akumalla" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Venkatareddy Akumalla</h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
+    <div style="margin-top: 15px;">
+        <a href="https://in.linkedin.com/in/venkatareddy-akumalla-86000859" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
+
+</div>
 
 ---
 
-[Begin with Module 1 →](docs/pre-workshop/module-1-linux){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+## 🚀 Get Started
+
+[Begin Preparation →](docs/pre-workshop/){: .btn .btn-primary}  
+[View Workshop Schedule →](docs/workshop/){: .btn}
 
 ---
 
-*Last updated: December 2024*
+**Questions?** r.gangula@northeastern.edu
