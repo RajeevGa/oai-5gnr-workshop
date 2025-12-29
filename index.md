@@ -68,7 +68,7 @@ Linux • Git • Docker • C Compilation • Networking
 <div style="display: flex; gap: 30px; flex-wrap: wrap; margin: 30px 0;">
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/rajeev-gangula.jpg" alt="Rajeev Gangula" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <img src="assets/images/instructors/rajeev-gangula.jpg" alt="Rajeev Gangula" style="width: 150px; height: 150px; border-radius: 50%; object-fit: fill; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;">Rajeev Gangula</h3>
     <p style="color: #666; margin: 5px 0; font-size: 0.9em;">Northeastern University</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Boston, USA</p>
@@ -79,7 +79,7 @@ Linux • Git • Docker • C Compilation • Networking
 </div>
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/rakesh-mundlamuri.jpg" alt="Rakesh Mundlamuri" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <img src="assets/images/instructors/rakesh-mundlamuri.png" alt="Rakesh Mundlamuri" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;">Rakesh Mundlamuri</h3>
     <p style="color: #666; margin: 5px 0; font-size: 0.9em;">OpenAirInterface Software Alliance</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">France</p>
@@ -91,13 +91,22 @@ Linux • Git • Docker • C Compilation • Networking
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <img src="assets/images/instructors/venkatareddy-akumalla.jpg" alt="Venkatareddy Akumalla" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;">Venkatareddy Akumalla</h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">Indian Institute of Science</p>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
     <div style="margin-top: 15px;">
         <a href="https://in.linkedin.com/in/venkatareddy-akumalla-86000859" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
     </div>
 </div>
 
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="Vinay Kulkarni" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Vinay Kulkarni</h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
+    <div style="margin-top: 15px;">
+        <a href="https://in.linkedin.com/in/vinaykz" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
 </div>
 
 ---
