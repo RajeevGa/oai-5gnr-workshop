@@ -7,7 +7,7 @@ nav_order: 5
 
 # ⚙️ Module 5: C Compilation Basics
 
-> **Duration:** 25 minutes | **Level:** Beginner | **Hands-on:** Yes
+> **Duration:** 45 minutes | **Level:** Refresher | **Hands-on:** Yes
 
 ---
 
@@ -15,120 +15,73 @@ nav_order: 5
 
 By the end of this module, you'll be able to:
 
-- [ ] Understand why C is used for telecommunications
-- [ ] Compile simple C programs with GCC
-- [ ] Understand the compilation process
-- [ ] Use Makefiles for automation
-- [ ] Work with CMake basics
-- [ ] Understand how OAI is built
+- [ ] Compile C programs with GCC
+- [ ] Understand the compilation process (preprocessing, compilation, assembly, linking)
+- [ ] Build multi-file projects
+- [ ] Use Makefiles for build automation
+- [ ] Work with CMake and Ninja
+- [ ] Create and use shared libraries (.so files)
+- [ ] Debug programs with GDB
+- [ ] Understand OAI project organization
 
 ---
 
-## 📖 Chapter 1: Why C for Telecommunications?
+## Introduction
+C has been the foundation of systems programming for over five decades - from operating systems to network stacks to telecommunications infrastructure. Its direct hardware access, minimal runtime overhead, and predictable performance make it the natural choice for domains where timing precision and resource efficiency are critical: embedded systems, IoT devices, real-time communications, and telecom protocols.
 
-### What is C?
+What makes OpenAirInterface notable is its use of C on general-purpose  with open-source tools. You can build and experiment with 5G technology using a standard Linux machine, GCC, and common development tools - making cellular technology accessible for learning and experimentation.
 
-**C** is a programming language created in 1972. Despite being over 50 years old, it's still widely used for:
-- Operating Systems (Linux, Windows kernel)
-- Embedded Systems (routers, IoT devices)
-- Telecommunications (5G, networking equipment)
-- Performance-critical applications
-
-### Why OAI Uses C
-
-**Performance:**
-- C compiles to highly efficient machine code
-- Direct memory access and hardware control
-- No garbage collection overhead
-- Critical for real-time 5G processing
-
-**Low-Level Control:**
-- Direct hardware access
-- Memory management control
-- Suitable for embedded systems
-- Works on resource-constrained devices
-
-**Industry Standard:**
-- Telecommunications industry uses C/C++
-- Interoperability with existing systems
-- Well-understood by engineers
-- Mature tooling and libraries
-
-**Portability:**
-- Works on x86, ARM, and other architectures
-- Can run on servers, embedded devices, SDRs
-- Cross-platform compatibility
-
-### You Don't Need to Write C
-
-**For this workshop:**
-- ✅ You'll compile C code (OAI)
-- ✅ You'll run build commands
-- ✅ You'll understand error messages
-- ❌ You won't write C code
-
-**Think of it like:**
-- Using a microwave (workshop) vs Building a microwave (C programming)
-- You need to know which buttons to press, not how it works internally
+This module covers the basic Linux C development workflow - from compiling simple programs to understanding how complex projects like OAI are built using GCC, Make, and CMake.
 
 ---
 
-## 🔨 Chapter 2: The GCC Compiler
+## Chapter 1: From Source to Executable
 
-### What is a Compiler?
+Before we start compiling C programs, you need to create source code files. On Linux, you'll use text editors - terminal-based editors like nano, vim, or emacs are essential when working with remote systems or cloud VMs where graphical interfaces aren't available.
 
-A **compiler** translates human-readable code into machine code:
-```
-C Source Code          Compiler          Executable
-(hello.c)         →    [GCC]      →     (hello)
-Human readable         Process           Machine code
-```
+### Verifying GCC Installation
 
-**GCC** (GNU Compiler Collection) is the most common C compiler on Linux.
-
-### Installing GCC
+Check if the C compiler is installed:
 ```bash
-# Install build tools (includes GCC)
-sudo apt install build-essential
-
-# Verify installation
 gcc --version
 ```
 
-**Expected output:**
-```
-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-```
-
-### Simple Compilation Example
-
-**Step 1: Create a C program**
+If you see version information, you're ready. If not:
 ```bash
-# Create hello.c
-cat > hello.c << 'EOF'
+sudo apt update
+sudo apt install build-essential
+gcc --version
+```
+
+### Creating Your First C Program
+```bash
+mkdir ~/c-learning
+cd ~/c-learning
+# Create hello.c using your favorite text editor (nano, vim, emacs)
+nano hello.c
+```
+
+Type the following code:
+```c
 #include <stdio.h>
 
 int main() {
     printf("Hello from C!\n");
     return 0;
 }
-EOF
 ```
 
-**Step 2: Compile it**
+Save and exit.
+
+### Compiling the Program
 ```bash
-# Compile hello.c to create executable 'hello'
 gcc hello.c -o hello
-
-# The -o flag specifies output filename
 ```
 
-**Step 3: Run it**
-```bash
-# Make it executable (if needed)
-chmod +x hello
+This creates an executable file named `hello` from your source code `hello.c`.
 
-# Run the program
+### Running the Program
+```bash
 ./hello
 ```
 
@@ -137,135 +90,151 @@ chmod +x hello
 Hello from C!
 ```
 
----
+### The Four Stages of Compilation
 
-## 🔄 Chapter 3: The Compilation Process
+When you ran `gcc hello.c -o hello`, the compiler performed four stages. Let's see each one:
 
-### Four Stages of Compilation
-```
-Source Code → Preprocessing → Compilation → Assembly → Linking → Executable
- (hello.c)        (.i)           (.s)         (.o)              (hello)
-```
-
-#### Stage 1: Preprocessing
-- Handles `#include`, `#define` directives
-- Expands macros
-- Removes comments
+**Stage 1: Preprocessing**
 ```bash
-# See preprocessed output
 gcc -E hello.c -o hello.i
-cat hello.i
+wc -l hello.c hello.i
 ```
 
-#### Stage 2: Compilation
-- Converts C code to assembly language
-- Optimizes code
+**Example output:**
+```
+    5 hello.c
+  847 hello.i
+```
+
+The preprocessor processes `#include <stdio.h>` by inserting the entire header file. Your 5-line program expanded to 847 lines with all the included headers!You can take a lookat it in the text editor.
+
+**Stage 2: Compilation to Assembly**
 ```bash
-# Generate assembly code
 gcc -S hello.c -o hello.s
-cat hello.s
 ```
 
-#### Stage 3: Assembly
-- Converts assembly to machine code
-- Creates object file (.o)
+The compiler translates C into assembly language. View it:
 ```bash
-# Generate object file
-gcc -c hello.c -o hello.o
+#Use your favorite text editor
+nano hello.s
+```
 
-# Object files are binary (can't read with cat)
+You'll see instructions like `movq`, `call`, `ret` - assembly code for your CPU architecture.
+
+**Stage 3: Assembly to Machine Code**
+```bash
+gcc -c hello.c -o hello.o
 file hello.o
 ```
 
-#### Stage 4: Linking
-- Combines object files
-- Links with libraries
-- Creates final executable
+**Output:**
+```
+hello.o: ELF 64-bit LSB relocatable, x86-64
+```
+
+The assembler converted assembly into binary machine code. This object file contains machine code but isn't yet executable.
+
+**Stage 4: Linking**
 ```bash
-# Link object file to create executable
 gcc hello.o -o hello
+./hello
 ```
 
-**Why this matters:** Understanding stages helps debug build errors.
+The linker combines your object file with system libraries (where `printf` actually lives) to create the final executable.
 
----
+**Why understand these stages?**
 
-## 🛠️ Chapter 4: Common GCC Options
+Build error messages reference specific stages:
+- "Syntax error" → Compilation stage
+- "Undefined reference" → Linking stage
+- "Cannot find header" → Preprocessing stage
 
-### Essential Flags
+Knowing this helps you diagnose build failures quickly.
+
+### Important GCC Options
+
+**Enable warnings:**
 ```bash
-# Basic compilation
-gcc program.c -o program
-
-# Include warnings (good practice!)
-gcc -Wall program.c -o program
-
-# Include debugging symbols
-gcc -g program.c -o program
-
-# Optimization levels
-gcc -O0 program.c -o program  # No optimization (default)
-gcc -O1 program.c -o program  # Basic optimization
-gcc -O2 program.c -o program  # Recommended optimization
-gcc -O3 program.c -o program  # Aggressive optimization
-
-# Specify C standard
-gcc -std=c99 program.c -o program
-gcc -std=c11 program.c -o program
-
-# Link with math library
-gcc program.c -o program -lm
-
-# Multiple source files
-gcc file1.c file2.c file3.c -o program
+gcc -Wall hello.c -o hello
 ```
 
-### Understanding Compiler Warnings
-```bash
-# Compile with all warnings
-gcc -Wall -Wextra program.c -o program
-```
+Use `-Wall` to catch potential bugs. Let's see an example.
 
-**Warning example:**
-```
-warning: implicit declaration of function 'printf'
-warning: unused variable 'x'
-warning: format '%d' expects argument of type 'int'
-```
-
-**Best practice:** Fix all warnings before running!
-
----
-
-## 📦 Chapter 5: Multi-File Projects
-
-### Why Split Code?
-
-Large projects like OAI have:
-- Hundreds of source files
-- Organized by functionality
-- Easier to maintain
-- Team collaboration
-
-### Example: Multi-File Project
-
-**File 1: math_utils.h** (header file)
+Create `warn.c`:
 ```c
-#ifndef MATH_UTILS_H
-#define MATH_UTILS_H
+#include <stdio.h>
 
+int main() {
+    int x = 5;      // unused
+    int y;          // uninitialized
+    printf("%d\n", y);
+    return 0;
+}
+```
+
+Compile with warnings:
+```bash
+gcc -Wall warn.c -o warn
+```
+
+**Output:**
+```
+warn.c:4:9: warning: unused variable 'x'
+warn.c:6:20: warning: 'y' is used uninitialized
+```
+
+Its good practice to fix these warnings, as they often indicate real bugs.
+
+---
+
+## Chapter 2: Multi-File Projects
+
+Real projects split code across multiple files for organization, maintainability, and team collaboration. Let's build a calculator program with separate modules.
+
+### Project Structure
+
+We'll create:
+- `calculator.h` - Function declarations (interface)
+- `calculator.c` - Function implementations
+- `main.c` - Main program
+
+### Creating the Header File
+```bash
+mkdir ~/calculator-project
+cd ~/calculator-project
+```
+Create **calculator.h** file with the  following code:
+
+```bash
+
+#ifndef CALCULATOR_H
+#define CALCULATOR_H
+
+// Function declarations
 int add(int a, int b);
+int subtract(int a, int b);
 int multiply(int a, int b);
 
 #endif
+
 ```
 
-**File 2: math_utils.c** (implementation)
-```c
-#include "math_utils.h"
+**Header files** declare what functions exist - they're the interface other files use.
+
+The `#ifndef` guard prevents multiple inclusion if this header is included by several files.
+
+### Creating the Implementation
+
+Create **operations.c** file with the  following code:
+```bash
+#include "calculator.h"
 
 int add(int a, int b) {
     return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
 }
 
 int multiply(int a, int b) {
@@ -273,94 +242,141 @@ int multiply(int a, int b) {
 }
 ```
 
-**File 3: main.c** (main program)
-```c
+This file **implements** the functions declared in the header.
+
+### Creating the main Program
+
+Create **calculator.c** file with the  following code:
+```bash
 #include <stdio.h>
-#include "math_utils.h"
+#include "calculator.h"
 
 int main() {
-    int result = add(5, 3);
-    printf("5 + 3 = %d\n", result);
+    printf("10 + 5 = %d\n", add(10, 5));
+    printf("10 - 5 = %d\n", subtract(10, 5));
+    printf("10 * 5 = %d\n", multiply(10, 5));
     return 0;
 }
 ```
 
-**Compilation:**
+### Compiling Multi-File Projects
+
+**Method 1: All at once**
 ```bash
-# Compile each .c file to .o
-gcc -c math_utils.c -o math_utils.o
-gcc -c main.c -o main.o
+gcc operations.c calculator.c -o calc
+./calc
+```
 
-# Link all .o files
-gcc math_utils.o main.o -o calculator
+**Output:**
+```
+10 + 5 = 15
+10 - 5 = 5
+10 * 5 = 50
+```
 
-# Or compile everything at once
-gcc math_utils.c main.c -o calculator
+**Method 2: Separate compilation**
+```bash
+# Compile each .c file to .o (object file)
+gcc -c operations.c -o operations.o
+gcc -c calculator.c -o calculator.o
+
+# Link all .o files together
+gcc operations.o calculator.o -o calc
 
 # Run
-./calculator
+./calc
 ```
+
+Both methods produce identical results, but separate compilation has advantages.
+
+**Why separate compilation matters:**
+
+Imagine you modify only `calculator.c` in a 100-file project. With separate compilation:
+1. Recompile only `calculator.c` to `calculator.o` (fast - one file)
+2. Keep existing `.o` files for unchanged files (no recompilation)
+3. Re-link all `.o` files (fast)
+
+Result: Building takes seconds instead of minutes.
+
+**Your turn:**
+
+Create the calculator project and try both compilation methods. 
 
 ---
 
-## 🔧 Chapter 6: Makefiles
+## Chapter 3: Build Automation with Make
+
+For projects with many files, typing gcc commands repeatedly is tedious and error-prone. Make automates the build process.
 
 ### The Problem
 
-For large projects:
+Imagine a project with 50 source files:
 ```bash
-# Typing this is tedious and error-prone:
 gcc -c file1.c -o file1.o
 gcc -c file2.c -o file2.o
 gcc -c file3.c -o file3.o
-gcc -c file4.c -o file4.o
-gcc file1.o file2.o file3.o file4.o -o program
+# ... repeat 47 more times
+gcc file1.o file2.o file3.o ... file50.o -o program
 ```
+
+And if you modify `file5.c`, which other files need recompiling? You'd have to track dependencies manually.
 
 ### The Solution: Makefile
 
-A **Makefile** automates the build process.
+A Makefile describes how to build your project and what depends on what. Make reads it and handles the rest.
 
-**Basic Makefile syntax:**
-```makefile
-target: dependencies
-	commands
+Create a Makefile
+
+```bash
+#Use your favorite text editor
+vi Makefile
 ```
+and type the following:
 
-### Example Makefile
-```makefile
-# Compiler and flags
+```bash
+# Variables
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -O2
 
-# Target: what to build
-all: calculator
+# Default target
+all: calc
 
-# How to build calculator
-calculator: main.o math_utils.o
-	$(CC) main.o math_utils.o -o calculator
+# How to build calc
+calc: operations.o calculator.o
+	$(CC) operations.o calculator.o  -o calc
 
 # How to build object files
-main.o: main.c math_utils.h
-	$(CC) $(CFLAGS) -c main.c
+operations.o: operations.c calculator.h
+	$(CC) $(CFLAGS) -c operations.c
 
-math_utils.o: math_utils.c math_utils.h
-	$(CC) $(CFLAGS) -c math_utils.c
+calculator.o: calculator.c calculator.h
+	$(CC) $(CFLAGS) -c calculator.c
 
 # Clean up
 clean:
-	rm -f *.o calculator
+	rm -f *.o calc
 ```
+
+**Makefile syntax:**
+```makefile
+target: dependencies
+	command
+```
+
+**Understanding the example:**
+- `calc` depends on `oprations.o` and `calculator.o`
+- `operations.o` depends on `operations.c` and `calculator.h`
+- If `calculator.h` changes, both `.o` files need rebuilding (they both include it)
 
 ### Using Make
 ```bash
 # Build everything
 make
 
-# Or specifically
-make all
+# Run
+./calc
 
-# Clean up
+# Clean build artifacts
 make clean
 
 # Rebuild from scratch
@@ -368,48 +384,76 @@ make clean
 make
 ```
 
-**Benefits:**
-- ✅ Only recompiles changed files
-- ✅ Handles dependencies automatically
-- ✅ One command to build everything
-- ✅ Easy cleanup
+### Make's Intelligence: Incremental Builds
+
+Let's see Make's power. Modify `operations.c`:
+```bash
+# Add a new function
+int divide(int a, int b);
+
+int divide(int a, int b) {
+    if (b != 0) return a / b;
+    return 0;
+}
+
+# Rebuild
+make
+```
+
+**What Make does:**
+1. Checks timestamps: `operations.c` is newer than `operations.o`
+2. Recompiles only `operations.c` to `operations.o`
+3. `calculator.c` unchanged - skips recompiling
+4. Re-links to create `calc`
+
+**Output:**
+```
+gcc -Wall -O2 -c calculator.c
+gcc operations.o calculator.o -o calc
+```
+
+Notice: Only `operations.c` recompiled! For large projects, this saves enormous time.
+
+**Your turn:**
+
+Create the Makefile, build the project, modify a file, and rebuild. Observe that Make intelligently recompiles only what changed.
 
 ---
 
-## 🏗️ Chapter 7: CMake Basics
+## Chapter 4: Modern Build Systems - CMake and Ninja
+
+Makefiles work well but have limitations - they're platform-specific (Linux Makefile differs from Windows) and become complex for large projects. CMake addresses this.
 
 ### What is CMake?
 
-**CMake** is a build system generator:
-- Generates Makefiles (or other build files)
-- Cross-platform (Linux, Windows, Mac)
-- Handles complex dependencies
-- Used by OAI
-
-**Flow:**
+CMake is a build system generator - it creates Makefiles (or other build files) for you. Write one `CMakeLists.txt` and CMake generates appropriate build files for any platform.
 ```
 CMakeLists.txt → CMake → Makefile → Make → Executable
-  (recipe)      (generator)  (build)  (build) (program)
+  (platform-    (generates) (platform-  (builds)
+   independent)            specific)
 ```
 
-### Simple CMakeLists.txt
-```cmake
+### Creating CMakeLists.txt
+Create **CMakeLists.txt** file and type the following:
+```bash
 cmake_minimum_required(VERSION 3.10)
 project(Calculator)
 
-# Set C standard
+# Use C11 standard
 set(CMAKE_C_STANDARD 11)
 
-# Add executable
-add_executable(calculator 
-    main.c 
-    math_utils.c
+# Create executable from source files
+add_executable(calc
+   operations.c
+   calculator.c
 )
 ```
 
+This is simpler than a Makefile - just list your sources, CMake figures out dependencies automatically.
+
 ### Using CMake
 ```bash
-# Create build directory (out-of-source build)
+# Create separate build directory
 mkdir build
 cd build
 
@@ -420,456 +464,548 @@ cmake ..
 make
 
 # Run
-./calculator
+./calc
 ```
 
-**Why separate build directory?**
-- Keeps source directory clean
-- Easy to delete build files (`rm -rf build`)
-- Can have multiple build configurations
+**The build directory approach (out-of-source build):**
+- All build artifacts go in `build/`
+- Source directory stays clean
+- Easy cleanup: `rm -rf build`
+- Can have multiple builds: `build-debug/`, `build-release/`
 
-### CMake Benefits
+### Ninja: Faster Builds
 
-- ✅ Cross-platform
-- ✅ Finds dependencies automatically
-- ✅ Supports complex projects (like OAI)
-- ✅ Modern standard for C/C++ projects
+Make works, but for large projects (like OAI with hundreds of files), Ninja is significantly faster.
 
----
-
-## 🔍 Chapter 8: Understanding OAI Build Process
-
-### OAI Build Structure
-```
-openairinterface5g/
-├── cmake_targets/          ← Build scripts
-│   ├── build_oai          ← Main build script
-│   └── CMakeLists.txt     ← CMake configuration
-├── openair1/              ← Physical layer
-├── openair2/              ← MAC, RLC, PDCP
-├── openair3/              ← RRC, NAS
-└── common/                ← Shared utilities
-```
-
-### OAI Build Script
-
-OAI provides a build script that handles everything:
+**Install Ninja:**
 ```bash
-cd ~/openairinterface5g/cmake_targets
-
-# See build options
-./build_oai --help
-
-# Build gNB (5G base station)
-./build_oai --gNB
-
-# Build with RFsimulator (no hardware)
-./build_oai --gNB --rfsimulator
-
-# Clean build
-./build_oai --clean
-
-# Install dependencies first
-./build_oai -I
+sudo apt install ninja-build
 ```
 
-### What Happens During Build
-```
-1. build_oai script runs
-   ↓
-2. Checks dependencies
-   ↓
-3. Runs CMake (generates Makefiles)
-   ↓
-4. Runs make (compiles code)
-   ↓
-5. Creates binaries in cmake_targets/ran_build/build/
-   ↓
-6. Done! (typically 10-20 minutes)
-```
-
-### Build Output Location
-```
-cmake_targets/ran_build/build/
-├── nr-softmodem          ← gNB executable
-├── nr-uesoftmodem        ← UE executable
-└── other binaries
-```
-
-### Common Build Issues
-
-**Issue: Missing dependencies**
-```
-CMake Error: Could not find package XYZ
-```
-**Solution:**
+**Use with CMake:**
 ```bash
-./build_oai -I  # Install dependencies
-```
+# Generate Ninja files instead of Makefiles
+cmake -G Ninja ..
 
-**Issue: Out of memory**
-```
-c++: fatal error: Killed signal terminated program
-```
-**Solution:**
-```bash
-# Build with fewer parallel jobs
-./build_oai --gNB -j2  # Use 2 cores instead of all
-```
-
-**Issue: Old build artifacts**
-```
-undefined reference to...
-```
-**Solution:**
-```bash
-./build_oai --clean  # Clean old files
-./build_oai --gNB    # Rebuild
-```
-
----
-
-## 🧪 Hands-On Exercise
-
-### Task 1: Simple C Program (5 min)
-```bash
-# Create program
-cat > greet.c << 'EOF'
-#include <stdio.h>
-
-int main() {
-    printf("Welcome to OAI Workshop!\n");
-    printf("Ready to build 5G networks!\n");
-    return 0;
-}
-EOF
-
-# Compile
-gcc greet.c -o greet
-
-# Run
-./greet
-
-# Compile with warnings
-gcc -Wall greet.c -o greet
-
-# With optimization
-gcc -O2 -Wall greet.c -o greet
-./greet
-
-# Cleanup
-rm greet greet.c
-```
-
-**Expected:** Program compiles and runs successfully
-
----
-
-### Task 2: Multi-File Project (10 min)
-```bash
-# Create project directory
-mkdir ~/c-project
-cd ~/c-project
-
-# Create header file
-cat > operations.h << 'EOF'
-#ifndef OPERATIONS_H
-#define OPERATIONS_H
-
-int add(int a, int b);
-int subtract(int a, int b);
-
-#endif
-EOF
-
-# Create implementation
-cat > operations.c << 'EOF'
-#include "operations.h"
-
-int add(int a, int b) {
-    return a + b;
-}
-
-int subtract(int a, int b) {
-    return a - b;
-}
-EOF
-
-# Create main program
-cat > main.c << 'EOF'
-#include <stdio.h>
-#include "operations.h"
-
-int main() {
-    int x = 10, y = 5;
-    printf("%d + %d = %d\n", x, y, add(x, y));
-    printf("%d - %d = %d\n", x, y, subtract(x, y));
-    return 0;
-}
-EOF
-
-# Compile
-gcc -c operations.c -o operations.o
-gcc -c main.c -o main.o
-gcc operations.o main.o -o calculator
-
-# Run
-./calculator
-
-# Or compile in one command
-gcc operations.c main.c -o calculator
-./calculator
-```
-
-**Expected:** Output shows 10+5=15 and 10-5=5
-
----
-
-### Task 3: Using Make (8 min)
-```bash
-# Still in ~/c-project
-
-# Create Makefile
-cat > Makefile << 'EOF'
-CC = gcc
-CFLAGS = -Wall -g
-
-all: calculator
-
-calculator: main.o operations.o
-	$(CC) main.o operations.o -o calculator
-
-main.o: main.c operations.h
-	$(CC) $(CFLAGS) -c main.c
-
-operations.o: operations.c operations.h
-	$(CC) $(CFLAGS) -c operations.c
-
-clean:
-	rm -f *.o calculator
-EOF
-
-# Clean previous build
-rm -f *.o calculator
-
-# Build with make
-make
-
-# Run
-./calculator
-
-# Modify operations.c (add multiply function)
-cat >> operations.h << 'EOF'
-int multiply(int a, int b);
-EOF
-
-cat >> operations.c << 'EOF'
-
-int multiply(int a, int b) {
-    return a * b;
-}
-EOF
-
-# Rebuild (only operations.c will recompile!)
-make
+# Build with Ninja
+ninja
 
 # Clean
-make clean
-
-# Cleanup
-cd ~
-rm -rf ~/c-project
+ninja clean
 ```
 
-**Expected:** Make builds project efficiently
+**Why Ninja?**
+- Designed for speed (2-3x faster than Make on large projects)
+- Better parallelization across CPU cores
+- Minimal overhead
+- Used by large projects: Google Chrome, Android, LLVM
+
+**When you build OAI during the workshop, using Ninja will significantly reduce compilation time** (from ~20 minutes to ~10 minutes on a 4-core system).
+
+**Your turn:**
+```bash
+# Try both build tools
+mkdir build-make && cd build-make
+cmake ..
+time make  # Note the time
+
+cd ..
+mkdir build-ninja && cd build-ninja
+cmake -G Ninja ..
+time ninja  # Compare the time
+
+# Both produce same executable
+```
 
 ---
 
-### Task 4: CMake Practice (7 min)
-```bash
-# Create project
-mkdir ~/cmake-project
-cd ~/cmake-project
+## Chapter 5: Shared Libraries
 
-# Create source files (reuse from before)
-cat > hello.c << 'EOF'
+When you compile programs, library code can be included statically (copied into executable) or dynamically (loaded at runtime). Understanding shared libraries is important because OAI uses them extensively.
+
+### Static vs Dynamic Linking
+
+**Static linking:**
+- Library code copied into your executable
+- Larger executable size
+- No external dependencies at runtime
+- File extension: `.a` (archive)
+
+**Dynamic linking:**
+- Library loaded at runtime
+- Smaller executable size
+- Multiple programs share one library copy in memory
+- Library can be updated independently
+- File extension: `.so` (shared object)
+
+**Example scenario:**
+
+You have 10 programs all using math functions:
+
+**Without shared library:**
+```
+program1 (1.5 MB) = your code (500 KB) + library (1 MB)
+program2 (1.5 MB) = your code (500 KB) + library (1 MB)
+...
+program10 (1.5 MB) = your code (500 KB) + library (1 MB)
+Total: 15 MB
+```
+
+**With shared library:**
+```
+program1 (500 KB) = your code only
+program2 (500 KB) = your code only
+...
+program10 (500 KB) = your code only
+libmath.so (1 MB) = library (shared by all)
+Total: 6 MB
+```
+
+Plus, all 10 programs share one copy in RAM when running.
+
+### Why OAI Uses Shared Libraries
+
+OAI is highly modular. Different components compile as shared libraries:
+
+**OAI shared libraries:**
+- `librfsimulator.so` - Software radio simulator (no hardware needed)
+- `libcoding.so` - Channel coding functions (LDPC, Polar codes)
+- `liboai_eth_transpro.so` - Ethernet transport layer
+- `libparams_libconfig.so` - Configuration file parsing
+
+
+### Creating a Shared Library
+
+Let's convert our calculator into a shared library:
+
+**Step 1: Compile with Position-Independent Code**
+```bash
+gcc -fPIC -c operations.c -o operations.o
+```
+
+The `-fPIC` flag generates position-independent code - required for shared libraries because they can be loaded at any memory address.
+
+**Step 2: Create the shared library**
+```bash
+gcc -shared operations.o -o liboperations.so
+```
+
+Now you have `liboperations.so` - a shared library other programs can use.
+
+**Step 3: Link your program against it**
+```bash
+gcc calculator.c -o calc -L. -loperations -Wl,-rpath,.
+```
+
+**Flags explained:**
+- `-L.` - Look in current directory for libraries
+- `-loperations` - Link with liboperations.so (lib prefix and .so suffix added automatically)
+- `-Wl,-rpath,.` - Tell program where to find the library at runtime
+
+**Step 4: Run the program**
+```bash
+./calc
+```
+
+Works the same as before, but now uses external shared library!
+
+### Viewing Library Dependencies
+```bash
+ldd calc
+```
+
+**Example output:**
+```
+liboperations.so => ./liboperations.so (0x00007f8a2b3c4000)
+libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8a2b1e0000)
+```
+
+This shows your program depends on:
+- `liboperations.so` - Your library (in current directory)
+- `libc.so.6` - System C library (contains printf, malloc, etc.)
+
+At runtime, the dynamic linker loads these libraries before your program starts.
+
+**Your turn:**
+
+Create a shared library from calculator.c and link your program against it. Use `ldd` to verify dependencies.
+
+---
+
+## Chapter 6: Debugging with GDB
+
+When programs don't behave as expected, you need to investigate what's happening. GDB (GNU Debugger) lets you step through code, inspect variables, and find bugs.
+
+### Installing GDB
+```bash
+sudo apt install gdb
+```
+
+### Creating a Program with a Bug
+Create a file **buggy.c** and and enter the following:
+
+```bash
+cd ~/calculator-project
+vi buggy.c
+```
+```bash
 #include <stdio.h>
 
+int divide(int a, int b) {
+    return a / b;  // Bug: what if b is 0?
+}
+
 int main() {
-    printf("Hello from CMake!\n");
+    int result;
+    
+    result = divide(10, 2);
+    printf("10 / 2 = %d\n", result);
+    
+    result = divide(10, 0);  // This will crash!
+    printf("10 / 0 = %d\n", result);
+    
     return 0;
 }
-EOF
-
-# Create CMakeLists.txt
-cat > CMakeLists.txt << 'EOF'
-cmake_minimum_required(VERSION 3.10)
-project(HelloCMake)
-
-set(CMAKE_C_STANDARD 11)
-
-add_executable(hello hello.c)
-EOF
-
-# Create build directory
-mkdir build
-cd build
-
-# Run CMake
-cmake ..
-
-# Build
-make
-
-# Run
-./hello
-
-# Cleanup
-cd ~
-rm -rf ~/cmake-project
 ```
 
-**Expected:** CMake generates Makefiles and builds successfully
+### Compiling with Debug Symbols
+
+To use GDB effectively, compile with `-g`:
+```bash
+gcc -g buggy.c -o buggy
+```
+
+The `-g` flag includes debugging information - variable names, line numbers, function names.
+
+### Running in GDB
+```bash
+gdb ./buggy
+```
+
+You're now in GDB. The prompt shows `(gdb)`.
+
+**Run the program:**
+```
+(gdb) run
+```
+
+**Output:**
+```
+10 / 2 = 5
+
+Program received signal SIGFPE, Arithmetic exception.
+0x000055555555516a in divide (a=10, b=0) at buggy.c:4
+4           return a / b;
+```
+
+GDB caught the crash and shows:
+- Signal: `SIGFPE` (floating point exception - division by zero)
+- Function: `divide`
+- Parameters: `a=10, b=0`
+- Line: `buggy.c:4`
+
+### Basic GDB Commands
+
+**View source around the crash:**
+```
+(gdb) list
+```
+
+Shows code context around line 4.
+
+**Examine variables:**
+```
+(gdb) print a
+$1 = 10
+(gdb) print b
+$2 = 0
+```
+
+Now you see the problem - `b` is 0!
+
+**See call stack:**
+```
+(gdb) backtrace
+```
+
+**Output:**
+```
+#0  divide (a=10, b=0) at buggy.c:4
+#1  0x00005555555551a8 in main () at buggy.c:12
+```
+
+Shows: `main` called `divide`, which is where it crashed.
+
+### Setting Breakpoints
+
+Instead of waiting for crashes, pause execution at specific points:
+```
+(gdb) quit          # Exit current session
+gdb ./buggy         # Start fresh
+
+# Set breakpoint at line 12 (before the crash)
+(gdb) break 12
+Breakpoint 1 at 0x...: file buggy.c, line 12.
+
+# Run
+(gdb) run
+```
+
+Program starts and pauses at line 12:
+```
+Breakpoint 1, main () at buggy.c:12
+12          result = divide(10, 0);
+```
+
+**Now you can inspect BEFORE the crash:**
+```
+(gdb) print result
+$1 = 5
+
+# Step into the divide function
+(gdb) step
+
+# Now inside divide, check parameters
+(gdb) print a
+$2 = 10
+(gdb) print b
+$3 = 0
+```
+
+You've identified the problem before it crashes!
+
+### Essential GDB Commands
+
+| Command | Shortcut | Purpose |
+|---------|----------|---------|
+| `run` | `r` | Start program |
+| `break <line>` | `b <line>` | Pause at line number |
+| `continue` | `c` | Resume execution |
+| `next` | `n` | Execute next line (don't enter functions) |
+| `step` | `s` | Execute next line (enter functions) |
+| `print <var>` | `p <var>` | Show variable value |
+| `list` | `l` | Show source code |
+| `backtrace` | `bt` | Show call stack |
+| `quit` | `q` | Exit GDB |
+
+
+**When to use GDB during the workshop:**
+- Program crashes (segmentation fault, arithmetic exception)
+- Unexpected behavior (check variable values)
+- Understanding code flow (step through execution)
+
+**Your turn:**
+```bash
+# Create buggy.c
+# Compile with -g
+gcc -g buggy.c -o buggy
+
+# Debug it
+gdb ./buggy
+(gdb) run              # See crash
+(gdb) backtrace        # See where it happened
+(gdb) print b          # Check variables
+(gdb) quit
+
+# Fix the bug and verify
+```
 
 ---
 
-## ✅ Self-Check Quiz
+## Chapter 7: OAI Project Organization
+
+When you work with OAI during the workshop, you'll encounter a large codebase organized into modules. Understanding the structure helps you navigate it.
+
+### Repository Structure
+```
+openairinterface5g/
+├── cmake_targets/          ← Build system
+│   ├── build_oai          ← Main build script
+│   ├── CMakeLists.txt     ← CMake configuration
+│   └── ran_build/
+│       └── build/         ← Compiled binaries appear here
+│
+├── openair1/              ← Physical layer (PHY)
+│   └── (modulation, coding, OFDM, FFT, etc.)
+│
+├── openair2/              ← Data link layers
+│   └── (MAC scheduling, RLC, PDCP)
+│
+├── openair3/              ← RRC and Network layers
+│   └── (RRC, NAS protocols)
+│
+├── common/                ← Shared utilities
+│   └── (logging, utilities, data structures)
+│
+├── targets/               ← Configuration files
+│   └── PROJECTS/          ← Config templates
+│
+└── executables/           ← Main programs
+```
+
+
+### Build Outputs
+
+After building (which you'll do in the workshop), binaries appear in:
+```
+cmake_targets/ran_build/build/
+├── nr-softmodem           ← 5G gNB executable
+├── nr-uesoftmodem         ← 5G UE executable
+│
+├── librfsimulator.so      ← RF simulator library
+├── libcoding.so           ← Channel coding
+├── libparams_libconfig.so ← Config parser
+└── (many other .so files) ← Modular components
+```
+
+**During the workshop, you'll use provided build scripts that handle all of this.** This chapter just gives you awareness of the organization and where to find things.
+
+**Your turn:**
+
+Just understand the structure. When you clone OAI in the workshop, you'll recognize this organization and know where binaries appear after building.
+
+---
+
+
+---
+
+## Self-Check Quiz
 
 <details>
-<summary>❓ What does GCC do?</summary>
+<summary>❓ Q1: What are the four stages of compilation?</summary>
 
-**Answer:** GCC (GNU Compiler Collection) is a compiler that translates C source code into executable machine code.
+**Answer:** Preprocessing (handle #include, #define), Compilation (C to assembly), Assembly (assembly to machine code), Linking (combine object files with libraries).
 </details>
 
 <details>
-<summary>❓ What's the difference between .c, .h, .o files?</summary>
+<summary>❓ Q2: What's the difference between .c, .h, and .o files?</summary>
 
-**Answer:**
-- `.c` - C source code (implementation)
-- `.h` - Header file (declarations, interfaces)
+**Answer:** 
+- `.c` - Source code (implementation)
+- `.h` - Header file (declarations/interface)
 - `.o` - Object file (compiled machine code, not yet linked)
 </details>
 
 <details>
-<summary>❓ Why use `-Wall` flag?</summary>
+<summary>❓ Q3: Why always use `-Wall` flag?</summary>
 
-**Answer:** Shows compiler warnings to catch potential bugs. Good practice to fix all warnings.
+**Answer:** Enables compiler warnings to catch potential bugs like unused variables, uninitialized variables, type mismatches. Warnings often indicate real problems.
 </details>
 
 <details>
-<summary>❓ What does `make clean` do?</summary>
+<summary>❓ Q4: What advantage does separate compilation provide?</summary>
 
-**Answer:** Removes compiled files (.o files and executables) to start fresh.
+**Answer:** For large projects, only modified files need recompiling. Unchanged files keep their existing .o files, saving significant compilation time.
 </details>
 
 <details>
-<summary>❓ What's the purpose of CMake?</summary>
+<summary>❓ Q5: What does `make clean` do?</summary>
 
-**Answer:** CMake generates build files (like Makefiles) for different platforms. It's a build system generator, not a build system itself.
+**Answer:** Removes build artifacts (.o files, executables) as defined in Makefile's clean target. Allows fresh rebuild.
 </details>
 
 <details>
-<summary>❓ Why create a separate `build/` directory with CMake?</summary>
+<summary>❓ Q6: Why create a separate `build/` directory with CMake?</summary>
 
-**Answer:** Keeps source directory clean, easy to delete build artifacts, can have multiple build configurations.
+**Answer:** Keeps source directory clean (all build artifacts in build/), easy cleanup (rm -rf build), can have multiple build configurations (debug, release) simultaneously.
 </details>
 
 <details>
-<summary>❓ What does the OAI `build_oai` script do?</summary>
+<summary>❓ Q7: What's Ninja and why use it?</summary>
 
-**Answer:** Automates the entire build process: checks dependencies, runs CMake, compiles code, and creates executables.
+**Answer:** Ninja is a build tool designed for speed - significantly faster than Make for large projects (2-3x), better CPU parallelization. Used by OAI for faster compilation.
 </details>
 
 <details>
-<summary>❓ Where are OAI binaries created after building?</summary>
+<summary>❓ Q8: What are shared libraries (.so files) and why does OAI use them?</summary>
 
-**Answer:** `cmake_targets/ran_build/build/` directory (e.g., `nr-softmodem` for gNB)
+**Answer:** Shared libraries are code modules loaded at runtime, reducing executable size and enabling code sharing. OAI uses them for modularity - can swap RF backends (simulator vs hardware) by loading different .so files without recompiling.
+</details>
+
+<details>
+<summary>❓ Q9: Why compile with `-g` flag when using GDB?</summary>
+
+**Answer:** Includes debug symbols (variable names, line numbers, function names) so GDB can show meaningful information instead of just memory addresses.
+</details>
+
+<details>
+<summary>❓ Q10: What does `ldd` command show?</summary>
+
+**Answer:** Lists shared library dependencies of an executable - which .so files the program needs to run and where they're located.
 </details>
 
 ---
 
-## 🎓 Summary
+## Summary
 
 ### Commands Mastered
 
-| Command | Purpose | Example |
-|---------|---------|---------|
-| `gcc file.c -o output` | Compile C program | `gcc hello.c -o hello` |
-| `gcc -Wall` | Show warnings | `gcc -Wall program.c` |
-| `gcc -g` | Include debug symbols | `gcc -g program.c` |
-| `gcc -O2` | Optimize code | `gcc -O2 program.c` |
-| `gcc -c` | Compile to object file | `gcc -c file.c` |
-| `make` | Build using Makefile | `make` |
-| `make clean` | Remove build files | `make clean` |
-| `cmake ..` | Generate Makefiles | `cmake ..` |
-| `./build_oai` | Build OAI | `./build_oai --gNB` |
+| Command | Purpose |
+|---------|---------|
+| `gcc file.c -o output` | Compile C program |
+| `gcc -Wall` | Enable warnings |
+| `gcc -g` | Include debug symbols |
+| `gcc -O2` | Optimize code |
+| `gcc -c` | Compile to object file |
+| `gcc -fPIC` | Position-independent code (for shared libs) |
+| `gcc -shared` | Create shared library |
+| `make` | Build using Makefile |
+| `make clean` | Remove build artifacts |
+| `cmake ..` | Generate build files |
+| `ninja` | Build with Ninja (fast) |
+| `ldd` | Show library dependencies |
+| `gdb` | Debug programs |
 
 ### Key Concepts
 
-- ✅ C compiles to efficient machine code
-- ✅ Compilation has 4 stages: preprocessing, compilation, assembly, linking
-- ✅ GCC is the standard C compiler on Linux
-- ✅ Makefiles automate the build process
-- ✅ CMake generates Makefiles (cross-platform)
-- ✅ Large projects split code into multiple files
-- ✅ Header files (.h) declare interfaces
-- ✅ Source files (.c) contain implementations
-- ✅ Object files (.o) are compiled but not linked
+- ✓ Compilation has 4 stages: preprocessing, compilation, assembly, linking
+- ✓ GCC is the standard C compiler on Linux
+- ✓ Header files (.h) declare, source files (.c) implement
+- ✓ Object files (.o) are compiled but not linked
+- ✓ Makefiles automate builds and enable incremental compilation
+- ✓ CMake generates platform-independent build files
+- ✓ Ninja provides faster builds for large projects
+- ✓ Shared libraries (.so) enable modularity and code reuse
+- ✓ GDB helps find bugs by inspecting running programs
+- ✓ Always compile with `-Wall` for warnings, `-g` for debugging
 
-### OAI Build Process
 
-- ✅ OAI is written in C for performance
-- ✅ Uses CMake as build system
-- ✅ `build_oai` script handles everything
-- ✅ Typical build takes 10-20 minutes
-- ✅ Binaries created in `cmake_targets/ran_build/build/`
-- ✅ Can build gNB, UE, and other components
-- ✅ Use `--rfsimulator` for software-only testing
+### What You Can Do Now
+
+- ✓ Compile C programs and understand each stage
+- ✓ Build multi-file projects
+- ✓ Use Make for automated builds
+- ✓ Use CMake and Ninja for modern projects
+- ✓ Create and use shared libraries
+- ✓ Debug programs with GDB
+- ✓ Navigate large codebases like OAI
+
+These skills prepare you for building and debugging OAI during the workshop.
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
-**Learn C Programming:**
-- [Learn C](https://www.learn-c.org/) - Interactive tutorial
-- [C Programming Tutorial](https://www.cprogramming.com/)
-- "The C Programming Language" by K&R - Classic book
+**C Programming:**
+- [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language) by Kernighan & Ritchie
+- [Learn C](https://www.learn-c.org/) - Interactive tutorials
 
-**Compiler and Build Tools:**
+**Build Tools:**
 - [GCC Documentation](https://gcc.gnu.org/onlinedocs/)
 - [GNU Make Manual](https://www.gnu.org/software/make/manual/)
 - [CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/)
+- [Ninja Build](https://ninja-build.org/)
 
-**Understanding Compilation:**
-- [How Compilation Works](https://www.cprogramming.com/compilingandlinking.html)
-- [Makefiles Tutorial](https://makefiletutorial.com/)
+**Debugging:**
+- [GDB Tutorial](https://www.gdbtutorial.com/)
+- [Debugging with GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/)
 
-**Best Practices:**
-- Always use `-Wall` to see warnings
-- Fix warnings before running code
-- Use `-g` for debugging builds
-- Use `-O2` or `-O3` for release builds
-- Keep source and build directories separate
-- Use version control (Git) for code
-- Comment your code
-- Use meaningful variable names
-
----
-
-## 🚀 What's Next
-
-You now understand C compilation! This knowledge helps because:
-
-- ✅ You'll build OAI from source code
-- ✅ You'll understand build errors
-- ✅ You'll use the `build_oai` script confidently
-- ✅ You'll know where to find compiled binaries
-- ✅ You can troubleshoot compilation issues
-
-**Next module:** Network Basics - understanding IP addresses, connectivity, and interfaces.
+**Shared Libraries:**
+- [Shared Libraries Guide](https://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html)
 
 ---
 
 **Module Complete!** ✅
+
 
 [⬅️ Previous: Module 4](module-4-docker) | [Next: Module 6 →](module-6-networking)
