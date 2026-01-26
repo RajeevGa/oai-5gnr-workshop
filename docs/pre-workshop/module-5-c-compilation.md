@@ -22,16 +22,24 @@ By the end of this module, you'll be able to:
 - [ ] Work with CMake and Ninja
 - [ ] Create and use shared libraries (.so files)
 - [ ] Debug programs with GDB
-- [ ] Understand OAI project organization
+
+---
+
+## 🎯 How to Use This Module
+
+Follow along with the examples as you read. You'll write and compile C programs as you learn. At the end, you'll complete exercises to test your understanding.
+
+**Keep your terminal open throughout!**
 
 ---
 
 ## Introduction
+
 C has been the foundation of systems programming for over five decades - from operating systems to network stacks to telecommunications infrastructure. Its direct hardware access, minimal runtime overhead, and predictable performance make it the natural choice for domains where timing precision and resource efficiency are critical: embedded systems, IoT devices, real-time communications, and telecom protocols.
 
-What makes OpenAirInterface notable is its use of C on general-purpose  with open-source tools. You can build and experiment with 5G technology using a standard Linux machine, GCC, and common development tools - making cellular technology accessible for learning and experimentation.
+What makes OpenAirInterface notable is its use of C on general-purpose computers with open-source tools. You can build and experiment with 5G technology using a standard Linux machine, GCC, and common development tools - making cellular technology accessible for learning and experimentation.
 
-This module covers the basic Linux C development workflow - from compiling simple programs to understanding how complex projects like OAI are built using GCC, Make, and CMake.
+This module covers the basic Linux C development workflow - from compiling simple programs to understanding how complex projects are built using GCC, Make, and CMake.
 
 ---
 
@@ -42,11 +50,13 @@ Before we start compiling C programs, you need to create source code files. On L
 ### Verifying GCC Installation
 
 Check if the C compiler is installed:
+
 ```bash
 gcc --version
 ```
 
 If you see version information, you're ready. If not:
+
 ```bash
 sudo apt update
 sudo apt install build-essential
@@ -54,14 +64,17 @@ gcc --version
 ```
 
 ### Creating Your First C Program
+
+Let's create a workspace and your first program:
+
 ```bash
 mkdir ~/c-learning
 cd ~/c-learning
-# Create hello.c using your favorite text editor (nano, vim, emacs)
 nano hello.c
 ```
 
 Type the following code:
+
 ```c
 #include <stdio.h>
 
@@ -71,9 +84,12 @@ int main() {
 }
 ```
 
-Save and exit.
+Save and exit (`Ctrl+O`, Enter, `Ctrl+X`).
 
 ### Compiling the Program
+
+Now compile it:
+
 ```bash
 gcc hello.c -o hello
 ```
@@ -81,6 +97,7 @@ gcc hello.c -o hello
 This creates an executable file named `hello` from your source code `hello.c`.
 
 ### Running the Program
+
 ```bash
 ./hello
 ```
@@ -90,11 +107,14 @@ This creates an executable file named `hello` from your source code `hello.c`.
 Hello from C!
 ```
 
+Great! You've compiled and run your first C program.
+
 ### The Four Stages of Compilation
 
-When you ran `gcc hello.c -o hello`, the compiler performed four stages. Let's see each one:
+When you ran `gcc hello.c -o hello`, the compiler performed four stages behind the scenes. Let's see each one:
 
 **Stage 1: Preprocessing**
+
 ```bash
 gcc -E hello.c -o hello.i
 wc -l hello.c hello.i
@@ -106,22 +126,23 @@ wc -l hello.c hello.i
   847 hello.i
 ```
 
-The preprocessor processes `#include <stdio.h>` by inserting the entire header file. Your 5-line program expanded to 847 lines with all the included headers!You can take a lookat it in the text editor.
+The preprocessor processes `#include <stdio.h>` by inserting the entire header file. Your 5-line program expanded to 847 lines with all the included headers! You can look at it:
 
-**Stage 2: Compilation to Assembly**
 ```bash
-gcc -S hello.c -o hello.s
+nano hello.i
 ```
 
-The compiler translates C into assembly language. View it:
+**Stage 2: Compilation to Assembly**
+
 ```bash
-#Use your favorite text editor
+gcc -S hello.c -o hello.s
 nano hello.s
 ```
 
-You'll see instructions like `movq`, `call`, `ret` - assembly code for your CPU architecture.
+The compiler translates C into assembly language. You'll see instructions like `movq`, `call`, `ret` - assembly code for your CPU architecture.
 
 **Stage 3: Assembly to Machine Code**
+
 ```bash
 gcc -c hello.c -o hello.o
 file hello.o
@@ -135,6 +156,7 @@ hello.o: ELF 64-bit LSB relocatable, x86-64
 The assembler converted assembly into binary machine code. This object file contains machine code but isn't yet executable.
 
 **Stage 4: Linking**
+
 ```bash
 gcc hello.o -o hello
 ./hello
@@ -153,14 +175,18 @@ Knowing this helps you diagnose build failures quickly.
 
 ### Important GCC Options
 
-**Enable warnings:**
+Always enable warnings to catch potential bugs:
+
 ```bash
 gcc -Wall hello.c -o hello
 ```
 
-Use `-Wall` to catch potential bugs. Let's see an example.
+Use `-Wall` to catch potential bugs. Let's see an example. Create `warn.c`:
 
-Create `warn.c`:
+```bash
+nano warn.c
+```
+
 ```c
 #include <stdio.h>
 
@@ -173,6 +199,7 @@ int main() {
 ```
 
 Compile with warnings:
+
 ```bash
 gcc -Wall warn.c -o warn
 ```
@@ -183,7 +210,7 @@ warn.c:4:9: warning: unused variable 'x'
 warn.c:6:20: warning: 'y' is used uninitialized
 ```
 
-Its good practice to fix these warnings, as they often indicate real bugs.
+It's good practice to fix these warnings, as they often indicate real bugs.
 
 ---
 
@@ -195,18 +222,25 @@ Real projects split code across multiple files for organization, maintainability
 
 We'll create:
 - `calculator.h` - Function declarations (interface)
-- `calculator.c` - Function implementations
-- `main.c` - Main program
+- `operations.c` - Function implementations
+- `calculator.c` - Main program
 
-### Creating the Header File
+Create the project directory:
+
 ```bash
 mkdir ~/calculator-project
 cd ~/calculator-project
 ```
-Create **calculator.h** file with the  following code:
+
+### Creating the Header File
+
+Create `calculator.h`:
 
 ```bash
+nano calculator.h
+```
 
+```c
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
@@ -216,17 +250,19 @@ int subtract(int a, int b);
 int multiply(int a, int b);
 
 #endif
-
 ```
 
-**Header files** declare what functions exist - they're the interface other files use.
-
-The `#ifndef` guard prevents multiple inclusion if this header is included by several files.
+**Header files** declare what functions exist - they're the interface other files use. The `#ifndef` guard prevents multiple inclusion if this header is included by several files.
 
 ### Creating the Implementation
 
-Create **operations.c** file with the  following code:
+Create `operations.c`:
+
 ```bash
+nano operations.c
+```
+
+```c
 #include "calculator.h"
 
 int add(int a, int b) {
@@ -244,10 +280,15 @@ int multiply(int a, int b) {
 
 This file **implements** the functions declared in the header.
 
-### Creating the main Program
+### Creating the Main Program
 
-Create **calculator.c** file with the  following code:
+Create `calculator.c`:
+
 ```bash
+nano calculator.c
+```
+
+```c
 #include <stdio.h>
 #include "calculator.h"
 
@@ -262,6 +303,7 @@ int main() {
 ### Compiling Multi-File Projects
 
 **Method 1: All at once**
+
 ```bash
 gcc operations.c calculator.c -o calc
 ./calc
@@ -275,6 +317,7 @@ gcc operations.c calculator.c -o calc
 ```
 
 **Method 2: Separate compilation**
+
 ```bash
 # Compile each .c file to .o (object file)
 gcc -c operations.c -o operations.o
@@ -297,10 +340,6 @@ Imagine you modify only `calculator.c` in a 100-file project. With separate comp
 3. Re-link all `.o` files (fast)
 
 Result: Building takes seconds instead of minutes.
-
-**Your turn:**
-
-Create the calculator project and try both compilation methods. 
 
 ---
 
@@ -325,15 +364,15 @@ And if you modify `file5.c`, which other files need recompiling? You'd have to t
 
 A Makefile describes how to build your project and what depends on what. Make reads it and handles the rest.
 
-Create a Makefile
+Create a Makefile:
 
 ```bash
-#Use your favorite text editor
-vi Makefile
+nano Makefile
 ```
-and type the following:
 
-```bash
+Type the following:
+
+```makefile
 # Variables
 CC = gcc
 CFLAGS = -Wall -O2
@@ -343,7 +382,7 @@ all: calc
 
 # How to build calc
 calc: operations.o calculator.o
-	$(CC) operations.o calculator.o  -o calc
+	$(CC) operations.o calculator.o -o calc
 
 # How to build object files
 operations.o: operations.c calculator.h
@@ -357,6 +396,8 @@ clean:
 	rm -f *.o calc
 ```
 
+⚠️ **Important:** The indented lines under targets must use TAB, not spaces!
+
 **Makefile syntax:**
 ```makefile
 target: dependencies
@@ -364,39 +405,57 @@ target: dependencies
 ```
 
 **Understanding the example:**
-- `calc` depends on `oprations.o` and `calculator.o`
+- `calc` depends on `operations.o` and `calculator.o`
 - `operations.o` depends on `operations.c` and `calculator.h`
 - If `calculator.h` changes, both `.o` files need rebuilding (they both include it)
 
 ### Using Make
+
+Build everything:
+
 ```bash
-# Build everything
 make
+```
 
-# Run
+Run:
+
+```bash
 ./calc
+```
 
-# Clean build artifacts
+Clean build artifacts:
+
+```bash
 make clean
+```
 
-# Rebuild from scratch
+Rebuild from scratch:
+
+```bash
 make clean
 make
 ```
 
 ### Make's Intelligence: Incremental Builds
 
-Let's see Make's power. Modify `operations.c`:
-```bash
-# Add a new function
-int divide(int a, int b);
+Let's see Make's power. Modify `operations.c` to add a new function:
 
+```bash
+nano operations.c
+```
+
+Add at the end:
+
+```c
 int divide(int a, int b) {
     if (b != 0) return a / b;
     return 0;
 }
+```
 
-# Rebuild
+Now rebuild:
+
+```bash
 make
 ```
 
@@ -408,15 +467,11 @@ make
 
 **Output:**
 ```
-gcc -Wall -O2 -c calculator.c
+gcc -Wall -O2 -c operations.c
 gcc operations.o calculator.o -o calc
 ```
 
 Notice: Only `operations.c` recompiled! For large projects, this saves enormous time.
-
-**Your turn:**
-
-Create the Makefile, build the project, modify a file, and rebuild. Observe that Make intelligently recompiles only what changed.
 
 ---
 
@@ -427,6 +482,7 @@ Makefiles work well but have limitations - they're platform-specific (Linux Make
 ### What is CMake?
 
 CMake is a build system generator - it creates Makefiles (or other build files) for you. Write one `CMakeLists.txt` and CMake generates appropriate build files for any platform.
+
 ```
 CMakeLists.txt → CMake → Makefile → Make → Executable
   (platform-    (generates) (platform-  (builds)
@@ -434,8 +490,14 @@ CMakeLists.txt → CMake → Makefile → Make → Executable
 ```
 
 ### Creating CMakeLists.txt
-Create **CMakeLists.txt** file and type the following:
+
+Create a CMakeLists.txt file:
+
 ```bash
+nano CMakeLists.txt
+```
+
+```cmake
 cmake_minimum_required(VERSION 3.10)
 project(Calculator)
 
@@ -452,6 +514,9 @@ add_executable(calc
 This is simpler than a Makefile - just list your sources, CMake figures out dependencies automatically.
 
 ### Using CMake
+
+Create a separate build directory and use CMake:
+
 ```bash
 # Create separate build directory
 mkdir build
@@ -475,15 +540,21 @@ make
 
 ### Ninja: Faster Builds
 
-Make works, but for large projects (like OAI with hundreds of files), Ninja is significantly faster.
+Make works, but for large projects (with hundreds of files), Ninja is significantly faster.
 
-**Install Ninja:**
+Install Ninja:
+
 ```bash
 sudo apt install ninja-build
 ```
 
-**Use with CMake:**
+Use with CMake:
+
 ```bash
+cd ~/calculator-project
+mkdir build-ninja
+cd build-ninja
+
 # Generate Ninja files instead of Makefiles
 cmake -G Ninja ..
 
@@ -492,6 +563,9 @@ ninja
 
 # Clean
 ninja clean
+
+# Run
+./calc
 ```
 
 **Why Ninja?**
@@ -500,28 +574,13 @@ ninja clean
 - Minimal overhead
 - Used by large projects: Google Chrome, Android, LLVM
 
-**When you build OAI during the workshop, using Ninja will significantly reduce compilation time** (from ~20 minutes to ~10 minutes on a 4-core system).
-
-**Your turn:**
-```bash
-# Try both build tools
-mkdir build-make && cd build-make
-cmake ..
-time make  # Note the time
-
-cd ..
-mkdir build-ninja && cd build-ninja
-cmake -G Ninja ..
-time ninja  # Compare the time
-
-# Both produce same executable
-```
+When you build complex projects during the workshop, using Ninja will significantly reduce compilation time.
 
 ---
 
 ## Chapter 5: Shared Libraries
 
-When you compile programs, library code can be included statically (copied into executable) or dynamically (loaded at runtime). Understanding shared libraries is important because OAI uses them extensively.
+When you compile programs, library code can be included statically (copied into executable) or dynamically (loaded at runtime). Understanding shared libraries is important because many projects use them extensively.
 
 ### Static vs Dynamic Linking
 
@@ -563,29 +622,21 @@ Total: 6 MB
 
 Plus, all 10 programs share one copy in RAM when running.
 
-### Why OAI Uses Shared Libraries
-
-OAI is highly modular. Different components compile as shared libraries:
-
-**OAI shared libraries:**
-- `librfsimulator.so` - Software radio simulator (no hardware needed)
-- `libcoding.so` - Channel coding functions (LDPC, Polar codes)
-- `liboai_eth_transpro.so` - Ethernet transport layer
-- `libparams_libconfig.so` - Configuration file parsing
-
-
 ### Creating a Shared Library
 
-Let's convert our calculator into a shared library:
+Let's convert our calculator operations into a shared library:
 
 **Step 1: Compile with Position-Independent Code**
+
 ```bash
+cd ~/calculator-project
 gcc -fPIC -c operations.c -o operations.o
 ```
 
 The `-fPIC` flag generates position-independent code - required for shared libraries because they can be loaded at any memory address.
 
 **Step 2: Create the shared library**
+
 ```bash
 gcc -shared operations.o -o liboperations.so
 ```
@@ -593,6 +644,7 @@ gcc -shared operations.o -o liboperations.so
 Now you have `liboperations.so` - a shared library other programs can use.
 
 **Step 3: Link your program against it**
+
 ```bash
 gcc calculator.c -o calc -L. -loperations -Wl,-rpath,.
 ```
@@ -603,6 +655,7 @@ gcc calculator.c -o calc -L. -loperations -Wl,-rpath,.
 - `-Wl,-rpath,.` - Tell program where to find the library at runtime
 
 **Step 4: Run the program**
+
 ```bash
 ./calc
 ```
@@ -610,6 +663,9 @@ gcc calculator.c -o calc -L. -loperations -Wl,-rpath,.
 Works the same as before, but now uses external shared library!
 
 ### Viewing Library Dependencies
+
+See what libraries your program depends on:
+
 ```bash
 ldd calc
 ```
@@ -626,10 +682,6 @@ This shows your program depends on:
 
 At runtime, the dynamic linker loads these libraries before your program starts.
 
-**Your turn:**
-
-Create a shared library from calculator.c and link your program against it. Use `ldd` to verify dependencies.
-
 ---
 
 ## Chapter 6: Debugging with GDB
@@ -637,18 +689,21 @@ Create a shared library from calculator.c and link your program against it. Use 
 When programs don't behave as expected, you need to investigate what's happening. GDB (GNU Debugger) lets you step through code, inspect variables, and find bugs.
 
 ### Installing GDB
+
 ```bash
 sudo apt install gdb
 ```
 
 ### Creating a Program with a Bug
-Create a file **buggy.c** and and enter the following:
+
+Let's create a program with an intentional bug:
 
 ```bash
 cd ~/calculator-project
-vi buggy.c
+nano buggy.c
 ```
-```bash
+
+```c
 #include <stdio.h>
 
 int divide(int a, int b) {
@@ -671,6 +726,7 @@ int main() {
 ### Compiling with Debug Symbols
 
 To use GDB effectively, compile with `-g`:
+
 ```bash
 gcc -g buggy.c -o buggy
 ```
@@ -678,13 +734,17 @@ gcc -g buggy.c -o buggy
 The `-g` flag includes debugging information - variable names, line numbers, function names.
 
 ### Running in GDB
+
+Start GDB:
+
 ```bash
 gdb ./buggy
 ```
 
 You're now in GDB. The prompt shows `(gdb)`.
 
-**Run the program:**
+Run the program:
+
 ```
 (gdb) run
 ```
@@ -707,6 +767,7 @@ GDB caught the crash and shows:
 ### Basic GDB Commands
 
 **View source around the crash:**
+
 ```
 (gdb) list
 ```
@@ -714,6 +775,7 @@ GDB caught the crash and shows:
 Shows code context around line 4.
 
 **Examine variables:**
+
 ```
 (gdb) print a
 $1 = 10
@@ -724,6 +786,7 @@ $2 = 0
 Now you see the problem - `b` is 0!
 
 **See call stack:**
+
 ```
 (gdb) backtrace
 ```
@@ -739,6 +802,7 @@ Shows: `main` called `divide`, which is where it crashed.
 ### Setting Breakpoints
 
 Instead of waiting for crashes, pause execution at specific points:
+
 ```
 (gdb) quit          # Exit current session
 gdb ./buggy         # Start fresh
@@ -752,12 +816,14 @@ Breakpoint 1 at 0x...: file buggy.c, line 12.
 ```
 
 Program starts and pauses at line 12:
+
 ```
 Breakpoint 1, main () at buggy.c:12
 12          result = divide(10, 0);
 ```
 
-**Now you can inspect BEFORE the crash:**
+Now you can inspect BEFORE the crash:
+
 ```
 (gdb) print result
 $1 = 5
@@ -774,6 +840,12 @@ $3 = 0
 
 You've identified the problem before it crashes!
 
+Exit GDB:
+
+```
+(gdb) quit
+```
+
 ### Essential GDB Commands
 
 | Command | Shortcut | Purpose |
@@ -788,96 +860,421 @@ You've identified the problem before it crashes!
 | `backtrace` | `bt` | Show call stack |
 | `quit` | `q` | Exit GDB |
 
-
-**When to use GDB during the workshop:**
+**When to use GDB:**
 - Program crashes (segmentation fault, arithmetic exception)
 - Unexpected behavior (check variable values)
 - Understanding code flow (step through execution)
 
-**Your turn:**
+---
+
+## 💻 Hands-On Exercises
+
+Now test your C compilation skills!
+
+### Exercise 1: Complete Compilation Workflow
+
+**Problem:** Practice the entire compilation process from source to executable.
+
+**Requirements:**
+- Create a new C program `greet.c` that:
+  - Takes no command-line arguments
+  - Prints "Welcome to C programming!"
+  - Returns 0
+- Compile it with warnings enabled
+- Run the executable
+- Clean up by removing the executable
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Create file with nano, use `gcc -Wall`, run with `./`, remove with `rm`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# Create buggy.c
-# Compile with -g
-gcc -g buggy.c -o buggy
+cd ~/c-learning
+nano greet.c
+```
 
-# Debug it
-gdb ./buggy
-(gdb) run              # See crash
-(gdb) backtrace        # See where it happened
-(gdb) print b          # Check variables
+Content:
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Welcome to C programming!\n");
+    return 0;
+}
+```
+
+Then:
+```bash
+gcc -Wall greet.c -o greet
+./greet
+rm greet
+```
+</details>
+
+---
+
+### Exercise 2: Understanding Compilation Stages
+
+**Problem:** Observe each stage of compilation.
+
+**Requirements:**
+- Use your `hello.c` file from earlier
+- Generate the preprocessed file (`.i`)
+- Generate the assembly file (`.s`)
+- Generate the object file (`.o`)
+- Link the object file to create executable
+- Count lines in the preprocessed file
+- View a few lines of the assembly file
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `-E` for preprocessing, `-S` for assembly, `-c` for object file. Use `wc -l` to count lines, `head` to view first lines.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/c-learning
+gcc -E hello.c -o hello.i
+gcc -S hello.c -o hello.s
+gcc -c hello.c -o hello.o
+gcc hello.o -o hello
+wc -l hello.i
+head -20 hello.s
+```
+</details>
+
+---
+
+### Exercise 3: Multi-File Project from Scratch
+
+**Problem:** Build a temperature converter with multiple files.
+
+**Requirements:**
+- Create a header file `temp.h` with declarations for:
+  - `float celsius_to_fahrenheit(float c)`
+  - `float fahrenheit_to_celsius(float f)`
+- Create `temp.c` implementing these functions
+- Create `main.c` that converts 100°C to Fahrenheit and 212°F to Celsius
+- Compile using separate compilation method
+- Run and verify output
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Formula: F = C × 9/5 + 32, C = (F - 32) × 5/9. Use `gcc -c` for each .c file, then link .o files.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+mkdir ~/temp-converter
+cd ~/temp-converter
+nano temp.h
+```
+
+temp.h:
+```c
+#ifndef TEMP_H
+#define TEMP_H
+
+float celsius_to_fahrenheit(float c);
+float fahrenheit_to_celsius(float f);
+
+#endif
+```
+
+```bash
+nano temp.c
+```
+
+temp.c:
+```c
+#include "temp.h"
+
+float celsius_to_fahrenheit(float c) {
+    return c * 9.0 / 5.0 + 32.0;
+}
+
+float fahrenheit_to_celsius(float f) {
+    return (f - 32.0) * 5.0 / 9.0;
+}
+```
+
+```bash
+nano main.c
+```
+
+main.c:
+```c
+#include <stdio.h>
+#include "temp.h"
+
+int main() {
+    printf("100°C = %.2f°F\n", celsius_to_fahrenheit(100));
+    printf("212°F = %.2f°C\n", fahrenheit_to_celsius(212));
+    return 0;
+}
+```
+
+Compile:
+```bash
+gcc -c temp.c -o temp.o
+gcc -c main.c -o main.o
+gcc temp.o main.o -o converter
+./converter
+```
+</details>
+
+---
+
+### Exercise 4: Makefile Creation
+
+**Problem:** Create a Makefile for the temperature converter project.
+
+**Requirements:**
+- Create a Makefile with:
+  - Variables for CC and CFLAGS
+  - Target `all` that builds `converter`
+  - Target `clean` that removes .o files and executable
+  - Proper dependencies
+- Test `make`, `make clean`, and rebuild
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Remember TAB indentation for commands. Define dependencies based on which files include which headers.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/temp-converter
+nano Makefile
+```
+
+Content:
+```makefile
+CC = gcc
+CFLAGS = -Wall
+
+all: converter
+
+converter: temp.o main.o
+	$(CC) temp.o main.o -o converter
+
+temp.o: temp.c temp.h
+	$(CC) $(CFLAGS) -c temp.c
+
+main.o: main.c temp.h
+	$(CC) $(CFLAGS) -c main.c
+
+clean:
+	rm -f *.o converter
+```
+
+Test:
+```bash
+make
+./converter
+make clean
+make
+```
+</details>
+
+---
+
+### Exercise 5: CMake Build System
+
+**Problem:** Convert the temperature converter to use CMake.
+
+**Requirements:**
+- Create CMakeLists.txt for the project
+- Create a build directory
+- Generate build files with CMake
+- Build the project
+- Run the executable
+- Clean up by removing the build directory
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `cmake_minimum_required`, `project`, and `add_executable`. Create build directory, run cmake from inside it.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/temp-converter
+nano CMakeLists.txt
+```
+
+Content:
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(TempConverter)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(converter
+   temp.c
+   main.c
+)
+```
+
+Build:
+```bash
+mkdir build
+cd build
+cmake ..
+make
+./converter
+cd ..
+rm -rf build
+```
+</details>
+
+---
+
+### Exercise 6: Shared Library Creation
+
+**Problem:** Convert temperature functions into a shared library.
+
+**Requirements:**
+- Compile `temp.c` with -fPIC to create `temp.o`
+- Create shared library `libtemp.so`
+- Compile `main.c` linking against the shared library
+- Use `ldd` to verify dependencies
+- Run the program
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `-fPIC` for position-independent code, `-shared` to create .so, `-L.` and `-ltemp` to link, `-Wl,-rpath,.` for runtime path.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/temp-converter
+gcc -fPIC -c temp.c -o temp.o
+gcc -shared temp.o -o libtemp.so
+gcc main.c -o converter -L. -ltemp -Wl,-rpath,.
+ldd converter
+./converter
+```
+</details>
+
+---
+
+### Exercise 7: Debugging with GDB
+
+**Problem:** Debug a program with a logical error.
+
+**Requirements:**
+- Create a program that calculates factorial but has a bug
+- Compile with debug symbols
+- Use GDB to find the bug by:
+  - Setting a breakpoint
+  - Stepping through the function
+  - Printing variable values
+- Identify what's wrong (don't fix it, just identify)
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Create factorial function with loop, compile with `-g`, use `break`, `step`, and `print` in GDB.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/c-learning
+nano factorial.c
+```
+
+Content (with intentional bug):
+```c
+#include <stdio.h>
+
+int factorial(int n) {
+    int result = 0;  // Bug: should be 1
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int main() {
+    printf("5! = %d\n", factorial(5));
+    return 0;
+}
+```
+
+Debug:
+```bash
+gcc -g factorial.c -o factorial
+gdb ./factorial
+(gdb) break factorial
+(gdb) run
+(gdb) next
+(gdb) print result
+(gdb) next
+(gdb) print result
+# Observe that result stays 0!
 (gdb) quit
-
-# Fix the bug and verify
 ```
+
+The bug: `result` initialized to 0 instead of 1, so multiplication always gives 0.
+</details>
 
 ---
 
-## Chapter 7: OAI Project Organization
+### Exercise 8: Cleanup
 
-When you work with OAI during the workshop, you'll encounter a large codebase organized into modules. Understanding the structure helps you navigate it.
+**Problem:** Clean up all practice projects.
 
-### Repository Structure
+**Requirements:**
+- Remove the following directories:
+  - `~/c-learning`
+  - `~/calculator-project`
+  - `~/temp-converter`
+- Verify they're gone
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+rm -rf ~/c-learning
+rm -rf ~/calculator-project
+rm -rf ~/temp-converter
+ls ~
 ```
-openairinterface5g/
-├── cmake_targets/          ← Build system
-│   ├── build_oai          ← Main build script
-│   ├── CMakeLists.txt     ← CMake configuration
-│   └── ran_build/
-│       └── build/         ← Compiled binaries appear here
-│
-├── openair1/              ← Physical layer (PHY)
-│   └── (modulation, coding, OFDM, FFT, etc.)
-│
-├── openair2/              ← Data link layers
-│   └── (MAC scheduling, RLC, PDCP)
-│
-├── openair3/              ← RRC and Network layers
-│   └── (RRC, NAS protocols)
-│
-├── common/                ← Shared utilities
-│   └── (logging, utilities, data structures)
-│
-├── targets/               ← Configuration files
-│   └── PROJECTS/          ← Config templates
-│
-└── executables/           ← Main programs
-```
-
-
-### Build Outputs
-
-After building (which you'll do in the workshop), binaries appear in:
-```
-cmake_targets/ran_build/build/
-├── nr-softmodem           ← 5G gNB executable
-├── nr-uesoftmodem         ← 5G UE executable
-│
-├── librfsimulator.so      ← RF simulator library
-├── libcoding.so           ← Channel coding
-├── libparams_libconfig.so ← Config parser
-└── (many other .so files) ← Modular components
-```
-
-**During the workshop, you'll use provided build scripts that handle all of this.** This chapter just gives you awareness of the organization and where to find things.
-
-**Your turn:**
-
-Just understand the structure. When you clone OAI in the workshop, you'll recognize this organization and know where binaries appear after building.
+</details>
 
 ---
 
+## ✅ Self-Check Quiz
 
----
-
-## Self-Check Quiz
-
-<details>
+<details markdown="1">
 <summary>❓ Q1: What are the four stages of compilation?</summary>
 
 **Answer:** Preprocessing (handle #include, #define), Compilation (C to assembly), Assembly (assembly to machine code), Linking (combine object files with libraries).
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q2: What's the difference between .c, .h, and .o files?</summary>
 
 **Answer:** 
@@ -886,49 +1283,49 @@ Just understand the structure. When you clone OAI in the workshop, you'll recogn
 - `.o` - Object file (compiled machine code, not yet linked)
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q3: Why always use `-Wall` flag?</summary>
 
 **Answer:** Enables compiler warnings to catch potential bugs like unused variables, uninitialized variables, type mismatches. Warnings often indicate real problems.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q4: What advantage does separate compilation provide?</summary>
 
 **Answer:** For large projects, only modified files need recompiling. Unchanged files keep their existing .o files, saving significant compilation time.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q5: What does `make clean` do?</summary>
 
 **Answer:** Removes build artifacts (.o files, executables) as defined in Makefile's clean target. Allows fresh rebuild.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q6: Why create a separate `build/` directory with CMake?</summary>
 
 **Answer:** Keeps source directory clean (all build artifacts in build/), easy cleanup (rm -rf build), can have multiple build configurations (debug, release) simultaneously.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q7: What's Ninja and why use it?</summary>
 
-**Answer:** Ninja is a build tool designed for speed - significantly faster than Make for large projects (2-3x), better CPU parallelization. Used by OAI for faster compilation.
+**Answer:** Ninja is a build tool designed for speed - significantly faster than Make for large projects (2-3x), better CPU parallelization.
 </details>
 
-<details>
-<summary>❓ Q8: What are shared libraries (.so files) and why does OAI use them?</summary>
+<details markdown="1">
+<summary>❓ Q8: What are shared libraries (.so files)?</summary>
 
-**Answer:** Shared libraries are code modules loaded at runtime, reducing executable size and enabling code sharing. OAI uses them for modularity - can swap RF backends (simulator vs hardware) by loading different .so files without recompiling.
+**Answer:** Shared libraries are code modules loaded at runtime, reducing executable size and enabling code sharing between programs. Multiple programs can share one library in memory.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q9: Why compile with `-g` flag when using GDB?</summary>
 
 **Answer:** Includes debug symbols (variable names, line numbers, function names) so GDB can show meaningful information instead of just memory addresses.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q10: What does `ldd` command show?</summary>
 
 **Answer:** Lists shared library dependencies of an executable - which .so files the program needs to run and where they're located.
@@ -936,7 +1333,7 @@ Just understand the structure. When you clone OAI in the workshop, you'll recogn
 
 ---
 
-## Summary
+## 🎓 Summary
 
 ### Commands Mastered
 
@@ -969,22 +1366,9 @@ Just understand the structure. When you clone OAI in the workshop, you'll recogn
 - ✓ GDB helps find bugs by inspecting running programs
 - ✓ Always compile with `-Wall` for warnings, `-g` for debugging
 
-
-### What You Can Do Now
-
-- ✓ Compile C programs and understand each stage
-- ✓ Build multi-file projects
-- ✓ Use Make for automated builds
-- ✓ Use CMake and Ninja for modern projects
-- ✓ Create and use shared libraries
-- ✓ Debug programs with GDB
-- ✓ Navigate large codebases like OAI
-
-These skills prepare you for building and debugging OAI during the workshop.
-
 ---
 
-## Additional Resources
+## 📚 Additional Resources
 
 **C Programming:**
 - [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language) by Kernighan & Ritchie
@@ -1006,6 +1390,5 @@ These skills prepare you for building and debugging OAI during the workshop.
 ---
 
 **Module Complete!** ✅
-
 
 [⬅️ Previous: Module 4](module-4-docker) | [Next: Module 6 →](module-6-networking)

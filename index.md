@@ -15,40 +15,35 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 ## 👥 Who Should Attend?
 
 **Ideal for:**
-- B.Tech (final year), M.Tech, PhD students in ECE/CSE
-- Faculty members teaching wireless communications
-- Engineers exploring 5G technology
+-  Undergraduate students in ECE/CSE who has completed coursework in digital communications and computer networks
+- Graduate students (M.Tech/PhD) speacializing in communication systems & networks, signal processing and cyber physical systems
+- Faculty members looking to gain practical 5G implementation experience
+- Telecom engineers wanting to build hands-on experience in 5G systems
 
 **Prerequisites:**
-- Basic understanding of communication systems
-- Familiarity with digital communications concepts
-- Completed our [pre-workshop modules](docs/pre-workshop/) (2.5-3 hours)
+- Basic understanding and familiarity with digital communications concepts
+- Basic computer networking knowledge
+- Basic understanding of Linux work environment
+- Completed [pre-workshop modules](docs/pre-workshop/) (2.5-3 hours)
 
 ---
 
 ## 🎓 What You'll Achieve
 
-**In just 2 days, you'll:**
 - 🏗️ Deploy your own 5G network from scratch
-- 📡 Connect devices and see real data flowing
 - 🔬 Analyze 5G protocols with professional tools
 - 🎯 Gain hands-on skills for 5G research and development
-
-**By the end:** You'll confidently navigate 5G technology and have a working system to experiment with.
 
 ---
 
 ## 📅 Workshop at a Glance
 
 **Duration:** 2 full days (6 hours/day)  
-**Format:** 70% Hands-on Labs, 30% Interactive Sessions  
-**Location:** Hyderabad & Bangalore
+**Format:** 60% Hands-on, 40% presentation and interactive sessions  
 
-**Day 1:** 5G NR Fundamentals  
-Architecture • Protocols • Physical Layer • Procedures
+**Day 1:** 5G NR Fundamentals and OAI installation  
 
-**Day 2:** OpenAirInterface Deployment  
-Installation • Configuration • Network Testing • Experimentation
+**Day 2:** 5G NR protocol stack and hands-on exercices with OAI  
 
 [View Detailed Schedule →](docs/workshop/)
 
@@ -56,11 +51,10 @@ Installation • Configuration • Network Testing • Experimentation
 
 ## 🔧 Preparation Required
 
-**Before attending, complete:**
-
+**Before attending, complete**
 [6 Self-Paced Modules →](docs/pre-workshop/) (2.5-3 hours total)
 
-Linux • Git • Docker • C Compilation • Networking
+Be comfortable with Linux • Git • Docker • C Compilation • Networking
 
 ---
 ## 👨‍🏫 Instructors
@@ -117,5 +111,3 @@ Linux • Git • Docker • C Compilation • Networking
 [View Workshop Schedule →](docs/workshop/){: .btn}
 
 ---
-
-**Questions?** r.gangula@northeastern.edu

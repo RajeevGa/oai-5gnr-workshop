@@ -35,12 +35,9 @@ Complete these modules in order:
 
 ## 🎯 Learning Path
 
-**Recommended order:**
 1. Ensure Ubuntu 22.04 is installed (local VM or cloud)
-2. Complete Modules 1-6 in sequence
+2. Complete Modules 1-6 in *sequence*
 3. Do all hands-on exercises
-4. Take module quizzes (70% to pass)
-5. Verify your system is ready
 
 ---
 
@@ -69,15 +66,6 @@ Before the workshop, you should be able to:
 
 ---
 
-## 💡 Tips for Success
-
-- **Set aside uninterrupted time** for each module
-- **Actually type commands** - don't just read
-- **Take notes** on things you find confusing
-- **Complete exercises** - hands-on practice is essential
-- **Ask questions** - use GitHub issues or email instructor
-
----
 
 ## 🚀 Ready to Start?
 

@@ -5,7 +5,7 @@ parent: Pre-Workshop Preparation
 nav_order: 1
 ---
 
-# 🐧 Module 1: Linux Essentials
+# 🧩 Module 1: Linux Essentials
 
 > **Duration:** 45 minutes | **Level:** Beginner | **Hands-on:** Yes
 
@@ -23,26 +23,29 @@ By the end of this module, you'll be able to:
 
 ---
 
+## 🎯 How to Use This Module
+
+Keep your terminal open as you read through each chapter. You'll practice commands as you learn them, building your skills progressively. At the end, you'll complete exercises that test what you've learned.
+
+**Ready? Let's open your terminal now with `Ctrl + Alt + T`**
+
+---
+
 ## 📖 Chapter 1: Getting Started with Terminal
 
 ### Why Learn Linux?
 
-OpenAirInterface runs on Linux (specifically Ubuntu). The workshop requires you to use the terminal to:
+OpenAirInterface runs on Linux (specifically Ubuntu). In the workshop you will use the terminal to:
 - Clone code repositories
 - Install software packages
 - Edit configuration files
 - Run OAI components
-- Debug issues
 
-Think of the terminal as a powerful text-based interface where you type commands instead of clicking buttons. Once you learn the basics, it's often faster and more precise than using a graphical interface.
+While this module provides a basic introduction, we strongly encourage you to invest additional time in learning Linux. Linux skills are invaluable across the tech industry.
 
-### Opening the Terminal
+### Understanding the Command Prompt
 
-**Keyboard shortcut:** Press `Ctrl + Alt + T`
-
-**Or:** Click Activities → Search "Terminal" → Click Terminal icon
-
-You'll see something like:
+When you open your terminal, you'll see something like:
 ```
 username@hostname:~$
 ```
@@ -52,6 +55,14 @@ This is your **command prompt**, showing:
 - `hostname` - Computer name
 - `~` - Current location (home directory)
 - `$` - Regular user (vs `#` for root)
+
+Let's try your first command. Type this and press Enter:
+
+```bash
+pwd
+```
+
+You should see something like `/home/username`. This is your current location in the file system. The command `pwd` stands for "Print Working Directory" - it tells you where you are.
 
 ---
 
@@ -70,295 +81,415 @@ Linux organizes files in a tree structure starting from root (`/`):
 └── tmp/             (temporary files)
 ```
 
-### Essential Navigation Commands
+**Key concepts:**
+- **Absolute path:** Starts from root `/home/username/Documents`
+- **Relative path:** From current location `Documents/file.txt`
+- **Home shortcut:** `~` equals `/home/username`
 
-#### pwd (Print Working Directory)
-Shows where you are right now.
+### Seeing What's Around You
+
+Now let's look at what files and folders are in your current location. Type:
+
 ```bash
-pwd
-# Output: /home/username
+ls
 ```
 
-#### ls (List)
-Shows what's in current folder.
+You'll see a list of files and directories. Now try this to get more information:
+
 ```bash
-# Basic list
-ls
-
-# Detailed list
 ls -l
+```
 
-# Include hidden files (starting with .)
-ls -a
+This shows a detailed list with file sizes, dates, and permissions. Let's add two more useful options:
 
-# Human-readable sizes
-ls -lh
-
-# Combine options
+```bash
 ls -lah
 ```
 
-**Output explanation:**
+This shows:
+- `-l`: Long format with details
+- `-a`: All files, including hidden ones (starting with `.`)
+- `-h`: Human-readable file sizes (KB, MB instead of bytes)
+
+Notice files starting with `.`? Those are hidden configuration files. The `-a` flag reveals them.
+
+**Understanding the output:**
 ```
 drwxr-xr-x  2 user group 4096 Dec 26 10:00 Documents
 -rw-r--r--  1 user group  156 Dec 25 14:30 file.txt
 ```
 - First character: `d` = directory, `-` = file
-- Next 9 characters: permissions
-- Numbers: links, owner, group, size
+- Next 9 characters: permissions (we'll cover this later)
+- Numbers: owner, group, size (in bytes)
 - Date and name
 
-#### cd (Change Directory)
-Move to different folders.
+### Moving Around
+
+Let's explore the file system. First, go to the root directory:
+
 ```bash
-# Go to Documents
-cd Documents
-
-# Go back to home
-cd ~
-# or just
-cd
-
-# Go up one level
-cd ..
-
-# Go up two levels
-cd ../..
-
-# Go to previous directory
-cd -
-
-# Go to root
 cd /
 ```
 
-**Paths:**
-- **Absolute path:** Starts from root `/home/username/Documents`
-- **Relative path:** From current location `Documents/file.txt`
-- **Home shortcut:** `~/Documents` = `/home/username/Documents`
+Your prompt should change to show `/`. Now list what's there:
+
+```bash
+ls
+```
+
+You'll see system directories like `home`, `etc`, `usr`. Now return to your home directory:
+
+```bash
+cd ~
+```
+
+Or simply:
+
+```bash
+cd
+```
+
+Both commands take you home. Check where you are:
+
+```bash
+pwd
+```
+
+**Other navigation shortcuts:**
+```bash
+cd ..        # Go up one level
+cd ../..     # Go up two levels
+cd -         # Go to previous directory
+```
+
+Let's practice. If you have a `Documents` folder, go there:
+
+```bash
+cd Documents
+pwd
+```
+
+Then go back:
+
+```bash
+cd ..
+```
 
 ---
 
 ## 📄 Chapter 3: Working with Files and Directories
 
-### Creating
+### Creating Your First Files and Folders
+
+Let's create a practice area. Type these commands:
+
 ```bash
-# Create empty file
-touch myfile.txt
+mkdir ~/linux-practice
+cd ~/linux-practice
+pwd
+```
 
-# Create directory
-mkdir myfolder
+You've just created a folder called `linux-practice` in your home directory and moved into it. Now create a file:
 
-# Create nested directories
+```bash
+touch welcome.txt
+```
+
+Verify it exists:
+
+```bash
+ls -l
+```
+
+You should see `welcome.txt` with a size of 0 bytes - it's empty. Let's add some content:
+
+```bash
+echo "Welcome to Linux!" > welcome.txt
+```
+
+The `>` operator writes text to a file (overwriting existing content). View what you just wrote:
+
+```bash
+cat welcome.txt
+```
+
+Now add another line without overwriting:
+
+```bash
+echo "This is my first file." >> welcome.txt
+```
+
+The `>>` operator appends (adds to the end). Check the result:
+
+```bash
+cat welcome.txt
+```
+
+### More Ways to View Files
+
+For longer files, `cat` isn't ideal. Try creating a file with multiple lines:
+
+```bash
+echo "Line 1" > longfile.txt
+echo "Line 2" >> longfile.txt
+echo "Line 3" >> longfile.txt
+echo "Line 4" >> longfile.txt
+echo "Line 5" >> longfile.txt
+```
+
+Now try different viewing commands:
+
+```bash
+head -n 3 longfile.txt    # First 3 lines
+tail -n 2 longfile.txt    # Last 2 lines
+less longfile.txt         # Scrollable view (press 'q' to quit)
+```
+
+### Copying and Organizing Files
+
+Let's make a backup of your welcome file:
+
+```bash
+cp welcome.txt welcome-backup.txt
+ls -l
+```
+
+You now have two copies. Rename the backup:
+
+```bash
+mv welcome-backup.txt backup.txt
+ls
+```
+
+The `mv` command moves OR renames files. Let's create a folder and move the backup there:
+
+```bash
+mkdir backups
+mv backup.txt backups/
+ls backups/
+```
+
+Your backup is now organized in its own folder.
+
+### Creating Nested Directories
+
+Need to create several levels of folders at once? Use the `-p` flag:
+
+```bash
 mkdir -p project/configs/test
+ls -R project/
 ```
 
-### Viewing File Contents
+The `-R` flag shows directory contents recursively (including subdirectories).
+
+### Deleting Files
+
+Remove the longfile you created:
+
 ```bash
-# Show entire file
-cat myfile.txt
-
-# Show with page-by-page viewing
-less myfile.txt
-# (Press 'q' to quit, Space for next page)
-
-# First 10 lines
-head myfile.txt
-
-# Last 10 lines
-tail myfile.txt
-
-# Follow file updates (useful for logs)
-tail -f logfile.txt
+rm longfile.txt
+ls
 ```
 
-### Copying
+To remove a directory with contents:
+
 ```bash
-# Copy file
-cp source.txt destination.txt
-
-# Copy to directory
-cp file.txt ~/Documents/
-
-# Copy directory (recursive)
-cp -r folder1/ folder2/
-
-# Copy with verbose output
-cp -v file.txt backup.txt
+rm -r backups/
+ls
 ```
 
-### Moving/Renaming
-```bash
-# Rename file
-mv oldname.txt newname.txt
-
-# Move file
-mv file.txt ~/Documents/
-
-# Move and rename
-mv old.txt ~/Documents/new.txt
-```
-
-### Deleting
-```bash
-# Delete file
-rm myfile.txt
-
-# Delete directory (recursive)
-rm -r myfolder/
-
-# Delete without confirmation (be careful!)
-rm -rf folder/
-
-# Delete empty directory
-rmdir emptyfolder/
-```
-
-⚠️ **Warning:** `rm -rf` is permanent! No recycle bin in terminal.
+⚠️ **Be careful!** `rm` is permanent. There's no recycle bin. The `-f` flag forces deletion without asking for confirmation - use it cautiously.
 
 ---
 
 ## 🔒 Chapter 4: File Permissions
 
-### Understanding Permissions
+### Understanding the Permission System
 
-Every file has permissions for three groups:
-- **Owner (u)** - User who owns the file
-- **Group (g)** - Group of users
-- **Others (o)** - Everyone else
+Every file in Linux has permissions that control who can read, write, or execute it. Let's look at permissions for your welcome file:
 
-Three types of permissions:
-- **r (read)** = 4 - Can read file
+```bash
+ls -l welcome.txt
+```
+
+You'll see something like:
+```
+-rw-r--r-- 1 user group 42 Dec 26 10:00 welcome.txt
+```
+
+The permission string `-rw-r--r--` breaks down into:
+- First `-`: File type (- = file, d = directory)
+- Next 3 `rw-`: Owner permissions (read, write, no execute)
+- Next 3 `r--`: Group permissions (read only)
+- Last 3 `r--`: Others permissions (read only)
+
+Three permission types:
+- **r (read)** = 4 - Can read/view file
 - **w (write)** = 2 - Can modify file
 - **x (execute)** = 1 - Can run file as program
 
-### Reading Permission String
+### Making Files Executable
+
+Let's create a simple script:
+
 ```bash
-ls -l script.sh
-# -rwxr-xr-x 1 user group 156 Dec 26 10:00 script.sh
-#  ───────── 
-#  │││││││││
-#  │││││││└┴─ Others: r-x (read, execute)
-#  │││└┴┴─── Group: r-x (read, execute)
-#  └┴┴───── Owner: rwx (read, write, execute)
+echo '#!/bin/bash' > test.sh
+echo 'echo "Hello from script!"' >> test.sh
 ```
 
-### Changing Permissions
+Check its permissions:
 
-**Numeric method:**
 ```bash
-# rwx = 4+2+1 = 7
-# rw- = 4+2   = 6
-# r-x = 4+1   = 5
-# r-- = 4     = 4
-
-# Make file read/write for owner, read-only for others
-chmod 644 file.txt
-
-# Make script executable by everyone
-chmod 755 script.sh
-
-# Full permissions (avoid this!)
-chmod 777 file.txt
+ls -l test.sh
 ```
 
-**Symbolic method:**
+Probably shows `-rw-r--r--` (not executable). Try to run it:
+
 ```bash
-# Add execute permission for owner
-chmod u+x script.sh
-
-# Remove write permission for group
-chmod g-w file.txt
-
-# Add read for everyone
-chmod a+r file.txt
-
-# Set exact permissions
-chmod u=rwx,g=rx,o=r script.sh
+./test.sh
 ```
 
-### Common Permission Patterns
+You'll get a "Permission denied" error. Let's fix that:
 
-| Code | Permissions | Use Case |
-|------|-------------|----------|
-| 644 | rw-r--r-- | Regular files |
-| 755 | rwxr-xr-x | Scripts, executables |
-| 700 | rwx------ | Private files |
-| 600 | rw------- | Private config files |
-
-### Using sudo
-
-Some operations require administrator (root) privileges:
 ```bash
-# Install software (needs root)
-sudo apt install package-name
-
-# Edit system files (needs root)
-sudo nano /etc/config-file
-
-# Run command as root
-sudo command
+chmod +x test.sh
 ```
 
-**When to use sudo:**
-- Installing software
-- Modifying system files
-- Accessing protected resources
+Check permissions again:
+
+```bash
+ls -l test.sh
+```
+
+Now you'll see `-rwxr-xr-x`. The `x` was added. Run it:
+
+```bash
+./test.sh
+```
+
+Success! You've made your first executable script.
+
+### Using Numeric Permissions
+
+You can also set permissions with numbers. Each permission has a value:
+- r (read) = 4
+- w (write) = 2  
+- x (execute) = 1
+
+Add them up for each group:
+- `rwx` = 4+2+1 = 7
+- `rw-` = 4+2 = 6
+- `r-x` = 4+1 = 5
+- `r--` = 4
+
+Try these commands and watch the permissions change:
+
+```bash
+chmod 644 welcome.txt
+ls -l welcome.txt
+
+chmod 755 test.sh
+ls -l test.sh
+
+chmod 600 welcome.txt
+ls -l welcome.txt
+```
+
+**Common patterns:**
+- `644` (rw-r--r--): Regular files - owner can edit, others can read
+- `755` (rwxr-xr-x): Scripts - owner can edit/run, others can run
+- `700` (rwx------): Private files - only owner can access
+- `600` (rw-------): Private configs - only owner can read/write
+
+### When You Need Administrator Access
+
+Some operations require administrator (root) privileges. Try this:
+
+```bash
+ls /root
+```
+
+You'll get "Permission denied". To run commands with admin privileges, use `sudo`:
+
+```bash
+sudo ls /root
+```
+
+You'll be asked for your password. After entering it, the command runs with elevated privileges.
+
+💡 **When to use sudo:**
+- Installing software packages
+- Editing system configuration files
+- Accessing protected directories
 
 **When NOT to use sudo:**
-- Regular file operations in your home folder
-- Running scripts that don't need system access
+- Working with files in your home directory
+- Running your own scripts
+- Regular daily tasks
+
+Using `sudo` unnecessarily can be dangerous - you could accidentally break system files.
 
 ---
 
 ## ✏️ Chapter 5: Text Editing with Nano
 
-### Why Nano?
+### Why You Need a Text Editor
 
-Nano is a beginner-friendly text editor in the terminal. You'll use it to edit configuration files during the workshop.
+Configuration files are just text files. You'll edit many of them during the workshop. If you are familiar with other termimal based text editors like vim and emacs you can use them!
+Let's create and edit a configuration file. Type:
 
-### Opening Nano
 ```bash
-# Create/edit a file
-nano myfile.txt
-
-# Edit existing file
-nano /path/to/file.txt
+nano server.conf
 ```
 
-### Basic Navigation
+Nano opens with a blank file. Notice the commands listed at the bottom (where `^` means Ctrl).
 
-- **Arrow keys:** Move cursor
-- **Page Up/Down:** Scroll
-- **Home/End:** Start/end of line
-- **Ctrl+A:** Start of line
-- **Ctrl+E:** End of line
+Type this content:
 
-### Essential Commands
-
-All commands shown at bottom of screen (`^` means Ctrl):
 ```
-^O  Save (WriteOut)     → Press Ctrl+O, then Enter
-^X  Exit                → Press Ctrl+X
-^K  Cut line            → Press Ctrl+K
-^U  Paste (Uncut)       → Press Ctrl+U
-^W  Search              → Press Ctrl+W
-^G  Help                → Press Ctrl+G
+port=8080
+host=localhost
+timeout=30
 ```
 
-### Common Workflow
+Now save the file:
+1. Press `Ctrl+O` (WriteOut)
+2. Press `Enter` to confirm the filename
+3. Press `Ctrl+X` to exit
+
+Verify your changes:
+
 ```bash
-# 1. Open file
-nano config.txt
-
-# 2. Make changes with arrow keys and typing
-
-# 3. Save: Ctrl+O, then Enter
-
-# 4. Exit: Ctrl+X
+cat server.conf
 ```
 
-If you try to exit with unsaved changes, Nano asks:
+Let's edit it again:
+
+```bash
+nano server.conf
+```
+
+Use arrow keys to move around. Add a new line at the end:
+
+```
+debug=true
+```
+
+**Navigation shortcuts:**
+- Arrow keys: Move cursor
+- `Ctrl+A`: Jump to start of line
+- `Ctrl+E`: Jump to end of line
+- Page Up/Down: Scroll
+
+**Editing shortcuts:**
+- `Ctrl+K`: Cut entire line
+- `Ctrl+U`: Paste (uncut)
+- `Ctrl+W`: Search for text
+- `Ctrl+G`: Show help screen
+
+Save and exit with `Ctrl+O`, Enter, then `Ctrl+X`.
+
+If you try to exit without saving, nano will ask:
 ```
 Save modified buffer?
  Y  Yes
@@ -366,258 +497,400 @@ Save modified buffer?
 ^C Cancel
 ```
 
+Press `Y` to save, `N` to discard changes, or `Ctrl+C` to cancel and keep editing.
+
 ---
 
 ## 🔧 Chapter 6: Essential Commands for Workshop
 
-### Searching
+### Finding Files
+
+Need to locate a file? Use `find`:
+
 ```bash
-# Find files by name
-find . -name "*.txt"
-find /home -name "config*"
+find ~/linux-practice -name "*.txt"
+```
 
-# Search inside files
-grep "search_term" file.txt
-grep -r "search_term" /path/to/folder/
+This searches your practice folder for all `.txt` files. The `*` is a wildcard matching any characters.
 
-# Case-insensitive search
-grep -i "text" file.txt
+Find files starting with "test":
+
+```bash
+find ~/linux-practice -name "test*"
+```
+
+### Searching Inside Files
+
+Looking for specific content? Use `grep`:
+
+```bash
+grep "timeout" server.conf
+```
+
+This shows lines containing "timeout". Search all files in a directory:
+
+```bash
+grep -r "localhost" ~/linux-practice
+```
+
+The `-r` flag means recursive (search subdirectories too). Case-insensitive search:
+
+```bash
+grep -i "TIMEOUT" server.conf
 ```
 
 ### Getting Help
+
+Stuck on a command? Every command has documentation:
+
 ```bash
-# Manual page
 man ls
-man chmod
+```
 
-# Quick help
+This opens the manual page for `ls`. Use arrow keys to scroll, press `q` to quit.
+
+For a quicker summary:
+
+```bash
 ls --help
-cp --help
-
-# Which command to use?
-apropos "search term"
 ```
 
-### Checking System Info
+Not sure what command to use? Search by topic:
+
 ```bash
-# Disk space
-df -h
-
-# Folder size
-du -sh folder/
-
-# Memory usage
-free -h
-
-# CPU info
-lscpu
-
-# Number of CPU cores
-nproc
+apropos "search"
 ```
 
-### Useful Shortcuts
+### Checking System Resources
+
+Useful commands for monitoring your system:
+
 ```bash
-# Clear screen
-clear
-# or: Ctrl+L
-
-# Stop current command
-Ctrl+C
-
-# Logout
-exit
-# or: Ctrl+D
-
-# Command history
-history
-
-# Rerun previous command
-!!
-
-# Previous command
-↑ (up arrow)
+df -h              # Disk space
+du -sh ~/linux-practice   # Folder size
+free -h            # Memory usage
+nproc              # Number of CPU cores
 ```
+
+### Useful Keyboard Shortcuts
+
+While working in the terminal:
+- `Ctrl+L` or type `clear`: Clear the screen
+- `Ctrl+C`: Stop the current running command
+- `Ctrl+D` or type `exit`: Close terminal
+- `↑` (up arrow): Recall previous commands
+- `Tab`: Auto-complete file/folder names (very useful!)
+
+Try tab completion. Type:
+
+```bash
+cd ~/lin
+```
+
+Then press `Tab`. It should auto-complete to `linux-practice/`.
 
 ---
 
-## 🧪 Hands-On Exercise
+## 💻 Hands-On Exercises
 
-### Task 1: File System Navigation (5 min)
+Now it's your turn! These exercises test what you've learned. Try to solve them without looking at the solutions first. Each exercise includes hints if you get stuck.
+
+### Exercise 1: Creating Directory Structures
+
+**Problem:** Create a project directory with organized subdirectories.
+
+**Requirements:**
+- Create a folder called `my-project` in your home directory
+- Inside it, create three subdirectories: `data`, `documents`, and `output`
+- Verify the structure was created correctly by listing the contents
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+You can use `mkdir -p` to create nested directories in one command. The syntax is `mkdir -p parent/{child1,child2,child3}`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+One-line approach:
 ```bash
-# 1. Check where you are
-pwd
-
-# 2. List contents
-ls -lah
-
-# 3. Go to home
-cd ~
-
-# 4. Create test structure
-mkdir -p workshop/day1/configs
-mkdir -p workshop/day2/logs
-
-# 5. Verify
-ls -R workshop/
-
-# 6. Navigate
-cd workshop/day1/configs
-pwd
-
-# 7. Go back to home
-cd ~
+mkdir -p ~/my-project/{data,documents,output}
+ls ~/my-project
 ```
 
-**Expected:** You can navigate directories confidently.
+Or create them one by one:
+```bash
+mkdir ~/my-project
+cd ~/my-project
+mkdir data documents output
+ls
+```
+</details>
 
 ---
 
-### Task 2: File Operations (5 min)
+### Exercise 2: Working with Text Files
+
+**Problem:** Create and populate a configuration file.
+
+**Requirements:**
+- Navigate to the `data` folder you created
+- Create a file named `settings.conf`
+- Add these three lines to the file:
+  ```
+  username=student
+  server=localhost
+  port=8080
+  ```
+- View the file contents to verify
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+You can use `nano` to create and edit the file, or use `echo` with `>` and `>>` to write lines.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+Using nano:
 ```bash
-# 1. Create file
-cd ~/workshop/day1
-echo "Configuration for OAI" > config.txt
-
-# 2. View content
-cat config.txt
-
-# 3. Copy file
-cp config.txt config-backup.txt
-
-# 4. Check
-ls -l
-
-# 5. Edit file
-nano config.txt
-# Add line: "timeout = 30"
+cd ~/my-project/data
+nano settings.conf
+# Type the three lines
 # Save: Ctrl+O, Enter
 # Exit: Ctrl+X
+cat settings.conf
+```
 
-# 6. View changes
-cat config.txt
+Using echo:
+```bash
+cd ~/my-project/data
+echo "username=student" > settings.conf
+echo "server=localhost" >> settings.conf
+echo "port=8080" >> settings.conf
+cat settings.conf
+```
+</details>
 
-# 7. Move file
-mv config-backup.txt ../day2/
+---
 
-# 8. Verify
+### Exercise 3: Copying and Moving Files
+
+**Problem:** Create a backup and reorganize files.
+
+**Requirements:**
+- Make a copy of `settings.conf` named `settings-backup.conf`
+- Move the backup file to the `documents` folder
+- List files in both `data` and `documents` folders to verify
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `cp` for copying and `mv` for moving. Use `../documents/` to refer to the documents folder from the data folder.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+cd ~/my-project/data
+cp settings.conf settings-backup.conf
+mv settings-backup.conf ../documents/
 ls
-ls ../day2/
+ls ../documents/
 ```
-
-**Expected:** Comfortable creating, editing, copying, moving files.
+</details>
 
 ---
 
-### Task 3: Permissions (5 min)
+### Exercise 4: Creating an Executable Script
+
+**Problem:** Write a script that displays system information.
+
+**Requirements:**
+- Navigate to the `output` folder
+- Create a file named `info.sh`
+- Add a bash shebang (`#!/bin/bash`) as the first line
+- Add commands to display:
+  - A message "System Information:"
+  - Current directory path
+  - List of files in the parent directory
+- Make the script executable
+- Run the script
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `nano` to create the script. Use `echo` for messages, `pwd` for current directory, and `ls ..` for parent directory contents. Make it executable with `chmod +x`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# 1. Create script
-cd ~/workshop
-cat > test-script.sh << 'EOF'
+cd ~/my-project/output
+nano info.sh
+```
+
+In nano, type:
+```bash
 #!/bin/bash
-echo "Hello from script!"
-EOF
-
-# 2. Check permissions
-ls -l test-script.sh
-
-# 3. Try to run (will fail)
-./test-script.sh
-
-# 4. Make executable
-chmod +x test-script.sh
-
-# 5. Check permissions again
-ls -l test-script.sh
-
-# 6. Run successfully
-./test-script.sh
-
-# 7. Practice permission codes
-chmod 755 test-script.sh
-ls -l test-script.sh
-
-chmod 644 test-script.sh
-ls -l test-script.sh
+echo "System Information:"
+pwd
+echo "Parent directory contents:"
+ls -lh ..
 ```
 
-**Expected:** Understand permissions, can make files executable.
+Save and exit, then:
+```bash
+chmod +x info.sh
+./info.sh
+```
+</details>
 
 ---
 
-### Task 4: Searching and Help (5 min)
+### Exercise 5: Managing Permissions
+
+**Problem:** Set appropriate permissions on your configuration file.
+
+**Requirements:**
+- Navigate to the `data` folder
+- Set permissions on `settings.conf` so that:
+  - Owner can read and write
+  - Group can only read
+  - Others have no access
+- Verify the permissions are correct
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Calculate the numeric permission: Owner needs read(4) + write(2) = 6. Group needs read(4) = 4. Others need nothing = 0. So the code is 640.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# 1. Find all .txt files
-find ~/workshop -name "*.txt"
-
-# 2. Search inside files
-grep "timeout" ~/workshop/day1/config.txt
-
-# 3. Get help for ls
-man ls
-# (Press 'q' to quit)
-
-# 4. Quick help
-ls --help | head -20
+cd ~/my-project/data
+chmod 640 settings.conf
+ls -l settings.conf
 ```
 
-**Expected:** Can find files and get command help.
+You should see: `-rw-r-----`
+
+Alternative using symbolic notation:
+```bash
+chmod u=rw,g=r,o= settings.conf
+```
+</details>
 
 ---
 
-### Task 5: Cleanup
+### Exercise 6: Searching for Files and Content
+
+**Problem:** Locate specific files and search for content within them.
+
+**Requirements:**
+- Find all `.conf` files in the `my-project` directory and its subdirectories
+- Search for the word "localhost" in all files within the `data` folder
+- Display the first 3 lines of your script file
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `find` with the `-name` option for file patterns. Use `grep` with `-r` for recursive search. Use `head -n` to show specific number of lines.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# Remove test folder
-rm -rf ~/workshop
+find ~/my-project -name "*.conf"
+grep -r "localhost" ~/my-project/data/
+head -n 3 ~/my-project/output/info.sh
 ```
+</details>
+
+---
+
+### Exercise 7: Cleanup
+
+**Problem:** Remove the practice directories you created.
+
+**Requirements:**
+- Remove both the `linux-practice` and `my-project` directories
+- Verify they're gone by checking your home directory
+
+<details markdown="1">
+<summary>⚠️ Warning</summary>
+
+Be very careful with `rm -rf`. Always double-check the path before pressing Enter! This command permanently deletes files.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+rm -rf ~/linux-practice
+rm -rf ~/my-project
+ls ~
+```
+
+The folders should no longer appear in the listing.
+</details>
 
 ---
 
 ## ✅ Self-Check Quiz
 
-<details>
+Test your understanding:
+
+<details markdown="1">
 <summary>❓ What command shows your current directory?</summary>
 
 **Answer:** `pwd` (Print Working Directory)
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ How do you make a file executable?</summary>
 
 **Answer:** `chmod +x filename` or `chmod 755 filename`
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What does `ls -lah` do?</summary>
 
 **Answer:** Lists files in long format (`-l`), including hidden files (`-a`), with human-readable sizes (`-h`)
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ How do you go to your home directory?</summary>
 
 **Answer:** `cd ~` or just `cd` or `cd $HOME`
 </details>
 
-<details>
-<summary>❓ What's the difference between `rm file.txt` and `rm -rf folder/`?</summary>
+<details markdown="1">
+<summary>❓ What's the difference between `>` and `>>`?</summary>
 
-**Answer:** `rm file.txt` removes a file. `rm -rf folder/` removes a directory and all its contents recursively (`-r`) and forcefully without confirmation (`-f`).
+**Answer:** `>` overwrites the file with new content. `>>` appends to the end of the file without erasing existing content.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ In nano, how do you save and exit?</summary>
 
 **Answer:** Save: `Ctrl+O`, Enter. Exit: `Ctrl+X`
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What does `sudo` do?</summary>
 
-**Answer:** Runs a command with administrator (root) privileges
+**Answer:** Runs a command with administrator (root) privileges. Use it carefully!
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What does `755` mean in permissions?</summary>
 
 **Answer:** 
@@ -628,68 +901,44 @@ rm -rf ~/workshop
 
 ---
 
-## 🎓 Summary
+## 🎓 Command Reference
 
-### Commands Mastered
+Quick reference of commands you've mastered:
 
 | Command | Purpose | Example |
 |---------|---------|---------|
 | `pwd` | Show current directory | `pwd` |
 | `ls` | List files | `ls -lah` |
 | `cd` | Change directory | `cd ~/Documents` |
-| `mkdir` | Create directory | `mkdir project` |
+| `mkdir` | Create directory | `mkdir -p parent/child` |
 | `touch` | Create empty file | `touch file.txt` |
+| `echo` | Output text | `echo "text" > file.txt` |
 | `cat` | View file | `cat file.txt` |
 | `nano` | Edit file | `nano file.txt` |
 | `cp` | Copy | `cp file.txt backup.txt` |
 | `mv` | Move/rename | `mv old.txt new.txt` |
 | `rm` | Delete | `rm file.txt` |
-| `chmod` | Change permissions | `chmod +x script.sh` |
+| `chmod` | Change permissions | `chmod 755 script.sh` |
 | `sudo` | Run as admin | `sudo apt install` |
 | `find` | Find files | `find . -name "*.txt"` |
 | `grep` | Search in files | `grep "text" file.txt` |
 | `man` | Manual/help | `man ls` |
 
-### Key Concepts
-
-- ✅ Linux file system is a tree starting from `/`
-- ✅ `~` is shortcut for home directory
-- ✅ Permissions control who can read/write/execute files
-- ✅ `chmod` changes permissions (644, 755, etc.)
-- ✅ `sudo` runs commands as administrator
-- ✅ Nano is your text editor for config files
-- ✅ Tab completion saves typing
-
-### You're Ready For
-
-- ✅ Navigating to OAI installation directories
-- ✅ Creating folders for workshop files
-- ✅ Editing OAI configuration files
-- ✅ Making scripts executable
-- ✅ Viewing log files
-- ✅ Basic troubleshooting
-
 ---
 
 ## 📚 Additional Resources
 
-**Practice More:**
+Want to deepen your Linux knowledge?
+
 - [Linux Journey](https://linuxjourney.com/) - Interactive tutorials
 - [OverTheWire: Bandit](https://overthewire.org/wargames/bandit/) - Command line game
-
-**Quick References:**
 - [Linux Command Cheat Sheet](https://www.linuxtrainingacademy.com/linux-commands-cheat-sheet/)
-- [Chmod Calculator](https://chmod-calculator.com/)
-
-**If You Want to Go Deeper:**
 - [The Linux Command Line](http://linuxcommand.org/tlcl.php) - Free book
-- Advanced topics: shell scripting, process management, system administration
 
 ---
 
 **Module Complete!** ✅
 
-You now have the Linux skills needed for the workshop!
+You now have the Linux skills needed for the workshop! Next, you'll learn about package management in Ubuntu.
 
 [Next: Module 2: Package Management →](module-2-packages)
-

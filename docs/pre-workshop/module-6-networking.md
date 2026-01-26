@@ -5,7 +5,7 @@ parent: Pre-Workshop Preparation
 nav_order: 6
 ---
 
-# 🌐 Module 6: Network Basics
+# 🌐 Module 6: Networking Basics
 
 > **Duration:** 40 minutes | **Level:** Refresher | **Hands-on:** Yes
 
@@ -23,16 +23,23 @@ By the end of this module, you'll be able to:
 
 ---
 
+## 🎯 How to Use This Module
+
+Follow along with the examples as you read. You'll explore your own network configuration and practice troubleshooting commands. At the end, you'll complete exercises to test your understanding.
+
+**Keep your terminal open throughout!**
+
+---
+
 ## Introduction
 
 Modern networks rely on IP networking to connect devices across the globe - sometimes even from space! You've likely seen IP addresses while setting up your home router or connecting to campus WiFi. Starting with 4G LTE, cellular networks also adopted this all-IP approach. This module covers the IP and Linux networking basics you'll need to configure and work with networks during the workshop's hands-on sessions.
-
 
 This is a quick brush-up focusing on practical Linux commands for network exploration and troubleshooting.
 
 ---
 
-## 📝 Important Note About Your Environment
+## 🔍 Important Note About Your Environment
 
 **This module uses Ubuntu Linux.** The commands and examples shown work on:
 - ✅ Native Ubuntu installation
@@ -64,9 +71,19 @@ This is a quick brush-up focusing on practical Linux commands for network explor
 
 Every device on a network needs an identifier - the IP address. Let's explore your network configuration by examining interfaces and their addresses together.
 
+### Installing Network Tools
+
+First, make sure you have the necessary tools:
+
+```bash
+sudo apt update
+sudo apt install -y iproute2 net-tools
+```
+
 ### Exploring Network Interfaces and IP Addresses
 
 Run this command to see all network interfaces and their configuration:
+
 ```bash
 ip addr show
 ```
@@ -148,7 +165,8 @@ All devices use private IPs internally. When accessing the internet, the router 
 
 ### Finding Your Gateway
 
-The gateway forwards traffic between your local network and the internet:
+The gateway forwards traffic between your local network and the internet. Check it:
+
 ```bash
 ip route show
 ```
@@ -161,7 +179,22 @@ default via 192.168.1.1 dev eth0
 
 First line shows: to reach the internet, send packets to `192.168.1.1` via `eth0`.
 
-**Your turn:**
+### Finding Your DNS Servers
+
+DNS servers translate hostnames to IP addresses:
+
+```bash
+cat /etc/resolv.conf
+```
+
+**Example output:**
+```
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+Now let's check your configuration. Run these commands:
+
 ```bash
 ip addr show
 ip route show
@@ -178,9 +211,12 @@ cat /etc/resolv.conf
 
 ## Chapter 2: Testing Network Connectivity
 
-The `ping` command tests reachability. Test systematically from your computer outward:
+The `ping` command tests reachability. Let's test systematically from your computer outward.
 
-**Test 1: Localhost**
+### Test 1: Localhost
+
+First, test your own computer:
+
 ```bash
 ping -c 3 127.0.0.1
 ```
@@ -188,13 +224,18 @@ ping -c 3 127.0.0.1
 **Example output:**
 ```
 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.024 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.031 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.028 ms
 ```
 
-Extremely low time (0.024ms) - packets loop back internally.
+Extremely low time (0.024ms) - packets loop back internally. This always works if networking is functioning.
 
-**Test 2: Gateway**
+### Test 2: Gateway
+
+Test your local network by pinging the gateway:
+
 ```bash
-ping -c 3 192.168.1.1  # Use YOUR gateway
+ping -c 3 192.168.1.1  # Use YOUR gateway from ip route show
 ```
 
 **Example output:**
@@ -202,9 +243,12 @@ ping -c 3 192.168.1.1  # Use YOUR gateway
 64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=2.34 ms
 ```
 
-Time ~1-2ms - packets travel over your network to router.
+Time ~1-2ms - packets travel over your network to router. If this fails, check your cable or WiFi connection.
 
-**Test 3: Internet**
+### Test 3: Internet
+
+Test internet connectivity:
+
 ```bash
 ping -c 3 8.8.8.8
 ```
@@ -214,50 +258,59 @@ ping -c 3 8.8.8.8
 64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=12.4 ms
 ```
 
-Time ~10-50ms - packets travel through router, ISP, and internet.
+Time ~10-50ms - packets travel through router, ISP, and internet. This is Google's public DNS server.
 
-**Test 4: DNS**
+### Test 4: DNS Resolution
+
+Test both internet and DNS:
+
 ```bash
 ping -c 3 google.com
 ```
 
-First line shows `google.com (142.250.192.78)` - hostname resolved to IP.
+First line shows `google.com (142.250.192.78)` - hostname was resolved to IP address before pinging.
 
-**Troubleshooting logic:**
+### Troubleshooting Logic
+
+Use this systematic approach:
 
 | If This Fails | But This Works | Problem Is |
 |---------------|----------------|------------|
-| Test 1 | - | System networking |
-| Test 2 | Test 1 | Local network (cable/WiFi) |
-| Test 3 | Test 2 | Internet connection |
-| Test 4 | Test 3 | DNS configuration |
+| Test 1 (localhost) | - | System networking broken |
+| Test 2 (gateway) | Test 1 | Local network (cable/WiFi) |
+| Test 3 (internet) | Test 2 | Router or ISP issue |
+| Test 4 (DNS) | Test 3 | DNS configuration |
 
-### Understanding DNS
+Now try all four tests yourself:
 
-DNS translates hostnames to IP addresses:
-```bash
-cat /etc/resolv.conf
-```
-
-Shows your DNS servers (like `nameserver 8.8.8.8`).
-
-**Your turn:**
 ```bash
 ping -c 3 127.0.0.1
-ping -c 3 <YOUR_GATEWAY>
+ping -c 3 <YOUR_GATEWAY>  # Replace with your gateway IP
 ping -c 3 8.8.8.8
 ping -c 3 google.com
 ```
 
-**Observe:** Do all succeed? Compare latency values.
+**Observe:** Do all succeed? Compare latency values - they should increase as you go further from your computer.
 
 ---
 
 ## Chapter 3: Ports and Services
 
-IP addresses identify devices, ports identify specific services. Together (IP:Port) they form a socket.
+IP addresses identify devices, ports identify specific services running on those devices. Together (IP:Port) they form a socket - a unique endpoint for network communication.
+
+### Understanding Ports
+
+Common port numbers:
+- Port 22: SSH (remote login)
+- Port 80: HTTP (web)
+- Port 443: HTTPS (secure web)
+- Port 3306: MySQL database
+- Port 5432: PostgreSQL database
 
 ### Viewing Active Services
+
+See what's listening on your system:
+
 ```bash
 sudo ss -tuln
 ```
@@ -271,79 +324,116 @@ LISTEN   0.0.0.0:4000
 ```
 
 **Understanding:**
-- `0.0.0.0:22` - SSH listening on ALL interfaces
-- `127.0.0.1:631` - Print service on localhost only
-- `0.0.0.0:4000` - Jekyll on all interfaces
+- `0.0.0.0:22` - SSH listening on ALL interfaces (accessible from network)
+- `127.0.0.1:631` - Print service on localhost only (not accessible from network)
+- `0.0.0.0:4000` - Some service on all interfaces
 
 **Command flags:**
-- `-t` TCP, `-u` UDP, `-l` listening, `-n` numeric
+- `-t` = TCP connections
+- `-u` = UDP connections
+- `-l` = Listening sockets only
+- `-n` = Show numeric ports (don't resolve service names)
 
-**With process names:**
+### Viewing with Process Names
+
+See which program is using each port:
+
 ```bash
 sudo ss -tulnp
 ```
 
-Shows which program uses which port:
+**Example output:**
 ```
-LISTEN  0.0.0.0:22    users:(("sshd",pid=1234))
+LISTEN  0.0.0.0:22    users:(("sshd",pid=1234,fd=3))
+LISTEN  0.0.0.0:4000  users:(("ruby",pid=5678,fd=12))
 ```
 
-**Your turn:**
+Now you can see that SSH daemon (`sshd`) is using port 22, and Ruby (probably Jekyll) is using port 4000.
+
+Try it yourself:
+
 ```bash
 sudo ss -tuln | grep LISTEN
 sudo ss -tulnp | grep LISTEN
 ```
 
-**Observe:** Which ports are listening? Which programs?
+**Observe:** 
+- Which ports are listening?
+- Which programs are using them?
+- Are they listening on all interfaces (0.0.0.0) or just localhost (127.0.0.1)?
 
 ---
 
 ## Chapter 4: Packet Analysis with Wireshark
 
-You've tested connectivity with ping and viewed ports with ss. Wireshark shows you the actual packets traveling across your network.
+You've tested connectivity with ping and viewed ports with ss. Wireshark lets you see the actual packets traveling across your network - the raw data being sent and received.
 
 ### Installing Wireshark
+
 ```bash
-sudo apt install wireshark -y
+sudo apt install -y wireshark
 ```
 
-When asked "Should non-superusers be able to capture packets?" - select **Yes**
+During installation, you'll be asked: "Should non-superusers be able to capture packets?"
+
+Select **Yes**, then add yourself to the wireshark group:
+
 ```bash
 sudo usermod -aG wireshark $USER
 ```
 
-**Log out and back in** for this to take effect.
+**Important:** Log out and log back in for this to take effect.
 
-### Capturing Traffic
+### Starting Wireshark
+
+Launch Wireshark:
+
 ```bash
 wireshark
 ```
 
-**To capture:**
-1. Double-click your main interface (eth0, enp0s3)
-2. Packets appear in real-time
-3. Click red Stop button when done
+The GUI will open showing a list of network interfaces.
 
-**Three panels:**
+### Capturing Traffic
+
+**To start capturing:**
+1. Double-click your main interface (eth0, enp0s3, or whatever you identified earlier)
+2. Packets will start appearing in real-time
+3. Click the red Stop button when done
+
+**Understanding the interface:**
+
+Wireshark has three panels:
 - **Top:** Packet list (one line per packet)
 - **Middle:** Packet details (expandable structure)
-- **Bottom:** Raw bytes
+- **Bottom:** Raw bytes (hexadecimal)
 
 ### Filtering Packets
 
-Type in filter bar:
+With many packets flying by, filters help you focus. Type in the filter bar at the top:
+
 ```
-icmp                    # Ping traffic only
-tcp                     # TCP traffic only
-ip.addr == 8.8.8.8     # Specific IP only
+icmp
 ```
 
-Press Enter to apply, click X to clear.
+Press Enter. Now you only see ping traffic.
+
+**Other useful filters:**
+```
+tcp                     # TCP traffic only
+udp                     # UDP traffic only
+ip.addr == 8.8.8.8     # Traffic to/from specific IP
+tcp.port == 22         # SSH traffic only
+```
+
+Press the X button next to the filter to clear it.
 
 ### Examining Packets
 
-Click any packet. In middle panel, expand sections:
+Click any packet in the top panel. In the middle panel, you'll see expandable sections:
+
 ```
+▼ Ethernet II
 ▼ Internet Protocol Version 4
   Source: 192.168.1.105
   Destination: 8.8.8.8
@@ -352,185 +442,434 @@ Click any packet. In middle panel, expand sections:
   Type: 8 (Echo request)
 ```
 
-This shows packet structure - protocols used and data contained.
+Click the arrows to expand/collapse sections. This shows the layered structure of network protocols.
 
-**Your turn:**
+Let's try it. First, start Wireshark:
+
 ```bash
-# Start Wireshark
 wireshark &
-
-# Capture on your interface (double-click it)
-
-# Generate traffic
-ping -c 5 8.8.8.8
-
-# Stop capture
 ```
+
+**Now capture some traffic:**
+
+1. In Wireshark, double-click your main interface to start capturing
+2. In your terminal, generate some ping traffic:
+
+```bash
+ping -c 5 8.8.8.8
+```
+
+3. Back in Wireshark, click the red Stop button
+4. In the filter bar, type `icmp` and press Enter
 
 **Observe:**
-1. Apply filter: `icmp`
-2. Count packets (5 requests + 5 replies = 10)
-3. Click a request, expand layers
-4. See source/destination IPs
-5. Try filter: `ip.addr == 8.8.8.8`
+- You should see 10 packets (5 requests + 5 replies)
+- Click a "request" packet, expand "Internet Protocol Version 4"
+- See source (your IP) and destination (8.8.8.8)
+- Click a "reply" packet - source and destination are swapped
+- Clear the filter and try: `ip.addr == 8.8.8.8`
 
 ---
 
-## Hands-On Exercises
+## 💻 Hands-On Exercises
 
-### Exercise 1: Network Discovery (5 min)
+Test your networking skills!
+
+### Exercise 1: Network Configuration Discovery
+
+**Problem:** Document your complete network configuration.
+
+**Requirements:**
+- Find your IP address and interface name
+- Find your gateway IP
+- Find your DNS servers
+- Determine if your IP is private or public
+- Identify the network size (CIDR notation)
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `ip addr show` for IP and interface, `ip route show` for gateway, `cat /etc/resolv.conf` for DNS.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
+# Get IP and interface
 ip addr show
-ip route show
-cat /etc/resolv.conf
-```
 
-**Record:** Your IP, gateway, DNS servers, main interface name
-
----
-
-### Exercise 2: Connectivity Testing (5 min)
-```bash
-ping -c 3 127.0.0.1
-ping -c 3 <YOUR_GATEWAY>
-ping -c 3 8.8.8.8
-ping -c 3 google.com
-```
-
-**Observe:** All succeed? Record latency for each.
-
----
-
-### Exercise 3: Interface Check (4 min)
-```bash
-ip link show
+# Get gateway
 ip route show | grep default
-```
 
-**Observe:** Which interfaces are UP? Which carries your traffic?
+# Get DNS servers
+cat /etc/resolv.conf
+
+# Example results:
+# IP: 192.168.1.105/24 (private, 10.x, 172.16-31.x, or 192.168.x)
+# Interface: eth0 or enp0s3 or ens3
+# Gateway: 192.168.1.1
+# DNS: 8.8.8.8, 8.8.4.4
+# Network size: /24 = 256 addresses
+```
+</details>
 
 ---
 
-### Exercise 4: Port Discovery (4 min)
+### Exercise 2: Systematic Connectivity Testing
+
+**Problem:** Test your network connectivity using the systematic approach.
+
+**Requirements:**
+- Test localhost
+- Test gateway
+- Test internet (8.8.8.8)
+- Test DNS resolution (google.com)
+- Record the latency (time) for each test
+- If any test fails, identify where the problem is
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `ping -c 3` for each test. Look at the "time=" value in the output. Use the troubleshooting table from Chapter 2.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-sudo ss -tuln | grep LISTEN
-sudo ss -tulnp | grep LISTEN
-```
+# Test 1: Localhost
+ping -c 3 127.0.0.1
+# Expected: ~0.02ms, always works
 
-**Observe:** Which ports listening? Which programs?
+# Test 2: Gateway (use YOUR gateway)
+ping -c 3 <your-gateway-ip>
+# Expected: ~1-5ms
+
+# Test 3: Internet
+ping -c 3 8.8.8.8
+# Expected: ~10-50ms
+
+# Test 4: DNS
+ping -c 3 google.com
+# Expected: Similar to test 3
+
+# If test 2 fails but test 1 works: Local network problem
+# If test 3 fails but test 2 works: Internet/ISP problem
+# If test 4 fails but test 3 works: DNS problem
+```
+</details>
 
 ---
 
-### Exercise 5: Wireshark Packet Capture (5 min)
+### Exercise 3: Interface Status Check
+
+**Problem:** Determine which interfaces are active and which is carrying your traffic.
+
+**Requirements:**
+- List all network interfaces
+- Identify which are UP
+- Find which interface has your default route
+- Check if any Docker or virtual interfaces exist
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `ip link show` for interface status, `ip route show` for routing. Look for `UP` in status, and `default via` in routing.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+# List all interfaces with status
+ip link show
+
+# Check which interface has default route
+ip route show | grep default
+
+# Detailed address info
+ip addr show
+
+# Interface carrying traffic is the one in "default via X.X.X.X dev INTERFACE"
+```
+</details>
+
+---
+
+### Exercise 4: Port and Service Discovery
+
+**Problem:** Identify what services are running on your system.
+
+**Requirements:**
+- List all listening TCP ports
+- List all listening UDP ports
+- Identify which programs are using these ports
+- Find if SSH (port 22) is running
+- Count how many services are listening
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `sudo ss -tuln` for ports, add `p` flag for program names. Use `grep` to filter for specific ports or count with `wc -l`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+# All listening ports
+sudo ss -tuln | grep LISTEN
+
+# With program names
+sudo ss -tulnp | grep LISTEN
+
+# Check if SSH is running
+sudo ss -tulnp | grep :22
+
+# Count listening services
+sudo ss -tuln | grep LISTEN | wc -l
+
+# Example: If you see 0.0.0.0:22, SSH is accessible from network
+# If you see 127.0.0.1:631, that service only accepts local connections
+```
+</details>
+
+---
+
+### Exercise 5: Basic Wireshark Capture
+
+**Problem:** Capture and analyze ping traffic using Wireshark.
+
+**Requirements:**
+- Start Wireshark and begin capturing on your main interface
+- Generate 5 pings to 8.8.8.8
+- Stop the capture
+- Filter to show only ICMP traffic
+- Count the total packets (requests + replies)
+- Examine one request and one reply packet
+- Save the capture file
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Double-click interface to start capture. Use `icmp` filter. Expand "Internet Protocol" section in middle panel. Save with File → Save As.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
 # Start Wireshark
 wireshark &
 
-# Capture on your interface
+# In Wireshark: Double-click your main interface
 
-# Generate ping traffic
+# In terminal: Generate traffic
 ping -c 5 8.8.8.8
 
-# Stop capture
+# In Wireshark:
+# 1. Click red Stop button
+# 2. Type "icmp" in filter bar, press Enter
+# 3. Should see 10 packets (5 requests + 5 replies)
+# 4. Click a request packet
+# 5. In middle panel, expand "Internet Protocol Version 4"
+# 6. Note: Source = your IP, Destination = 8.8.8.8
+# 7. Click a reply packet
+# 8. Note: Source and Destination are swapped
+# 9. File → Save As → ~/ping-capture.pcapng
 ```
-
-**Tasks:**
-1. Apply filter: `icmp`
-2. Click a request packet, expand "Internet Protocol Version 4"
-3. Click a reply packet, compare with request
-4. Try filter: `tcp`
-5. Save capture: File → Save As → `~/network-practice.pcapng`
+</details>
 
 ---
 
-## Self-Check Quiz
+### Exercise 6: DNS Investigation
 
-<details>
-<summary>❓ Q1: IP address 10.128.50.100/24 - private or public? What's the range?</summary>
+**Problem:** Investigate how DNS works using both command-line and Wireshark.
 
-**Answer:** Private (10.x.x.x range). Network: 10.128.50.0 - 10.128.50.255 (256 addresses).
+**Requirements:**
+- Check your DNS servers
+- Use Wireshark to capture DNS traffic
+- In terminal, run: `ping -c 1 github.com`
+- Stop capture and filter for DNS traffic (`dns`)
+- Identify the DNS query and response packets
+- Find what IP address github.com resolved to
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+DNS uses UDP port 53. In Wireshark, use filter `dns`. Look for "Standard query" and "Standard query response" packets. The IP will be in the response packet.
 </details>
 
-<details>
-<summary>❓ Q2: Difference between `ip addr show` and `ip link show`?</summary>
+<details markdown="1">
+<summary>✅ Solution</summary>
 
-**Answer:** `ip link show` shows interfaces and status. `ip addr show` additionally shows IP addresses.
+```bash
+# Check DNS servers
+cat /etc/resolv.conf
+
+# Start Wireshark, double-click interface
+
+# Generate DNS traffic
+ping -c 1 github.com
+
+# In Wireshark:
+# 1. Stop capture
+# 2. Filter: dns
+# 3. Find "Standard query" packet (your computer asking for github.com)
+# 4. Find "Standard query response" packet (DNS server responding)
+# 5. Click response packet
+# 6. Expand "Domain Name System (response)"
+# 7. Look for "github.com: type A, class IN, addr X.X.X.X"
+# 8. That's the IP address!
+```
 </details>
 
-<details>
+---
+
+### Exercise 7: Troubleshooting Scenario
+
+**Problem:** Simulate and diagnose a network problem.
+
+**Requirements:**
+- Temporarily change your DNS server to an invalid one (1.2.3.4)
+- Test if you can still ping 8.8.8.8
+- Test if you can ping google.com
+- Explain why one works and one doesn't
+- Restore your original DNS configuration
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Edit `/etc/resolv.conf` with sudo. Ping by IP works without DNS. Ping by hostname needs DNS. Reboot or restore the file to fix.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+# Backup original DNS config
+sudo cp /etc/resolv.conf /etc/resolv.conf.backup
+
+# Set invalid DNS
+echo "nameserver 1.2.3.4" | sudo tee /etc/resolv.conf
+
+# Test IP - WORKS
+ping -c 3 8.8.8.8
+# This works because it doesn't need DNS
+
+# Test hostname - FAILS
+ping -c 3 google.com
+# This fails because DNS can't resolve the name
+
+# Explanation: Internet connection is fine, but DNS is broken
+
+# Restore DNS
+sudo mv /etc/resolv.conf.backup /etc/resolv.conf
+
+# Verify it works again
+ping -c 3 google.com
+```
+</details>
+
+---
+
+## ✅ Self-Check Quiz
+
+<details markdown="1">
+<summary>❓ Q1: IP address 10.128.50.100/24 - private or public? What's the network range?</summary>
+
+**Answer:** Private (10.x.x.x range). Network: 10.128.50.0 - 10.128.50.255 (256 addresses, /24 = 2^8).
+</details>
+
+<details markdown="1">
+<summary>❓ Q2: What's the difference between `ip addr show` and `ip link show`?</summary>
+
+**Answer:** `ip link show` shows interfaces and their status (UP/DOWN). `ip addr show` additionally shows IP addresses assigned to each interface.
+</details>
+
+<details markdown="1">
 <summary>❓ Q3: Can ping 8.8.8.8 but not google.com. What's wrong?</summary>
 
-**Answer:** DNS resolution failing. Internet works (reach by IP), but can't translate hostnames.
+**Answer:** DNS resolution is failing. Internet connection works (can reach by IP), but can't translate hostnames to IPs. Check `/etc/resolv.conf`.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q4: What does `0.0.0.0:22` mean in ss output?</summary>
 
-**Answer:** Service listening on ALL interfaces, port 22. Accessible from any network.
+**Answer:** Service listening on ALL interfaces at port 22 (SSH). Accessible from any network the machine is connected to, not just localhost.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q5: Gateway is 10.0.2.2, can ping it, but not 8.8.8.8. Where's the problem?</summary>
 
-**Answer:** Beyond local network - router has no internet or ISP issue. Local network works fine.
+**Answer:** Beyond local network - gateway/router has no internet connection or ISP issue. Local network works fine (can reach gateway).
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Q6: What does Wireshark do?</summary>
 
-**Answer:** Captures and displays network packets, showing actual data traveling across networks in real-time.
+**Answer:** Captures and displays network packets in real-time, showing the actual data traveling across networks with full protocol details.
 </details>
 
-<details>
-<summary>❓ Q7: How to filter only ping traffic in Wireshark?</summary>
+<details markdown="1">
+<summary>❓ Q7: How do you filter only ping traffic in Wireshark?</summary>
 
-**Answer:** Type `icmp` in filter bar and press Enter.
+**Answer:** Type `icmp` in the filter bar and press Enter. ICMP is the protocol used by ping.
+</details>
+
+<details markdown="1">
+<summary>❓ Q8: What's the difference between private and public IP addresses?</summary>
+
+**Answer:** Private IPs (10.x, 172.16-31.x, 192.168.x) are for local networks only, can be reused. Public IPs are globally unique and routable on the internet.
 </details>
 
 ---
 
-## Summary
+## 🎓 Summary
 
 ### Commands Mastered
 
 | Command | Purpose |
 |---------|---------|
-| `ip addr show` | View interfaces and IPs |
-| `ip link show` | View interface status |
-| `ip route show` | View gateway and routing |
-| `ping` | Test connectivity |
-| `ss -tuln` | View listening ports |
-| `ss -tulnp` | View ports with programs |
-| `cat /etc/resolv.conf` | View DNS servers |
-| `wireshark` | Capture and analyze packets |
+| `ip addr show` | View interfaces and IP addresses |
+| `ip link show` | View interface status only |
+| `ip route show` | View gateway and routing table |
+| `ping -c N` | Test connectivity (N packets) |
+| `ss -tuln` | View listening TCP/UDP ports |
+| `ss -tulnp` | View ports with program names |
+| `cat /etc/resolv.conf` | View DNS server configuration |
+| `wireshark` | Capture and analyze network packets |
 
 ### Key Concepts
 
 - ✓ IP addresses identify devices on networks
-- ✓ Interfaces are connection points (physical or virtual)
+- ✓ Network interfaces are connection points (physical or virtual)
 - ✓ Private IPs (10.x, 172.16-31.x, 192.168.x) for local networks
-- ✓ Public IPs are globally unique
-- ✓ Gateways connect local network to internet
+- ✓ Public IPs are globally unique and internet-routable
+- ✓ Gateways connect local networks to the internet
 - ✓ CIDR notation (/24, /16) indicates network size
-- ✓ Ports identify services (IP:Port = socket)
-- ✓ Systematic testing isolates problems
+- ✓ Ports identify specific services (IP:Port = socket)
+- ✓ Systematic testing isolates network problems
 - ✓ Wireshark visualizes actual network traffic
+- ✓ DNS translates hostnames to IP addresses
 
 ### What You Can Do Now
 
-- ✓ Check network configuration quickly
-- ✓ Test connectivity systematically
-- ✓ View running services and ports
-- ✓ Capture network packets
-- ✓ Filter traffic to focus on specific protocols
-- ✓ Examine packet structure
-- ✓ Troubleshoot basic network issues
+- ✓ Check network configuration on any Linux system
+- ✓ Test connectivity systematically to isolate problems
+- ✓ View running services and which ports they use
+- ✓ Capture and analyze network packets
+- ✓ Filter Wireshark traffic to focus on specific protocols
+- ✓ Examine packet structure and understand protocols
+- ✓ Troubleshoot basic network connectivity issues
+- ✓ Distinguish between local network, internet, and DNS problems
 
-These skills will be used throughout the workshop for verifying setup and troubleshooting connectivity.
+These skills will be used throughout the workshop for verifying setup, testing connectivity, and troubleshooting network issues.
 
 ---
 
-## Additional Resources
+## 📚 Additional Resources
 
 **For deeper understanding:**
 - [Linux Networking Commands](https://www.tecmint.com/linux-networking-commands/)
@@ -545,6 +884,6 @@ These skills will be used throughout the workshop for verifying setup and troubl
 
 **Module Complete!** ✅
 
-You now have the networking foundation needed for the workshop.
+You now have the networking foundation needed for the workshop!
 
 [⬅️ Previous: Module 5](module-5-c-compilation) | [Workshop Schedule →](../../workshop/)

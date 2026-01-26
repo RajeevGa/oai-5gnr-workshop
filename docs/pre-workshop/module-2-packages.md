@@ -23,12 +23,18 @@ By the end of this module, you'll be able to:
 
 ---
 
+## 🎯 How to Use This Module
+
+Follow along with the examples as you read. Keep your terminal open and try the commands as they're introduced. At the end, you'll complete exercises that test your understanding.
+
+---
+
 ## 📖 Chapter 1: Understanding Package Management
 
 ### What is a Package?
 
 A **package** is a bundle containing:
-- Software application (the program)
+- Software application (the program itself)
 - Dependencies (other software it needs)
 - Configuration files
 - Documentation
@@ -44,7 +50,7 @@ A **package manager** automates:
 - ✅ Resolving dependencies (installing required libraries automatically)
 - ✅ Managing versions
 
-**Without package manager (old way):**
+**Without package manager (the old way):**
 ```
 1. Search Google for software
 2. Download from random website
@@ -54,7 +60,7 @@ A **package manager** automates:
 6. Update manually
 ```
 
-**With package manager (modern way):**
+**With package manager (the modern way):**
 ```
 sudo apt install software-name
 Done! ✓
@@ -64,9 +70,9 @@ Done! ✓
 
 **APT** (Advanced Package Tool) is Ubuntu's package manager.
 
-**Package sources:** Software comes from official Ubuntu repositories (secure, verified)
+**Package sources:** Software comes from official Ubuntu repositories (secure, verified packages).
 
-**Common commands:**
+**Common commands you'll learn:**
 - `apt update` - Refresh list of available packages
 - `apt upgrade` - Update installed packages
 - `apt install` - Install new software
@@ -85,16 +91,19 @@ Regular updates provide:
 - ✨ New features
 - 🔧 Better compatibility
 
-### The Two-Step Update Process
+### Understanding the Update Process
 
-#### Step 1: Update Package Lists
+Package management has two separate steps: updating the list of available packages, and upgrading the actual software. Let's try both.
+
+First, update the package lists:
+
 ```bash
 sudo apt update
 ```
 
-**What it does:** Downloads information about available packages and their versions from Ubuntu's servers. Like refreshing the app store catalog.
+**What it does:** Downloads information about available packages and their versions from Ubuntu's servers. Like refreshing your app store catalog.
 
-**Expected output:**
+You'll see output like:
 ```
 Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
 Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
@@ -105,14 +114,21 @@ Building dependency tree... Done
 3 packages can be upgraded. Run 'apt list --upgradable' to see them.
 ```
 
-#### Step 2: Upgrade Packages
+The last line tells you if any updates are available. Let's check what can be updated:
+
+```bash
+apt list --upgradable
+```
+
+This shows packages with available updates. Now let's actually upgrade them:
+
 ```bash
 sudo apt upgrade
 ```
 
-**What it does:** Actually installs the newer versions of your installed packages.
+**What it does:** Installs the newer versions of your installed packages.
 
-**Expected output:**
+You'll see:
 ```
 Reading package lists... Done
 Building dependency tree... Done
@@ -122,141 +138,127 @@ The following packages will be upgraded:
 3 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 Need to get 2,345 kB of archives.
 After this operation, 123 kB of additional disk space will be used.
-Do you want to continue? [Y/n] 
+Do you want to continue? [Y/n]
 ```
 
-Type `Y` and press Enter.
+Type `Y` and press Enter. The packages will download and install.
 
-### Full Upgrade (Advanced)
+💡 **Pro tip:** You can skip the confirmation prompt with the `-y` flag:
 ```bash
-sudo apt full-upgrade
-```
-
-**Difference:** Can remove packages if needed to resolve dependencies. More aggressive than `upgrade`.
-
-**Use when:** Major version updates or complex dependency changes.
-
-### Checking Available Updates
-```bash
-# See what can be updated
-apt list --upgradable
-
-# Count updates available
-apt list --upgradable | wc -l
+sudo apt upgrade -y
 ```
 
 ---
 
 ## 📥 Chapter 3: Installing Software
 
-### Basic Installation
+### Installing Your First Package
+
+Most Ubuntu systems don't come with `curl` pre-installed. Let's install it now. Type:
+
 ```bash
-sudo apt install package-name
+sudo apt install curl
 ```
 
-**Example:**
-```bash
-# Install Git
-sudo apt install git
-
-# Install multiple packages at once
-sudo apt install git curl wget
-
-# Install without confirmation prompt
-sudo apt install -y git
-```
-
-### What Happens During Installation
-```
-1. APT checks if package exists
-2. Checks dependencies (what else is needed)
-3. Downloads package and dependencies
-4. Installs everything in correct order
-5. Configures the software
-6. Updates system records
-```
-
-### Real Example: Installing Git
-```bash
-sudo apt install git
-```
-
-**Output walkthrough:**
+**What happens:**
 ```
 Reading package lists... Done          ← Checking available packages
 Building dependency tree... Done        ← Figuring out dependencies
-The following additional packages will be installed:
-  git-man liberror-perl               ← Dependencies that will also install
-Suggested packages:
-  git-daemon-run git-doc              ← Optional related packages
 The following NEW packages will be installed:
-  git git-man liberror-perl           ← What will be installed
-0 upgraded, 3 newly installed, 0 to remove
-Need to get 8,234 kB of archives      ← Download size
-After this operation, 42.3 MB will be used  ← Disk space needed
+  curl                                  ← What will be installed
+0 upgraded, 1 newly installed, 0 to remove
+Need to get 194 kB of archives         ← Download size
+After this operation, 451 kB will be used  ← Disk space needed
 Do you want to continue? [Y/n]
 ```
 
-Press `Y` then Enter.
+Press `Y` and Enter. Once installed, test it:
+
+```bash
+curl --version
 ```
-Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 git amd64 1:2.34.1 [3,165 kB]
-...
-Fetched 8,234 kB in 3s (2,745 kB/s)
-Selecting previously unselected package git-man.
-...
-Setting up git (1:2.34.1-1ubuntu1) ...
+
+You should see version information. Let's test it by downloading a simple text file:
+
+```bash
+curl https://www.example.com
+```
+
+This downloads and displays the HTML of example.com. Pretty neat!
+
+### Installing Multiple Packages
+
+You can install several packages in one command. Let's install two more useful tools:
+
+```bash
+sudo apt install wget htop
+```
+
+This installs:
+- `wget` - Another download tool (alternative to curl)
+- `htop` - Interactive system monitor (better than `top`)
+
+Test them:
+```bash
+wget --version
+htop --version
+```
+
+You can run `htop` to see a nice system monitor (press `q` to quit):
+```bash
+htop
 ```
 
 ### Verifying Installation
+
+Check if a package is installed:
+
 ```bash
-# Check if installed
-git --version
+# Check version
+curl --version
 
-# Check installation location
-which git
+# Check location
+which curl
 
-# Show package info
-apt show git
+# Get detailed info
+apt show curl
 ```
+
+The `which` command shows where the program is installed. The `apt show` command gives detailed package information.
 
 ---
 
 ## 🔍 Chapter 4: Searching for Packages
 
 ### Finding Software
+
+Don't know the exact package name? Search for it:
+
 ```bash
-# Search by name
-apt search docker
-
-# Search for specific package
-apt search ^docker$
-
-# Case-insensitive search
-apt search -n docker
+apt search network
 ```
 
-**Output:**
-```
-docker.io/jammy 20.10.21-0ubuntu1 amd64
-  Linux container runtime
+This returns many results. To narrow it down, search for packages with "network" in the name:
 
-docker-compose/jammy 1.29.2-1 all
-  define and run multi-container Docker applications
-```
-
-### Getting Package Information
 ```bash
-# Detailed info about a package
+apt search ^network
+```
+
+The `^` symbol means "starts with".
+
+Let's search for Git (a version control tool you'll need later):
+
+```bash
+apt search git
+```
+
+You'll see many results including `git`, `git-man`, `gitk`, and more. To get detailed information about a specific package before installing:
+
+```bash
 apt show git
-
-# Show installed packages
-apt list --installed
-
-# Show specific package
-apt list git
 ```
 
-**Example output:**
+This displays information like:
 ```
 Package: git
 Version: 1:2.34.1-1ubuntu1
@@ -264,351 +266,317 @@ Priority: optional
 Section: vcs
 Maintainer: Ubuntu Developers
 Installed-Size: 42.3 MB
-Depends: libc6, libcurl3-gnutls, liberror-perl...
+Depends: libc6, libcurl3-gnutls...
 Description: fast, scalable, distributed revision control system
  Git is a version control system with an emphasis on speed...
 ```
+
+Now you can decide if you want to install it. Let's install it:
+
+```bash
+sudo apt install git
+```
+
+Verify it's installed:
+
+```bash
+git --version
+```
+
+### Listing Installed Packages
+
+See everything installed on your system:
+
+```bash
+apt list --installed
+```
+
+This is a long list! To search within it, use `grep`. Let's check if `git` is now installed:
+
+```bash
+apt list --installed | grep git
+```
+
+This should show `git` in the list since we just installed it.
 
 ---
 
 ## 🗑️ Chapter 5: Removing Software
 
-### Uninstall Package
+### Uninstalling Packages
+
+Now that you've installed `wget` and `htop`, let's practice removing one. Remove `htop`:
+
 ```bash
-# Remove package (keep config files)
-sudo apt remove package-name
-
-# Remove package and config files
-sudo apt purge package-name
-
-# Remove unused dependencies
-sudo apt autoremove
+sudo apt remove htop
 ```
 
-**Example:**
+This uninstalls the package but keeps configuration files (in case you reinstall later).
+
+To completely remove a package including its configuration, use `purge` instead:
+
 ```bash
-# Install test package
-sudo apt install cowsay
-
-# Test it
-cowsay "Hello!"
-
-# Remove it
-sudo apt remove cowsay
-
-# Clean up dependencies
-sudo apt autoremove
+sudo apt purge htop
 ```
+
+💡 **Note:** Since we just removed it with `remove`, running `purge` now will just clean up the leftover config files.
 
 ### Cleaning Up
+
+Over time, your system accumulates packages that were installed as dependencies but are no longer needed. Clean them up:
+
 ```bash
-# Remove downloaded package files (safe)
-sudo apt clean
-
-# Remove old package files
-sudo apt autoclean
-
-# Remove unnecessary packages
 sudo apt autoremove
 ```
 
----
+This removes packages that have no dependencies anymore.
 
-## 🛠️ Chapter 6: Essential Workshop Tools
+You can also clear the package download cache:
 
-### Build Tools
-
-These tools compile software from source code:
 ```bash
-sudo apt install build-essential
+sudo apt clean
 ```
 
-**Includes:**
-- `gcc` - C compiler
-- `g++` - C++ compiler  
-- `make` - Build automation
-- Libraries and headers
-
-**Verify:**
-```bash
-gcc --version
-make --version
-```
-
-### Version Control
-```bash
-sudo apt install git
-```
-
-**Why needed:** Clone OAI repository from GitLab
-
-**Verify:**
-```bash
-git --version
-```
-
-### CMake (Build System)
-```bash
-sudo apt install cmake
-```
-
-**Why needed:** OAI uses CMake to build
-
-**Verify:**
-```bash
-cmake --version
-```
-
-### Network Tools
-```bash
-sudo apt install net-tools iputils-ping
-```
-
-**Provides:**
-- `ifconfig` - Network interface configuration
-- `ping` - Test connectivity
-- `netstat` - Network statistics
-
-**Verify:**
-```bash
-ifconfig
-ping -c 2 8.8.8.8
-```
-
-### Additional Useful Tools
-```bash
-# Text editor (if not already installed)
-sudo apt install nano vim
-
-# File compression tools
-sudo apt install zip unzip
-
-# Download tools
-sudo apt install wget curl
-
-# System monitoring
-sudo apt install htop
-
-# All at once
-sudo apt install -y nano vim zip unzip wget curl htop
-```
+This frees up disk space by removing downloaded package files (they're no longer needed after installation).
 
 ---
 
-## 🎯 Chapter 7: Installing Docker and Docker Compose
+## 🔧 Chapter 6: Troubleshooting Common Issues
 
-Docker will be covered in detail in Module 4, but let's install it now:
+### "Unable to locate package"
+
+**Problem:** The package name is wrong or your package lists are outdated.
+
+**Solution:** Update your package lists first:
 ```bash
-# Install Docker
-sudo apt install -y docker.io
-
-# Add your user to docker group (avoid sudo for docker commands)
-sudo usermod -aG docker $USER
-
-# Install Docker Compose
-sudo apt install -y docker-compose
-
-# Note: Log out and log back in for group changes to take effect
-```
-
-**Verify after re-login:**
-```bash
-docker --version
-docker-compose --version
-```
-
----
-
-## 🔧 Chapter 8: Troubleshooting Common Issues
-
-### Issue: "Unable to locate package"
-
-**Problem:** Package name is wrong or repositories not updated
-
-**Solution:**
-```bash
-# Update package lists
 sudo apt update
-
-# Search for correct name
 apt search package-name
 ```
 
-### Issue: "Package has unmet dependencies"
+### "Package has unmet dependencies"
 
-**Problem:** Dependency conflicts
+**Problem:** There are dependency conflicts.
 
-**Solution:**
+**Solution:** Try fixing broken packages:
 ```bash
-# Try fixing broken packages
 sudo apt --fix-broken install
-
-# Or
-sudo apt install -f
 ```
 
-### Issue: "Could not get lock"
+### "Could not get lock"
 
-**Problem:** Another package manager is running
-
-**Full error:**
+**Full error message:**
 ```
 E: Could not get lock /var/lib/dpkg/lock-frontend
 ```
 
-**Solution:**
-```bash
-# Wait for other process to finish
-# Or find and kill it
-ps aux | grep apt
-sudo kill <process-id>
+**Problem:** Another package manager is already running (like Software Updater).
 
-# If still stuck (use carefully!)
+**Solution:** Wait for the other process to finish. You can check what's running:
+```bash
+ps aux | grep apt
+```
+
+If nothing should be running but you still get this error, you can remove the lock file:
+```bash
 sudo rm /var/lib/dpkg/lock-frontend
 sudo apt update
 ```
 
-### Issue: "404 Not Found"
+⚠️ **Warning:** Only do this if you're sure no other package manager is running!
 
-**Problem:** Repository URL is wrong or outdated
+### Broken Packages After Update
 
-**Solution:**
+**Solution:** Reconfigure packages and fix installations:
 ```bash
-# Update package lists
-sudo apt update
-
-# Change to different mirror (if needed)
-sudo nano /etc/apt/sources.list
-```
-
-### Issue: Broken Packages After Update
-
-**Solution:**
-```bash
-# Reconfigure packages
 sudo dpkg --configure -a
-
-# Fix broken installations
 sudo apt --fix-broken install
 ```
 
 ---
 
-## 🧪 Hands-On Exercise
+## 💻 Hands-On Exercises
 
-### Task 1: System Update (3 min)
+Now test your knowledge! Try to solve these problems using what you've learned.
+
+### Exercise 1: System Update
+
+**Problem:** Your system needs to be updated with the latest security patches and software versions.
+
+**Requirements:**
+- Update the package lists
+- Check how many packages can be upgraded
+- Upgrade all packages
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `apt update` first, then `apt list --upgradable` to check, then `apt upgrade`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# Update package lists
 sudo apt update
-
-# Check what can be updated
 apt list --upgradable
-
-# Upgrade packages
 sudo apt upgrade -y
 ```
-
-**Expected:** System is up-to-date
+</details>
 
 ---
 
-### Task 2: Install Workshop Tools (5 min)
-```bash
-# Install essential tools
-sudo apt install -y build-essential git cmake
+### Exercise 2: Installing Development Tools
 
-# Verify
+**Problem:** You need to install essential development tools for compiling software.
+
+**Requirements:**
+- Install the `build-essential` package (contains compilers and build tools)
+- Install `git` for version control
+- Install `cmake` for build configuration
+- Verify each tool is installed by checking their versions
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+You can install multiple packages in one command. Use `--version` flag to check versions.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+sudo apt install build-essential git cmake
 gcc --version
 git --version
 cmake --version
-
-# Install network tools
-sudo apt install -y net-tools iputils-ping
-
-# Verify
-ifconfig
-ping -c 2 8.8.8.8
 ```
-
-**Expected:** All tools installed and verified
+</details>
 
 ---
 
-### Task 3: Search and Install Practice (3 min)
+### Exercise 3: Installing Network Tools
+
+**Problem:** You need network diagnostic tools for troubleshooting.
+
+**Requirements:**
+- Install `net-tools` (provides `ifconfig`)
+- Install `iputils-ping` (provides `ping` - though it's usually pre-installed)
+- Test `ifconfig` to see your network interfaces
+- Test `ping` by pinging Google's DNS server (8.8.8.8) with 3 packets
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `-c` flag with ping to specify packet count. Multiple packages can be installed together. Note: `ping` might already be installed.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# Search for a package
-apt search tree
+sudo apt install net-tools iputils-ping
+ifconfig
+ping -c 3 8.8.8.8
+```
+</details>
 
-# Install tree (directory visualization tool)
-sudo apt install -y tree
+---
 
-# Test it
-tree ~/ -L 2
+### Exercise 4: Package Search and Information
 
-# Get package info
-apt show tree
+**Problem:** You've heard about a package called `htop` but want to learn more before installing.
 
-# Remove it (for practice)
-sudo apt remove tree
+**Requirements:**
+- Search for packages related to "htop"
+- Display detailed information about the `htop` package
+- Check if `htop` is currently installed on your system
 
-# Clean up
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `apt search`, `apt show`, and `apt list --installed` with grep.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+apt search htop
+apt show htop
+apt list --installed | grep htop
+```
+</details>
+
+---
+
+### Exercise 5: Install, Use, and Remove
+
+**Problem:** Practice the complete lifecycle of a package.
+
+**Requirements:**
+- Install the `cowsay` package (a fun program that makes an ASCII cow say things)
+- Run it with: `cowsay "Hello Linux!"`
+- Remove the package completely including configuration files
+- Clean up any unused dependencies
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+Use `apt install`, then `apt purge` to remove with configs, then `apt autoremove` for dependencies.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
+```bash
+sudo apt install cowsay
+cowsay "Hello Linux!"
+sudo apt purge cowsay
 sudo apt autoremove
 ```
-
-**Expected:** Comfortable with search, install, remove cycle
+</details>
 
 ---
 
-### Task 4: Complete Workshop Setup (5 min)
+### Exercise 6: Troubleshooting Practice
 
-Install everything needed for the workshop:
+**Problem:** Simulate and fix a broken package situation.
+
+**Requirements:**
+- Try to install a non-existent package called `fake-package-xyz`
+- Observe the error message
+- Update your package lists
+- Search for a similar package that might exist
+
+<details markdown="1">
+<summary>💡 Hint</summary>
+
+The error will say "Unable to locate package". Use `apt update` then `apt search`.
+</details>
+
+<details markdown="1">
+<summary>✅ Solution</summary>
+
 ```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install all workshop requirements
-sudo apt install -y \
-  build-essential \
-  cmake \
-  git \
-  docker.io \
-  docker-compose \
-  net-tools \
-  iputils-ping \
-  nano \
-  vim \
-  wget \
-  curl \
-  htop
-
-# Add to docker group
-sudo usermod -aG docker $USER
-
-# Verify key tools
-echo "=== Verification ==="
-gcc --version | head -1
-git --version
-cmake --version | head -1
-docker --version
-docker-compose --version
-echo "=== Complete! ==="
+sudo apt install fake-package-xyz
+# Error: Unable to locate package
+sudo apt update
+apt search fake
+# No results, package doesn't exist
 ```
-
-**Expected:** All workshop tools installed
-
-**Important:** Log out and log back in for docker group to take effect
+</details>
 
 ---
 
 ## ✅ Self-Check Quiz
 
-<details>
+<details markdown="1">
 <summary>❓ What does `sudo apt update` do?</summary>
 
 **Answer:** Updates the list of available packages from Ubuntu's repositories. It doesn't install or upgrade anything, just refreshes the catalog.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What's the difference between `apt remove` and `apt purge`?</summary>
 
 **Answer:** 
@@ -616,31 +584,31 @@ echo "=== Complete! ==="
 - `apt purge` - Uninstalls package AND removes all configuration files
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ Why do we need `sudo` for apt commands?</summary>
 
 **Answer:** Installing/removing software affects the entire system, not just your user account, so it requires administrator (root) privileges.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What does `apt autoremove` do?</summary>
 
 **Answer:** Removes packages that were installed as dependencies but are no longer needed by any installed software.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ How do you install multiple packages at once?</summary>
 
 **Answer:** List them separated by spaces: `sudo apt install package1 package2 package3`
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ What does the `-y` flag do in `sudo apt install -y git`?</summary>
 
 **Answer:** Automatically answers "yes" to prompts, so installation proceeds without asking for confirmation.
 </details>
 
-<details>
+<details markdown="1">
 <summary>❓ How can you check if a package is installed?</summary>
 
 **Answer:** Several ways:
@@ -678,15 +646,6 @@ echo "=== Complete! ==="
 - ✅ `sudo` is required for system-wide changes
 - ✅ Keep your system updated regularly
 
-### Workshop Tools Installed
-
-- ✅ `build-essential` - Compilers and build tools
-- ✅ `git` - Version control for OAI code
-- ✅ `cmake` - Build system for OAI
-- ✅ `docker` & `docker-compose` - Container platform
-- ✅ `net-tools` - Network utilities
-- ✅ Text editors, download tools, monitoring tools
-
 ---
 
 ## 📚 Additional Resources
@@ -702,29 +661,8 @@ echo "=== Complete! ==="
 - **Arch:** `pacman`
 - **macOS:** `brew` (Homebrew)
 
-**Best Practices:**
-- Update system weekly: `sudo apt update && sudo apt upgrade`
-- Remove unused packages: `sudo apt autoremove`
-- Clean package cache occasionally: `sudo apt clean`
-- Read what packages will be installed before confirming
-- Don't mix package managers (apt vs snap vs manual installs)
-
----
-
-## 🚀 What's Next
-
-You now know how to manage software on Linux! This is essential because:
-
-- Installing OAI dependencies
-- Updating tools during workshop
-- Installing debugging utilities
-- Managing system maintenance
-
-**Next module:** We'll learn Git to download and manage the OAI codebase.
-
 ---
 
 **Module Complete!** ✅
 
 [⬅️ Previous: Module 1](module-1-linux) | [Next: Module 3 →](module-3-git)
-
