@@ -14,7 +14,6 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ## 👥 Who Should Attend?
 
-**Ideal for:**
 -  Undergraduate students in ECE/CSE who has completed coursework in digital communications and computer networks
 - Graduate students (M.Tech/PhD) speacializing in communication systems & networks, signal processing and cyber physical systems
 - Faculty members looking to gain practical 5G implementation experience
@@ -93,14 +92,26 @@ Be comfortable with Linux • Git • Docker • C Compilation • Networking
 </div>
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="Vinay Kulkarni" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-    <h3 style="margin: 10px 0; font-size: 1.1em;">Vinay Kulkarni</h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
-    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
+    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;"></p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;"></p>
     <div style="margin-top: 15px;">
         <a href="https://in.linkedin.com/in/vinaykz" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
     </div>
 </div>
+
+
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;"></p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;"></p>
+    <div style="margin-top: 15px;">
+        <a href="https://in.linkedin.com/in/vinaykz" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
+
 </div>
 
 ---

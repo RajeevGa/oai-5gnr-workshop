@@ -41,33 +41,16 @@ has_children: true
 
 ---
 
-## 🎯 Workshop Outcomes
-
-By the end of the workshop, you will:
-- ✓ Understand 5G NR architecture and protocols
-- ✓ Deploy a complete 5G network using OAI
-- ✓ Analyze 5G traffic with Wireshark
-- ✓ Conduct performance experiments
-- ✓ Navigate OAI ecosystem independently
-
----
-
 ## 📋 What to Bring
 
-**Required:**
-- Laptop with Ubuntu 22.04 (8GB+ RAM, 50GB+ disk)
+- Laptop  with minimum of 4 cores, 8GB RAM, 20 GB free space
+- Ubuntu 22.04 installed (VM is also fine)
 - Completed all pre-workshop modules
 - Laptop charger
-- Notebook for notes
-
-**Optional:**
-- USRP B210 (if available)
-- 5G capable device
 
 ---
 
-
-
+<!--
 ## 📞 Workshop Information
 
 **Instructors:** Rajeev Gangula  
@@ -75,5 +58,5 @@ By the end of the workshop, you will:
 **Locations:** Hyderabad & Bangalore
 
 ---
-
+-->
 [← Back to Home](../../) | [Day 1 Details →](day1) | [Day 2 Details →](day2)
