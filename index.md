@@ -12,50 +12,46 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ---
 
-## 👥 Who Should Attend?
-
--  Undergraduate students in ECE/CSE who has completed coursework in digital communications and computer networks
-- Graduate students (M.Tech/PhD) speacializing in communication systems & networks, signal processing and cyber physical systems
-- Faculty members looking to gain practical 5G implementation experience
-- Telecom engineers wanting to build hands-on experience in 5G systems
-
-**Prerequisites:**
-- Basic understanding and familiarity with digital communications concepts
-- Basic computer networking knowledge
-- Basic understanding of Linux work environment
-- Completed [pre-workshop modules](docs/pre-workshop/) (2.5-3 hours)
-
----
-
-## 🎓 What You'll Achieve
-
-- 🏗️ Deploy your own 5G network from scratch
-- 🔬 Analyze 5G protocols with professional tools
-- 🎯 Gain hands-on skills for 5G research and development
-
----
-
-## 📅 Workshop at a Glance
+## 📅 Workshop Overview
 
 **Duration:** 2 full days (6 hours/day)  
-**Format:** 60% Hands-on, 40% presentation and interactive sessions  
+**Format:** 60% Hands-on, 40% Interactive Sessions
 
-**Day 1:** 5G NR Fundamentals and OAI installation  
+**Day 1:** Introdction to 5G/6G and O-RAN & Getting Started with OAI  
+**Day 2:** Protocol Stack Deep-Dive & RAN experiments with OAI
 
-**Day 2:** 5G NR protocol stack and hands-on exercices with OAI  
+**What You'll Achieve:**
+- �️ Deploy your own 5G network from scratch
+- 🔬 Analyze 5G protocols with professional tools
+- 🎯 Gain practical skills for research and development
 
 [View Detailed Schedule →](docs/workshop/)
 
 ---
 
-## 🔧 Preparation Required
+## 👥 Who Should Attend?
 
-**Before attending, complete**
-[6 Self-Paced Modules →](docs/pre-workshop/) (2.5-3 hours total)
+This workshop is designed for students, faculty, and telecom engineers who want hands-on 5G experience:
 
-Be comfortable with Linux • Git • Docker • C Compilation • Networking
+- **Undergraduate students** in ECE/CSE (completed digital communications & networking courses)
+- **Graduate students** specializing in communications, signal processing, or cyber-physical systems
+- **Faculty members** seeking practical 5G implementation experience
+- **Telecom engineers** building hands-on skills in 5G systems
 
 ---
+## ⚠️ Prerequisites
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+  <ul style="margin: 15px 0; padding-left: 20px;">
+    <li style="margin: 10px 0;">Basic digital communications and computer networking knowledge</li>
+    <li style="margin: 10px 0;">Familiarity with Linux</li>
+    <li style="margin: 10px 0;"><strong>Must complete</strong> our <a href="docs/pre-workshop/" style="color: white; text-decoration: underline;">6 self-paced preparation modules</a> (2.5-3 hours total) covering Linux, Git, Docker, C compilation, and networking fundamentals.</li>
+  </ul>
+  <p style="margin-top: 20px; font-size: 0.95em; opacity: 0.9;">⚡ Without completing these modules, you won't be able to follow the hands-on exercises</p>
+</div>
+
+---
+
 ## 👨‍🏫 Instructors
 
 <div style="display: flex; gap: 30px; flex-wrap: wrap; margin: 30px 0;">
@@ -91,26 +87,42 @@ Be comfortable with Linux • Git • Docker • C Compilation • Networking
     </div>
 </div>
 
+
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <img src="assets/images/instructors/lla.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;"></p>
-    <p style="color: #888; margin: 5px 0; font-size: 0.85em;"></p>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
     <div style="margin-top: 15px;">
-        <a href="https://in.linkedin.com/in/vinaykz" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+        <a href="https://in.linkedin.com/in/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
     </div>
 </div>
 
 
+
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/vinay-kulkarni.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <img src="assets/images/instructors/lla.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;"></p>
-    <p style="color: #888; margin: 5px 0; font-size: 0.85em;"></p>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
     <div style="margin-top: 15px;">
-        <a href="https://in.linkedin.com/in/vinaykz" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+        <a href="https://in.linkedin.com/in/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
     </div>
 </div>
+
+
+
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/lla.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
+    <div style="margin-top: 15px;">
+        <a href="https://in.linkedin.com/in/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
+
+
 
 </div>
 
@@ -119,6 +131,6 @@ Be comfortable with Linux • Git • Docker • C Compilation • Networking
 ## 🚀 Get Started
 
 [Begin Preparation →](docs/pre-workshop/){: .btn .btn-primary}  
-[View Workshop Schedule →](docs/workshop/){: .btn}
+[View Full Schedule →](docs/workshop/){: .btn}
 
 ---

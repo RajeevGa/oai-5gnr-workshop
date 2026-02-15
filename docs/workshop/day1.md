@@ -5,107 +5,63 @@ parent: Workshop Schedule
 nav_order: 1
 ---
 
-# 📅 Day 1: 5G NR Fundamentals
+# Day 1
 
 ---
 
-## Morning Session (9:00 AM - 12:20 PM)
+## Morning Session (9:00 AM - 12:15 PM)
 
-### 9:00 - 10:30 AM: Introduction to 5G NR
-
-**Topics:**
-- Evolution from 1G to 5G
-- 5G use cases: eMBB, URLLC, mMTC
-- Key performance indicators
-- 5G spectrum bands (FR1 and FR2)
-- India's 5G deployment
-
-**Activity:**
-- Group discussion: 5G applications for local communities
+### 9:00 - 10:30 AM: Cellular Technology Landscape and the Open-Source Paradigm
+- Evolution of mobile communication systems: 1G to 5G
+- Cellular industry ecosystem: standardization bodies, operators, equipment vendors, regulators
+- 6G vision: research themes, expected capabilities, and global initiatives
+- Network Functions Virtualization (NFV): concepts and impact on 5G/6G
+- Open RAN (O-RAN) and the role of open-source in modern networks
+- 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollouts
 
 ---
 
-**10:30 - 10:50 AM: ☕ BREAK**
+**10:30 - 11 AM: ☕ BREAK**
 
 ---
 
-### 10:50 AM - 12:20 PM: 5G NR Architecture
+### 11 AM - 12:15 PM: OpenAirInterface & Overview of 5G Network Architecture
 
-**Topics:**
-- NG-RAN architecture (gNB, CU-DU split)
-- 5G Core components (AMF, SMF, UPF, UDM, AUSF, NRF)
-- Protocol stack (PHY, MAC, RLC, PDCP, SDAP, RRC, NAS)
-- Key interfaces (N1, N2, N3, N4, Xn)
-- Control plane vs User plane
-- Network slicing basics
-
-**Lab Exercise:**
-- Draw complete 5G architecture diagram
-- Label all components and interfaces
-- Identify control and user plane paths
+- Introduction to OpenAirInterface (OAI)
+- 5G network design principles
+- 5G network architecture and key components
+- OAI repository navigation: codebase organization and development resources
+- System requirements and prerequisites for OAI development
 
 ---
 
-## Evening Session (2:00 PM - 5:20 PM)
-
-### 2:00 - 3:30 PM: 5G NR Physical Layer
-
-**Topics:**
-- OFDM and numerology (15, 30, 60, 120, 240 kHz)
-- Frame structure (slots, symbols, subframes)
-- Resource grid (RBs, REs)
-- Channel coding (LDPC, Polar codes)
-- Modulation schemes (QPSK to 256-QAM)
-- MIMO and beamforming
-- Synchronization signals (PSS, SSS, SSB)
-
-**Demo:**
-- Resource grid visualization
-- OFDM waveform analysis
-- Constellation diagrams
-
-**Exercise:**
-- Calculate resource blocks for given bandwidth
-- Understand numerology impact on performance
+**12:15 - 1:30 PM: 🍛 BREAK**
 
 ---
 
-**3:30 - 3:50 PM: ☕ BREAK**
+## Evening Session (1:30  PM - 4 PM)
+
+### 1:30 - 2:30 PM: 5G Core Network 
+
+- 5G Core Network architecture and functions  
+- Control plane and user plane seperation
+- OAI core network deployment using Docker
+- Core network configuration files and parameters
+- Using wireshark for protocol analysis
 
 ---
 
-### 3:50 - 5:20 PM: 5G NR Procedures
+**2:30 - 2:45 PM: ☕ BREAK**
 
-**Topics:**
+---
 
-**Initial Access:**
-- Cell search (PSS, SSS, PBCH)
-- SSB structure and timing
-- MIB and SIB1 acquisition
+### 2:45 - 4 PM: End-to-End OAI 5G Deployment with RFsim 
 
-**Random Access:**
-- 4-step RACH procedure
-- PRACH preambles
-- Contention resolution
-
-**Connection & Registration:**
-- RRC states and transitions
-- RRC connection setup
-- NAS registration procedure
+- Cloning and building OAI RAN repositories
+- Deploying complete network: Core, gNB, and UE with RFsim
+- UE registration procedure and signaling flow
 - PDU session establishment
-
-**Mobility:**
-- Idle mode (cell reselection)
-- Connected mode (handover)
-- Paging
-
-**Case Study:**
-- Complete UE connection walkthrough
-- Message sequence diagram analysis
-
-**Lab Exercise:**
-- Trace UE connection procedure step-by-step
-- Map messages to protocol layers
+- Troubleshooting of common issues
 
 ---
 

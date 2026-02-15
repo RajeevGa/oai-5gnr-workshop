@@ -3,13 +3,14 @@ layout: default
 title: "Day 2: OAI Hands-on"
 parent: Workshop Schedule
 nav_order: 2
----
-
-# 📅 Day 2: OpenAirInterface Hands-on
 
 ---
 
-## Morning Session (9:00 AM - 12:20 PM)
+#  Day 2: OpenAirInterface Hands-on
+
+---
+
+## Morning Session (9:00 AM - 12:15 PM)
 
 ### 9:00 - 10:30 AM: Introduction to OAI
 
@@ -29,11 +30,11 @@ nav_order: 2
 
 ---
 
-**10:30 - 10:50 AM: ☕ BREAK**
+**10:30 - 11 AM: ☕ BREAK**
 
 ---
 
-### 10:50 AM - 12:20 PM: Installation & Setup
+### 11 AM - 12:15 PM: Installation & Setup
 
 **Topics:**
 - System requirements
@@ -75,7 +76,11 @@ docker-compose -f docker-compose-basic-nrf.yaml pull
 
 ---
 
-## Evening Session (2:00 PM - 5:20 PM)
+**12:15 - 1:30 PM: 🍛 BREAK**
+
+---
+
+## Evening Session (1:30 PM - 5:20 PM)
 
 ### 2:00 - 3:30 PM: Running OAI 5G Network
 

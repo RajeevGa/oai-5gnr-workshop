@@ -8,7 +8,7 @@ has_children: true
 # 📖 Workshop Schedule
 
 **Duration:** 2 days, 12 hours total  
-**Format:** 60% Hands-on, 40% Theory
+**Format:** 50% Hands-on, 50% Theory
 
 ---
 
@@ -20,7 +20,7 @@ has_children: true
 
 ---
 
-## Day 1: 5G NR Fundamentals
+## Day 1: Introdction to 5G/6G and O-RAN & Getting Started with OAI
 
 - Introduction to 5G NR
 - 5G Architecture
@@ -31,7 +31,7 @@ has_children: true
 
 ---
 
-## Day 2: OpenAirInterface Hands-on
+## Day 2: Protocol Stack Deep-Dive & RAN experiments with OAI
 - OAI Introduction
 - Installation & Setup
 - Running 5G Network
