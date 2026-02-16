@@ -7,20 +7,19 @@ has_children: true
 
 # 🔧 Pre-Workshop Preparation
 
-**Duration:** 2.5-3 hours (self-paced)  
+**Duration:** 3- 3.5 hours (self-paced)  
 **Completion Required:** Before attending workshop
 
 ---
 
 ## 📋 Overview
 
-This section prepares you with essential skills for the workshop. You'll learn Linux basics, Git, Docker, and other tools needed to work with OpenAirInterface.
+This section prepares you with essential skills for the workshop. You'll learn Linux basics, Git, Docker, and other tools needed to work with OpenAirInterface. Before attending the workshop, you should be comfortable with working in an terminal based Linux environment.
+You require a laptop with Ubuntu 22.04 (a local or cloud based VM is also fine) to complete these modules.
 
 ---
 
-## 📚 Modules
-
-Complete these modules in order:
+## 📚 Complete the Modules in Order
 
 | Module | Topic | Duration |
 |--------|-------|----------|
@@ -28,43 +27,11 @@ Complete these modules in order:
 | 2 | [Package Management](module-2-packages) | 20 min |
 | 3 | [Git & Version Control](module-3-git) | 25 min |
 | 4 | [Docker Basics](module-4-docker) | 30 min |
-| 5 | [C Compilation](module-5-c-compilation) | 25 min |
-| 6 | [Network Basics](module-6-networking) | 20 min |
+| 5 | [C Compilation](module-5-c-compilation) | 35 min |
+| 6 | [Network Basics](module-6-networking) | 30 min |
 
 ---
 
-## 🎯 Learning Path
-
-1. Ensure Ubuntu 22.04 is installed (local VM or cloud)
-2. Complete Modules 1-6 in *sequence*
-3. Do all hands-on exercises
-
----
-
-## ✅ Completion Checklist
-
-Before the workshop, you should be able to:
-
-**Linux Skills:**
-- ✓ Navigate terminal confidently
-- ✓ Create, edit, delete files
-- ✓ Understand file permissions
-- ✓ Use nano text editor
-
-**Development Tools:**
-- ✓ Install packages with apt
-- ✓ Clone and update Git repositories
-- ✓ Run Docker containers
-- ✓ Use Docker Compose
-- ✓ Compile C programs
-
-**System Verification:**
-- ✓ Ubuntu 22.04 LTS installed
-- ✓ 8GB+ RAM, 50GB+ disk space
-- ✓ All tools installed and working
-- ✓ Network connectivity verified
-
----
 
 
 ## 🚀 Ready to Start?
@@ -73,11 +40,5 @@ Before the workshop, you should be able to:
 
 ---
 
-## 📞 Need Help?
-
-- **Email:** r.gangula@northeastern.edu
-- **Issues:** [GitHub Issues](https://github.com/RajeevGa/oai-5gnr-workshop/issues)
-
----
 
 [← Back to Home](../../) | [Workshop Schedule →](../workshop/)
