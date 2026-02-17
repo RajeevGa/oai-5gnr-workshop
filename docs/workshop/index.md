@@ -15,7 +15,7 @@ has_children: true
 ## 🗓️ Schedule
 
   Day 1 | 9:00 AM - 12:15 PM | 1:30 PM - 4:00 PM
-  Day 2 | 9:00 AM - 12:15 PM | 1:30 PM - 3:00 PM
+  Day 2 | 9:00 AM - 12:15 PM | 1:30 PM - 3:30 PM
 
 
 ---

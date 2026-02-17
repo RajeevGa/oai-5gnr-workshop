@@ -39,9 +39,9 @@ nav_order: 2
 
 ---
 
-## Afternoon Session (1:30 PM - 3:00 PM)
+## Afternoon Session (1:30 PM - 3:30 PM)
 
-### 1:30 - 3 PM: RAN Experiments
+### 1:30 - 3:30 PM: RAN Experiments
 
 - Hands-on experiments:
   - Experiment 1: Bandwidth variation (40 MHz vs 100 MHz)

@@ -14,7 +14,8 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ##  Workshop Overview
 
-**Duration:** 2 full days (6 hours/day)  
+**Dates:** Match 14 and 15, 2026
+**Venue:** IIT Tirupati  
 **Format:** 50% Hands-on, 50% Presentation 
 
 **Day 1:** 5G/6G and O-RAN Networks & Getting Started with OAI  
@@ -33,7 +34,7 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 This workshop is designed for students, faculty, and telecom engineers who want hands-on 5G experience:
 
-- **Undergraduate students** in ECE/CSE (completed communication systems & networking courses)
+- **Undergraduate students** in ECE/CSE (with basics in communication systems & networking)
 - **Graduate students** specializing in communications, signal processing, or cyber-physical systems
 - **Faculty members** seeking practical 5G implementation experience
 - **Telecom engineers** building hands-on skills in 5G systems
@@ -50,6 +51,18 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 </div>
 
 ---
+---
+
+## 📝 Registration
+
+**Registration is now open.** Complete the form below to secure your spot.
+
+<a href="https://forms.zohopublic.com/rajeevgangulazoho1/form/OAI5GNRWorkshopRegistrationIITTirupati/formperma/bqFm0Fj5BwM1wVd0NTwuJlKmRo-O3u6SRn_fN0zqpBE" target="_blank" rel="noopener noreferrer"><strong>→ REGISTER HERE</strong></a>
+
+**Registration Deadline:** March 12, 2026  
+**Workshop Venue:** IIT Tirupati
+
+---
 
 ## 👨‍🏫 Instructors
 
@@ -57,7 +70,7 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <img src="assets/images/instructors/rajeev-gangula.jpg" alt="Rajeev Gangula" style="width: 150px; height: 150px; border-radius: 50%; object-fit: fill; margin-bottom: 15px;">
-    <h3 style="margin: 10px 0; font-size: 1.1em;">Rajeev Gangula</h3>
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Dr. Rajeev Gangula</h3>
     <p style="color: #666; margin: 5px 0; font-size: 0.9em;">Northeastern University</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Boston, USA</p>
     <div style="margin-top: 15px;">
@@ -68,7 +81,7 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <img src="assets/images/instructors/rakesh-mundlamuri.png" alt="Rakesh Mundlamuri" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-    <h3 style="margin: 10px 0; font-size: 1.1em;">Rakesh Mundlamuri</h3>
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Dr. Rakesh Mundlamuri</h3>
     <p style="color: #666; margin: 5px 0; font-size: 0.9em;">OpenAirInterface Software Alliance</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">France</p>
     <div style="margin-top: 15px;">
@@ -100,27 +113,9 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 
 
 
-<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/lla.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-    <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
-    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
-    <div style="margin-top: 15px;">
-        <a href="https://in.linkedin.com/in/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
-    </div>
-</div>
 
 
 
-<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/lla.jpg" alt="" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
-    <h3 style="margin: 10px 0; font-size: 1.1em;"></h3>
-    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
-    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
-    <div style="margin-top: 15px;">
-        <a href="https://in.linkedin.com/in/" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
-    </div>
-</div>
 
 
 

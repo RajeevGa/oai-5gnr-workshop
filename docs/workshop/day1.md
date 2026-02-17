@@ -67,6 +67,7 @@ nav_order: 1
 - SDAP layer: QoS flow to DRB mapping
 - PDCP layer: header compression, security, ciphering, integrity protection
 - RLC layer: modes (TM, UM, AM), segmentation, and ARQ mechanisms
+
 ---
 
 [← Workshop Overview](index) | [Day 2 →](day2)
