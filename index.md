@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: home-with-sidebar 
 title: Home
 nav_order: 1
 ---
@@ -14,17 +14,14 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ##  Workshop Overview
 
-**Dates:** Match 14 and 15, 2026
-**Venue:** IIT Tirupati  
 **Format:** 50% Hands-on, 50% Presentation 
 
 **Day 1:** 5G/6G and O-RAN Networks & Getting Started with OAI  
 **Day 2:** Protocol Stack Deep-Dive & RAN experiments with OAI
 
 **What You'll Achieve:**
-- �️ Deploy your own 5G network from scratch
-- 🔬 Analyze 5G protocols with professional tools
-- 🎯 Gain practical skills for research and development
+- 📶 Deploy your own 5G network from scratch
+- 🎯 Gain R&D skills in cellular technologies 
 
 [View Detailed Schedule →](docs/workshop/)
 
@@ -40,6 +37,8 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 - **Telecom engineers** building hands-on skills in 5G systems
 
 ---
+
+<!--
 ## ⚠️ Prerequisites
 
 <div style="background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
@@ -63,7 +62,7 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 **Workshop Venue:** IIT Tirupati
 
 ---
-
+-->
 ## 👨‍🏫 Instructors
 
 <div style="display: flex; gap: 30px; flex-wrap: wrap; margin: 30px 0;">
@@ -112,6 +111,15 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 </div>
 
 
+<div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <img src="assets/images/instructors/a.jpg" alt="Subhas Mondal" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <h3 style="margin: 10px 0; font-size: 1.1em;">Subhas Mondal</h3>
+    <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
+    <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
+    <div style="margin-top: 15px;">
+        <a href="https://in.linkedin.com/in/subhas-mondal-technology-evangelist-6g-19027a1" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
+    </div>
+</div>
 
 
 

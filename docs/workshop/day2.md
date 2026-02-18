@@ -11,9 +11,8 @@ nav_order: 2
 
 ## Morning Session (9:00 AM - 12:15 PM)
 
-### 9:00 - 10:30 AM: MAC and PHY Layers 
+### 9:00 - 10:30 AM: MAC, PHY Layers and RAN Procedures 
 
-- Logical-to-transport channel mapping
 - Transport channels: DL-SCH, UL-SCH 
 - OAI MAC scheduler 
 - HARQ mechanisms and retransmissions
@@ -21,6 +20,7 @@ nav_order: 2
 - Physical channels: PDSCH, PDCCH, PUSCH, PUCCH, PBCH
 - Physical signals: reference signals, synchronization signals
 - Modulation and coding schemes
+- RAN Procedures
 
 ---
 
@@ -28,10 +28,13 @@ nav_order: 2
 
 ---
 
-### 11:00 AM - 12:15 PM: OAI RAN Architecture and RAN Procedures
+### 11:00 AM - 12:15 PM: OAI Software Architecture and Research use cases 
 
 - OAI software architecture
-- What happens when we switch on the mobile? 
+- IOS-MCN Project
+- Rate gurantee schdulers
+- Reconfigurable Intelligent Surface (RIS)-enabled OAI 
+- UAVs, positioning and sensing   
 
 ---
 
@@ -50,7 +53,6 @@ nav_order: 2
 - Signal visualization tools 
 - OAI statistics, KPIs, and logs 
 - OAI community resources and collaboration opportunities
-- Research opportunities with OAI
 - Workshop wrap-up and Q&A
 
 ---

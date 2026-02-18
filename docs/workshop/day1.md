@@ -16,8 +16,7 @@ nav_order: 1
 - Cellular industry ecosystem: standardization bodies, operators, equipment vendors, regulators
 - 6G vision: research themes, expected capabilities, and global initiatives
 - 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollouts
-- 5G network design principles
-- 5G network architecture and key components
+- 5G network architecture and design principles
 - Network Functions Virtualization (NFV): concepts and impact on 5G/6G
 - Open RAN (O-RAN) and the role of open-source in modern networks
 - Introduction to OpenAirInterface (OAI)
@@ -30,14 +29,15 @@ nav_order: 1
 
 ---
 
-### 11 AM - 12:15 PM: 5G Core Network & End-to-End OAI 5G Deployment 
+### 11 AM - 12:15 PM: 5G protocol Stack 
 
 - 5G Core Network architecture and functions  
 - Control plane and user plane seperation
-- OAI core network deployment using Docker
-- Core network configuration files and parameters
-- Cloning and building OAI RAN repositories
-- Deploying complete network: Core, gNB, and UE with RFsim
+- RRC layer: connection establishment and  state machines
+- Bearer management: DRBs, SRBs, and QoS flows
+- SDAP layer: QoS flow to DRB mapping
+- PDCP layer: header compression, security, ciphering, integrity protection
+- RLC layer: modes (TM, UM, AM), segmentation, and ARQ mechanisms
 
 ---
 
@@ -47,12 +47,14 @@ nav_order: 1
 
 ## Evening Session (1:30  PM - 4 PM)
 
-### 1:30 - 2:45 PM: Highlevel Procedures and Protocol Analysis  
+### 1:30 - 2:45 PM: End-to-End 5G Network Deployment   
 
+- OAI core network deployment using Docker
+- Core network configuration files and parameters
+- Cloning and building OAI RAN repositories
+- Deploying complete network: Core, gNB, and UE with RFsim
 - UE registration procedure and signaling flow
 - PDU session establishment
-- Using wireshark for protocol analysis
-- Troubleshooting of common issues
 
 ---
 
@@ -60,14 +62,12 @@ nav_order: 1
 
 ---
 
-### 3 - 4 PM: Higher Layer RAN Protocols (RRC, PDCP, RLC)
+### 3 - 4 PM: End-to-End 5G Network Deployment 
 
-- RRC layer: connection establishment and  state machines
-- Bearer management: DRBs, SRBs, and QoS flows
-- SDAP layer: QoS flow to DRB mapping
-- PDCP layer: header compression, security, ciphering, integrity protection
-- RLC layer: modes (TM, UM, AM), segmentation, and ARQ mechanisms
-
+- Using wireshark for protocol analysis
+- Troubleshooting of common issues
+- Adding a new UE
+- Muliple UEs in RFsim
 ---
 
 [← Workshop Overview](index) | [Day 2 →](day2)
