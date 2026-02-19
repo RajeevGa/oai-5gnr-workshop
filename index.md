@@ -17,10 +17,10 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 **Format:** 50% Hands-on, 50% Presentation 
 
 **Day 1:** 5G/6G and O-RAN Networks & Getting Started with OAI  
-**Day 2:** Protocol Stack Deep-Dive & RAN experiments with OAI
+**Day 2:** Deep-dive into the RAN Protocol Stack & Experiments with OAI
 
 **What You'll Achieve:**
-- 📶 Deploy your own 5G network from scratch
+- 📶 Deploy a 5G network from scratch
 - 🎯 Gain R&D skills in cellular technologies 
 
 [View Detailed Schedule →](docs/workshop/)
@@ -112,7 +112,7 @@ This workshop is designed for students, faculty, and telecom engineers who want 
 
 
 <div style="flex: 1; min-width: 250px; max-width: 300px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <img src="assets/images/instructors/a.jpg" alt="Subhas Mondal" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+    <img src="assets/images/instructors/subhas-mondal.jpg" alt="Subhas Mondal" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
     <h3 style="margin: 10px 0; font-size: 1.1em;">Subhas Mondal</h3>
     <p style="color: #666; margin: 5px 0; font-size: 0.9em;">IOS-MCN, Indian Institute of Science</p>
     <p style="color: #888; margin: 5px 0; font-size: 0.85em;">Bengaluru, India</p>
@@ -120,11 +120,6 @@ This workshop is designed for students, faculty, and telecom engineers who want 
         <a href="https://in.linkedin.com/in/subhas-mondal-technology-evangelist-6g-19027a1" target="_blank" style="margin: 0 5px;">🔗 LinkedIn</a>
     </div>
 </div>
-
-
-
-
-
 
 
 </div>

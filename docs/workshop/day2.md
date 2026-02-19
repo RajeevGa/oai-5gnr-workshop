@@ -32,8 +32,8 @@ nav_order: 2
 
 - OAI software architecture
 - IOS-MCN Project
-- Rate gurantee schdulers
-- Reconfigurable Intelligent Surface (RIS)-enabled OAI 
+- Rate guarantee schedulers
+- Reconfigurable Intelligent Surface (RIS)-enabled 5G with OAI 
 - UAVs, positioning and sensing   
 
 ---
@@ -47,10 +47,10 @@ nav_order: 2
 ### 1:30 - 3:30 PM: RAN Experiments
 
 - Hands-on experiments:
-  - Experiment 1: Bandwidth variation (40 MHz vs 100 MHz)
+  - Experiment 1: Bandwidth variation (40 MHz vs 80 MHz)
   - Experiment 2: Changing TDD pattern 
   - Experiment 3: Multi-UE scenarios and scheduling behavior
-- Signal visualization tools 
+- Signal & constellation visualization tools 
 - OAI statistics, KPIs, and logs 
 - OAI community resources and collaboration opportunities
 - Workshop wrap-up and Q&A

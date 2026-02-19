@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 5G NR Workshop - IIT Tirupati</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: white;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .flyer {
+            background: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 25px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        .logo-container {
+            flex-shrink: 0;
+        }
+        
+        .logo-container img {
+            max-height: 80px;
+            max-width: 140px;
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 1.1;
+            color: #1e293b;
+        }
+        
+        .header .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #475569;
+        }
+        
+        /* Main Content Area */
+        .content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0;
+            flex: 1;
+        }
+        
+        /* Left Column */
+        .left-column {
+            padding: 35px 40px 40px 40px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section h2 {
+            font-size: 20px;
+            color: #1e40af;
+            margin-bottom: 12px;
+            font-weight: bold;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 6px;
+        }
+        
+        /* Venue & Dates */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .info-box .label {
+            font-size: 10px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .info-box .value {
+            font-size: 15px;
+            color: #1e293b;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        /* What You'll Gain */
+        .gains-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .gain-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .gain-item .icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .gain-item .text {
+            flex: 1;
+        }
+        
+        .gain-item .title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 3px;
+            line-height: 1.2;
+        }
+        
+        .gain-item .desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.3;
+        }
+        
+        /* Speakers */
+        .speakers-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .speaker {
+            background: #f8fafc;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #8b5cf6;
+        }
+        
+        .speaker .name {
+            font-size: 13px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+        
+        .speaker .affiliation {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.3;
+        }
+        
+        /* Right Column */
+        .right-column {
+            background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+            padding: 35px 30px 40px 30px;
+            border-left: 1px solid #cbd5e1;
+        }
+        
+        /* Registration Box */
+        .registration-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #3b82f6;
+        }
+        
+        .registration-box h2 {
+            font-size: 22px;
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .qr-code {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .website-url {
+            font-family: monospace;
+            font-size: 11px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .website-url a {
+            color: #1e40af;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        
+        .register-text {
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.4;
+        }
+        
+        /* Contact Box */
+        .contact-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .contact-box h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .contact-item {
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        
+        .contact-item .label {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .contact-item .value {
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .flyer {
+                height: auto;
+            }
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flyer">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo-container">
+                    <img src="assets/logo.png" alt="IIT Tirupati Logo">
+                </div>
+                <div class="header-text">
+                    <h1>5G NR Workshop</h1>
+                    <div class="subtitle">Master 5G by Building it</div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="content">
+                <!-- Left Column -->
+                <div class="left-column">
+                    
+                    <!-- Venue & Dates -->
+                    <div class="section">
+                        <h2>Workshop Details</h2>
+                        <div class="info-grid">
+                            <div class="info-box">
+                                <div class="label">📅 DATES</div>
+                                <div class="value">March 14 and 15, 2026</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="label">📍 VENUE</div>
+                                <div class="value">IIT Tirupati</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="label">⏱️ DURATION</div>
+                                <div class="value">2 Days (11 hours)</div>
+                            </div>
+                            <div class="info-box">
+                                <div class="label">👥 FORMAT</div>
+                                <div class="value">Presentations and Hands-On</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- What You'll Gain -->
+                    <div class="section">
+                        <h2>What You'll Gain</h2>
+                        <div class="gains-list">
+                            <div class="gain-item">
+                                <div class="icon">🖥️</div>
+                                <div class="text">
+                                    <div class="title">Deploy Your Own 5G Network</div>
+                                    <div class="desc">Build complete 5G system from scratch using OpenAirInterface</div>
+                                </div>
+                            </div>
+                            <div class="gain-item">
+                                <div class="icon">🎓</div>
+                                <div class="text">
+                                    <div class="title">R&D Skills in Cellular Technologies</div>
+                                    <div class="desc">Gain practical skills for research and development in 5G/6G</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Instructors -->
+                    <div class="section">
+                        <h2>Instructors</h2>
+                        <div class="speakers-list">
+                            <div class="speaker">
+                                <div class="name">Dr. Rajeev Gangula</div>
+                                <div class="affiliation">Research Assistant Professor, Northeastern University, Boston, USA</div>
+                            </div>
+                            <div class="speaker">
+                                <div class="name">Dr. Rakesh Mundlamuri</div>
+                                <div class="affiliation">Research Engineer, OpenAirInterface Software Alliance, France</div>
+                            </div>
+                            <div class="speaker">
+                                <div class="name">Venkatareddy Akumalla</div>
+                                <div class="affiliation">Senior Engineer at IOS-MCN, FSID, Bengaluru</div>
+                            </div>
+                            <div class="speaker">
+                                <div class="name">Prof. Chandra R. Murthy</div>
+                                <div class="affiliation">Indian Institute of Science, Bengaluru</div>
+                            </div>
+                            <div class="speaker">
+                                <div class="name">Subhas Mondal</div>
+                                <div class="affiliation">Technology Advisor at IOS-MCN, FSID, Bengaluru</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right Column -->
+                <div class="right-column">
+                    
+                    <!-- Registration -->
+                    <div class="registration-box">
+                        <h2>Mandatory Registration</h2>
+                        <div class="qr-code">
+                            <img src="assets/workshop-qr-code.png" alt="Registration QR Code">
+                        </div>
+                        <div class="website-url">
+                            <a href="https://rajeevga.github.io/oai-5gnr-workshop/">
+                                https://rajeevga.github.io/oai-5gnr-workshop/
+                            </a>
+                        </div>
+                        <div class="register-text">
+                            Scan QR code or visit the website for complete details, prerequisites, and online registration form.
+                        </div>
+                    </div>
+                    
+                    <!-- Contact -->
+                    <div class="contact-box">
+                        <h3>Contact</h3>
+                        <div class="contact-item">
+                            <div class="value" style="font-weight: 600; color: #1e293b; margin-bottom: 5px; font-size: 13px;">
+                                Dr. Sarvendranath Rimalapudi
+                            </div>
+                            <div class="value" style="font-size: 11px; margin-bottom: 8px;">
+                                Assistant Professor, EE, IIT Tirupati
+                            </div>
+                            <div class="label">📧 EMAIL</div>
+                            <div class="value">sarvendranath@iittp.ac.in</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

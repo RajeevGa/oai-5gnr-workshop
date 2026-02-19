@@ -15,14 +15,12 @@ nav_order: 1
 - Evolution of mobile communication systems: 1G to 5G
 - Cellular industry ecosystem: standardization bodies, operators, equipment vendors, regulators
 - 6G vision: research themes, expected capabilities, and global initiatives
-- 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollouts
+- 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollout
 - 5G network architecture and design principles
 - Network Functions Virtualization (NFV): concepts and impact on 5G/6G
-- Open RAN (O-RAN) and the role of open-source in modern networks
+- Open RAN (O-RAN) and the role of open-source in cellular networks
 - Introduction to OpenAirInterface (OAI)
 - OAI repository navigation: codebase organization and development resources
-- System requirements and prerequisites for OAI development
-
 ---
 
 **10:30 - 11 AM: ☕ BREAK**
@@ -32,7 +30,7 @@ nav_order: 1
 ### 11 AM - 12:15 PM: 5G protocol Stack 
 
 - 5G Core Network architecture and functions  
-- Control plane and user plane seperation
+- Control plane and user plane separation
 - RRC layer: connection establishment and  state machines
 - Bearer management: DRBs, SRBs, and QoS flows
 - SDAP layer: QoS flow to DRB mapping
@@ -67,7 +65,8 @@ nav_order: 1
 - Using wireshark for protocol analysis
 - Troubleshooting of common issues
 - Adding a new UE
-- Muliple UEs in RFsim
+- Multiple UEs in RFsim
+
 ---
 
 [← Workshop Overview](index) | [Day 2 →](day2)

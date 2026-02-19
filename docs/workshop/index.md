@@ -7,7 +7,7 @@ has_children: true
 
 # 📖 Workshop Schedule
 
-**Duration:** 2 days, 11 hours total  
+**Duration:** 2 days, 10 hours total  
 **Format:** 50% Hands-on, 50% presentation 
 
 ---
@@ -21,26 +21,24 @@ has_children: true
 ---
 
 ## Day 1: 5G/6G and O-RAN Networks & Getting Started with OAI
-- Evolution of mobile communication systems: 1G to 5G
-- Cellular industry ecosystem: standardization bodies, operators, equipment vendors, regulators
-- 6G vision: research themes, expected capabilities, and global initiatives
+- Introduction to 5G/6G and O-RAN Networks and the Open-Source Paradigm
+- 5G protocol Stack
+- End-to-End 5G Network Deployment
 
 [View Day 1 Details →](day1)
 
 ---
 
-## Day 2: Protocol Stack Deep-Dive & RAN experiments with OAI
-- 5G Radio Access Network
-- MAC and PHY layers
-- OAI software architecture
-- Experiments & Analysis
+## Day 2: Deep-dive into the RAN Protocol Stack & Experiments with OAI
+- MAC, PHY Layers and RAN Procedures
+- OAI Software Architecture and Research use cases
+- RAN Experiments
 
 [View Day 2 Details →](day2)
 
 ---
 
-## 📋 What to Bring
-
+<h2 style="color: red;">📋 What to Bring</h2>
 - Laptop  with minimum of 4 cores, 8GB RAM, 10 GB free space
 - Ubuntu 22.04 installed (VM is also fine)
 - Completed all pre-workshop modules

@@ -23,19 +23,13 @@ By the end of this module, you'll be able to:
 
 ---
 
-## 🎯 How to Use This Module
-
-Follow along with the examples as you read. You'll explore your own network configuration and practice troubleshooting commands. At the end, you'll complete exercises to test your understanding.
-
-**Keep your terminal open throughout!**
-
----
 
 ## Introduction
 
-Modern networks rely on IP networking to connect devices across the globe - sometimes even from space! You've likely seen IP addresses while setting up your home router or connecting to campus WiFi. Starting with 4G LTE, cellular networks also adopted this all-IP approach. This module covers the IP and Linux networking basics you'll need to configure and work with networks during the workshop's hands-on sessions.
+Modern networks rely on IP networking to connect devices across the globe - sometimes even from space! You've likely seen IP addresses while setting up your home router or connecting to campus WiFi. Starting with 4G LTE, cellular networks too adopted an all-IP approach. This module covers the IP and Linux networking basics you'll need to configure and work with networks during the workshop.
 
 This is a quick brush-up focusing on practical Linux commands for network exploration and troubleshooting.
+ **Keep your terminal open throughout!**
 
 ---
 
@@ -61,7 +55,6 @@ This is a quick brush-up focusing on practical Linux commands for network explor
   - **AWS:** Often `172.31.x.x` (private)
   - **GCP:** Often `10.128.x.x` to `10.142.x.x`
   - **Azure:** Often `10.0.x.x` or `172.16.x.x`
-  - **Oracle:** Often `10.0.x.x`
 
 **Don't worry if your output looks different!** The concepts remain the same. Focus on understanding how to read the information, not matching exact output.
 
@@ -128,7 +121,8 @@ Each numbered item represents a network interface - a connection point for netwo
 
 Looking at eth0: `inet 192.168.1.105/24`
 
-This is the IP address with CIDR notation. An IPv4 address has four numbers (0-255) separated by dots. The `/24` indicates network size - this network has 256 addresses (192.168.1.0 through 192.168.1.255).
+This is the IP address with CIDR notation. An IPv4 address has four numbers (0-255) separated by dots. The `/24` indicates network size.
+The 24 bits are the network, and the remaining 8 bits are the host ID. This network has 2^8=256 addresses (192.168.1.0 through 192.168.1.255).
 
 Common network sizes:
 - `/24` = 256 addresses (home/lab networks)
@@ -179,6 +173,7 @@ default via 192.168.1.1 dev eth0
 
 First line shows: to reach the internet, send packets to `192.168.1.1` via `eth0`.
 
+<!-- 
 ### Finding Your DNS Servers
 
 DNS servers translate hostnames to IP addresses:
@@ -192,20 +187,18 @@ cat /etc/resolv.conf
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 ```
-
+-->
 Now let's check your configuration. Run these commands:
 
 ```bash
 ip addr show
 ip route show
-cat /etc/resolv.conf
 ```
 
 **Observe:**
 - Your IP address - Is it private?
 - Your gateway IP
 - Which interface is active?
-- DNS servers configured
 
 ---
 
@@ -243,7 +236,7 @@ ping -c 3 192.168.1.1  # Use YOUR gateway from ip route show
 64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=2.34 ms
 ```
 
-Time ~1-2ms - packets travel over your network to router. If this fails, check your cable or WiFi connection.
+Time ~1-2ms - packets travel over your network to router. If this fails, your computer is not connected with the router. 
 
 ### Test 3: Internet
 
@@ -304,8 +297,6 @@ Common port numbers:
 - Port 22: SSH (remote login)
 - Port 80: HTTP (web)
 - Port 443: HTTPS (secure web)
-- Port 3306: MySQL database
-- Port 5432: PostgreSQL database
 
 ### Viewing Active Services
 
@@ -482,14 +473,13 @@ Test your networking skills!
 **Requirements:**
 - Find your IP address and interface name
 - Find your gateway IP
-- Find your DNS servers
 - Determine if your IP is private or public
 - Identify the network size (CIDR notation)
 
 <details markdown="1">
 <summary>💡 Hint</summary>
 
-Use `ip addr show` for IP and interface, `ip route show` for gateway, `cat /etc/resolv.conf` for DNS.
+Use `ip addr show` for IP and interface, `ip route show` for gateway.
 </details>
 
 <details markdown="1">
@@ -502,14 +492,11 @@ ip addr show
 # Get gateway
 ip route show | grep default
 
-# Get DNS servers
-cat /etc/resolv.conf
 
 # Example results:
 # IP: 192.168.1.105/24 (private, 10.x, 172.16-31.x, or 192.168.x)
 # Interface: eth0 or enp0s3 or ens3
 # Gateway: 192.168.1.1
-# DNS: 8.8.8.8, 8.8.4.4
 # Network size: /24 = 256 addresses
 ```
 </details>
@@ -705,8 +692,6 @@ DNS uses UDP port 53. In Wireshark, use filter `dns`. Look for "Standard query" 
 <summary>✅ Solution</summary>
 
 ```bash
-# Check DNS servers
-cat /etc/resolv.conf
 
 # Start Wireshark, double-click interface
 
@@ -727,52 +712,6 @@ ping -c 1 github.com
 
 ---
 
-### Exercise 7: Troubleshooting Scenario
-
-**Problem:** Simulate and diagnose a network problem.
-
-**Requirements:**
-- Temporarily change your DNS server to an invalid one (1.2.3.4)
-- Test if you can still ping 8.8.8.8
-- Test if you can ping google.com
-- Explain why one works and one doesn't
-- Restore your original DNS configuration
-
-<details markdown="1">
-<summary>💡 Hint</summary>
-
-Edit `/etc/resolv.conf` with sudo. Ping by IP works without DNS. Ping by hostname needs DNS. Reboot or restore the file to fix.
-</details>
-
-<details markdown="1">
-<summary>✅ Solution</summary>
-
-```bash
-# Backup original DNS config
-sudo cp /etc/resolv.conf /etc/resolv.conf.backup
-
-# Set invalid DNS
-echo "nameserver 1.2.3.4" | sudo tee /etc/resolv.conf
-
-# Test IP - WORKS
-ping -c 3 8.8.8.8
-# This works because it doesn't need DNS
-
-# Test hostname - FAILS
-ping -c 3 google.com
-# This fails because DNS can't resolve the name
-
-# Explanation: Internet connection is fine, but DNS is broken
-
-# Restore DNS
-sudo mv /etc/resolv.conf.backup /etc/resolv.conf
-
-# Verify it works again
-ping -c 3 google.com
-```
-</details>
-
----
 
 ## ✅ Self-Check Quiz
 
@@ -826,9 +765,8 @@ ping -c 3 google.com
 
 ---
 
-## 🎓 Summary
 
-### Commands Mastered
+## Commands Mastered
 
 | Command | Purpose |
 |---------|---------|
@@ -838,34 +776,8 @@ ping -c 3 google.com
 | `ping -c N` | Test connectivity (N packets) |
 | `ss -tuln` | View listening TCP/UDP ports |
 | `ss -tulnp` | View ports with program names |
-| `cat /etc/resolv.conf` | View DNS server configuration |
 | `wireshark` | Capture and analyze network packets |
 
-### Key Concepts
-
-- ✓ IP addresses identify devices on networks
-- ✓ Network interfaces are connection points (physical or virtual)
-- ✓ Private IPs (10.x, 172.16-31.x, 192.168.x) for local networks
-- ✓ Public IPs are globally unique and internet-routable
-- ✓ Gateways connect local networks to the internet
-- ✓ CIDR notation (/24, /16) indicates network size
-- ✓ Ports identify specific services (IP:Port = socket)
-- ✓ Systematic testing isolates network problems
-- ✓ Wireshark visualizes actual network traffic
-- ✓ DNS translates hostnames to IP addresses
-
-### What You Can Do Now
-
-- ✓ Check network configuration on any Linux system
-- ✓ Test connectivity systematically to isolate problems
-- ✓ View running services and which ports they use
-- ✓ Capture and analyze network packets
-- ✓ Filter Wireshark traffic to focus on specific protocols
-- ✓ Examine packet structure and understand protocols
-- ✓ Troubleshoot basic network connectivity issues
-- ✓ Distinguish between local network, internet, and DNS problems
-
-These skills will be used throughout the workshop for verifying setup, testing connectivity, and troubleshooting network issues.
 
 ---
 
@@ -876,14 +788,10 @@ These skills will be used throughout the workshop for verifying setup, testing c
 - [Wireshark User Guide](https://www.wireshark.org/docs/wsug_html_chunked/)
 - [TCP/IP Fundamentals](https://www.cloudflare.com/learning/network-layer/)
 
-**Online tools:**
-- [Subnet Calculator](https://www.subnet-calculator.com/)
-- [What Is My IP?](https://whatismyipaddress.com/)
 
 ---
 
 **Module Complete!** ✅
 
-You now have the networking foundation needed for the workshop!
 
 [⬅️ Previous: Module 5](module-5-c-compilation) | [Workshop Schedule →](../../workshop/)
