@@ -12,12 +12,12 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ---
 
-##  Workshop Overview
+## Overview
 
-**Format:** 50% Hands-on, 50% Presentation 
 
 **Day 1:** 5G/6G and O-RAN Networks & Getting Started with OAI  
 **Day 2:** Deep-dive into the RAN Protocol Stack & Experiments with OAI
+
 
 **What You'll Achieve:**
 - 📶 Deploy a 5G network from scratch

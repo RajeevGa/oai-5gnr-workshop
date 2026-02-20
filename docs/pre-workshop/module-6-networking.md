@@ -18,7 +18,6 @@ By the end of this module, you'll be able to:
 - [ ] Check your network configuration (IP, interfaces, gateway)
 - [ ] Understand private vs public IP addressing
 - [ ] Test network connectivity systematically
-- [ ] View active services and ports
 - [ ] Capture and analyze network packets with Wireshark
 
 ---
@@ -287,77 +286,10 @@ ping -c 3 google.com
 
 ---
 
-## Chapter 3: Ports and Services
 
-IP addresses identify devices, ports identify specific services running on those devices. Together (IP:Port) they form a socket - a unique endpoint for network communication.
+## Chapter 3: Packet Analysis with Wireshark
 
-### Understanding Ports
-
-Common port numbers:
-- Port 22: SSH (remote login)
-- Port 80: HTTP (web)
-- Port 443: HTTPS (secure web)
-
-### Viewing Active Services
-
-See what's listening on your system:
-
-```bash
-sudo ss -tuln
-```
-
-**Example output:**
-```
-State    Local Address:Port
-LISTEN   0.0.0.0:22
-LISTEN   127.0.0.1:631
-LISTEN   0.0.0.0:4000
-```
-
-**Understanding:**
-- `0.0.0.0:22` - SSH listening on ALL interfaces (accessible from network)
-- `127.0.0.1:631` - Print service on localhost only (not accessible from network)
-- `0.0.0.0:4000` - Some service on all interfaces
-
-**Command flags:**
-- `-t` = TCP connections
-- `-u` = UDP connections
-- `-l` = Listening sockets only
-- `-n` = Show numeric ports (don't resolve service names)
-
-### Viewing with Process Names
-
-See which program is using each port:
-
-```bash
-sudo ss -tulnp
-```
-
-**Example output:**
-```
-LISTEN  0.0.0.0:22    users:(("sshd",pid=1234,fd=3))
-LISTEN  0.0.0.0:4000  users:(("ruby",pid=5678,fd=12))
-```
-
-Now you can see that SSH daemon (`sshd`) is using port 22, and Ruby (probably Jekyll) is using port 4000.
-
-Try it yourself:
-
-```bash
-sudo ss -tuln | grep LISTEN
-sudo ss -tulnp | grep LISTEN
-```
-
-**Observe:** 
-- Which ports are listening?
-- Which programs are using them?
-- Are they listening on all interfaces (0.0.0.0) or just localhost (127.0.0.1)?
-
----
-
-## Chapter 4: Packet Analysis with Wireshark
-
-You've tested connectivity with ping and viewed ports with ss. Wireshark lets you see the actual packets traveling across your network - the raw data being sent and received.
+You've tested connectivity with ping. Wireshark lets you see the actual packets traveling across your network - the raw data being sent and received.
 
 ### Installing Wireshark
 
@@ -414,7 +346,6 @@ Press Enter. Now you only see ping traffic.
 tcp                     # TCP traffic only
 udp                     # UDP traffic only
 ip.addr == 8.8.8.8     # Traffic to/from specific IP
-tcp.port == 22         # SSH traffic only
 ```
 
 Press the X button next to the filter to clear it.
@@ -584,45 +515,6 @@ ip addr show
 
 ---
 
-### Exercise 4: Port and Service Discovery
-
-**Problem:** Identify what services are running on your system.
-
-**Requirements:**
-- List all listening TCP ports
-- List all listening UDP ports
-- Identify which programs are using these ports
-- Find if SSH (port 22) is running
-- Count how many services are listening
-
-<details markdown="1">
-<summary>💡 Hint</summary>
-
-Use `sudo ss -tuln` for ports, add `p` flag for program names. Use `grep` to filter for specific ports or count with `wc -l`.
-</details>
-
-<details markdown="1">
-<summary>✅ Solution</summary>
-
-```bash
-# All listening ports
-sudo ss -tuln | grep LISTEN
-
-# With program names
-sudo ss -tulnp | grep LISTEN
-
-# Check if SSH is running
-sudo ss -tulnp | grep :22
-
-# Count listening services
-sudo ss -tuln | grep LISTEN | wc -l
-
-# Example: If you see 0.0.0.0:22, SSH is accessible from network
-# If you see 127.0.0.1:631, that service only accepts local connections
-```
-</details>
-
----
 
 ### Exercise 5: Basic Wireshark Capture
 
@@ -685,7 +577,7 @@ ping -c 5 8.8.8.8
 <details markdown="1">
 <summary>💡 Hint</summary>
 
-DNS uses UDP port 53. In Wireshark, use filter `dns`. Look for "Standard query" and "Standard query response" packets. The IP will be in the response packet.
+In Wireshark, use filter `dns`. Look for "Standard query" and "Standard query response" packets. The IP will be in the response packet.
 </details>
 
 <details markdown="1">
@@ -733,11 +625,6 @@ ping -c 1 github.com
 **Answer:** DNS resolution is failing. Internet connection works (can reach by IP), but can't translate hostnames to IPs. Check `/etc/resolv.conf`.
 </details>
 
-<details markdown="1">
-<summary>❓ Q4: What does `0.0.0.0:22` mean in ss output?</summary>
-
-**Answer:** Service listening on ALL interfaces at port 22 (SSH). Accessible from any network the machine is connected to, not just localhost.
-</details>
 
 <details markdown="1">
 <summary>❓ Q5: Gateway is 10.0.2.2, can ping it, but not 8.8.8.8. Where's the problem?</summary>
@@ -774,8 +661,6 @@ ping -c 1 github.com
 | `ip link show` | View interface status only |
 | `ip route show` | View gateway and routing table |
 | `ping -c N` | Test connectivity (N packets) |
-| `ss -tuln` | View listening TCP/UDP ports |
-| `ss -tulnp` | View ports with program names |
 | `wireshark` | Capture and analyze network packets |
 
 

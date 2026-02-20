@@ -9,126 +9,166 @@ layout: default
     gap: 30px;
     align-items: start;
   }
-  
+
   .sidebar-sticky {
     position: sticky;
     top: 20px;
   }
 
+  /* ── Card shared base ── */
   .prereqs-card {
-  background: white;
-  color: #333;
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border: 3px solid #ea580c;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-  
-  .prereqs-card h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-  }
-  
-  .prereqs-card ul {
-    margin: 15px 0;
-    padding-left: 20px;
-  }
-  
-  .prereqs-card li {
-    margin: 10px 0;
-  }
-  
-  .prereqs-card a {
-  color: #ea580c;
-  text-decoration: underline;
-  font-weight: bold;
- }
-  
-  .registration-card {
-    background: white;
-    padding: 25px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    border: 3px solid #ea580c;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
-  
-  .registration-card h3 {
-    color: #ea580c;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
+
+  /* ── Section dividers ── */
+  .card-section {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid #f0f2f5;
   }
-  
-  .deadline-box {
-    padding: 12px;
+  .card-section:first-child { padding-top: 0; }
+  .card-section:last-child  { border-bottom: none; padding-bottom: 0; }
+
+  /* ── Section headings ── */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin: 0 0 0.6rem;
+  }
+  .section-heading .icon { font-size: 1rem; }
+
+  /* ── Dates ── */
+  .dates-value {
+    font-size: 1.0rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+  .dates-sub {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin: 0.15rem 0 0;
+  }
+
+  /* ── Prerequisites list ── */
+  .prereqs-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: #374151;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .prereqs-card li {
+    margin: 6px 0;
+  }
+  .prereqs-card a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 900;
+  }
+  .prereqs-card a:hover { text-decoration: underline; }
+
+  /* ── Deadline badge ── */
+  .deadline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
     border-radius: 6px;
-    margin: 15px 0;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.85rem;
   }
-  
+
+  /* ── Register button ── */
   .btn-register {
     display: block;
-    background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
-    color: white !important;
-    padding: 15px;
     text-align: center;
-    text-decoration: none !important;
+    background: #1d4ed8;
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1rem;
     border-radius: 8px;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none !important;
+    transition: background 0.18s;
   }
-  
-  .btn-register:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
+  .btn-register:hover { background: #1e40af; }
+  .btn-register:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
   }
-  
-  /* Mobile responsive */
+
+  /* ── Mobile responsive ── */
   @media (max-width: 968px) {
     .page-wrapper {
       grid-template-columns: 1fr;
     }
-    
     .sidebar-sticky {
       position: static;
-      order: -1; /* Move sidebar above content on mobile */
+      order: -1;
     }
   }
 </style>
 
 <div class="page-wrapper">
+
   <!-- Main Content -->
   <div class="main-content">
     {{ content }}
   </div>
-  
+
   <!-- Sidebar -->
   <aside class="sidebar-sticky">
-    
-    <!-- Prerequisites Card -->
-    <div class="prereqs-card">
-      <h3>⚠️ Prerequisites</h3>
-      <ul>
-        <li>Basic knowledge of digital communications and networking</li>
-        <li>Basic familiarity with Linux</li>
-        <li><strong>Must complete</strong> our <a href="{{ '/docs/pre-workshop/' | relative_url }}">6 pre-workshop modules</a> (2.5-3 hours)</li>
-      </ul>
-      <br>
-      <h3>📝 <strong>Registration</h3>
-      <div class="deadline-box">
-        Deadline: March 12, 2026
+
+    <div class="prereqs-card" role="region" aria-label="Workshop details">
+
+      <!-- Dates -->
+      <div class="card-section">
+        <p class="section-heading"><span class="icon" aria-hidden="true">🗓️</span> Dates</p>
+        <p class="dates-value">March 14 &amp; 15, 2026</p>
       </div>
-      <a href="https://forms.zohopublic.com/rajeevgangulazoho1/form/OAI5GNRWorkshopRegistrationIITTirupati/formperma/bqFm0Fj5BwM1wVd0NTwuJlKmRo-O3u6SRn_fN0zqpBE" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         class="btn-register">
-        → REGISTER HERE
-      </a>
+
+      <!-- Prerequisites -->
+      <div class="card-section">
+        <p class="section-heading"><span class="icon" aria-hidden="true">⚠️</span> Prerequisites</p>
+        <ul>
+          <li>Basic knowledge of digital communications and networking</li>
+          <li>Basic familiarity with Linux</li>
+          <li><strong> Have gone through</strong> our <a href="{{ '/docs/pre-workshop/' | relative_url }}">6 pre-workshop modules</a> (2-2.5 hours)</li>
+        </ul>
+      </div>
+
+      <!-- Registration -->
+      <div class="card-section">
+        <p class="section-heading"><span class="icon" aria-hidden="true">📝</span> Registration</p>
+        <p class="deadline-badge" role="note">
+          <span aria-hidden="true">⏰</span> Deadline: March 12, 2026
+        </p>
+        <a href="https://forms.zohopublic.com/rajeevgangulazoho1/form/OAI5GNRWorkshopRegistrationIITTirupati/formperma/bqFm0Fj5BwM1wVd0NTwuJlKmRo-O3u6SRn_fN0zqpBE"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn-register"
+           aria-label="Register for the workshop (opens in new tab)">
+          Register Now →
+        </a>
+      </div>
+
     </div>
-    
-    
+
   </aside>
-  
+
 </div>
