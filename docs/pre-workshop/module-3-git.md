@@ -262,7 +262,7 @@ git status
 
 ### What are Tags?
 
-**Tags** mark specific commits as important, usually for releases. Tags are like bookmarks for specific versions:
+**Tags** mark specific commits as important, usually for releases. Tags are like bookmarks for specific versions. Example tag names:
 - `v1.0.0` - First major release
 - `v1.5.2` - Version 1.5.2
 - `v2.0.0-beta` - Beta version of 2.0
@@ -275,27 +275,16 @@ List all tags:
 git tag
 ```
 
-Search for specific tags:
-
-```bash
-git tag -l "v1.*"
-```
-
-This shows all tags starting with "v1.".
-
 ### Checking Out a Tag
 
 You can checkout a specific tagged version just like a branch:
 
 ```bash
-git checkout v1.5.0
+git checkout <tag-name> 
 ```
 
-This puts your repository in that exact state. To return to the latest version:
+This puts your repository in that exact state. 
 
-```bash
-git checkout main
-```
 
 ---
 
@@ -354,7 +343,7 @@ Now practice what you've learned with real-world scenarios!
 - Clone this small practice repository: `https://github.com/octocat/Hello-World.git`
 - Navigate into the cloned directory
 - Check the repository status
-- View the last 10 commits in one-line format
+- View the last 2 commits in one-line format
 - Count how many total commits exist (hint: `git log --oneline | wc -l`)
 
 <details markdown="1">
@@ -371,7 +360,7 @@ cd ~
 git clone https://github.com/octocat/Hello-World.git
 cd Hello-World
 git status
-git log --oneline -10
+git log --oneline -2
 git log --oneline | wc -l
 ```
 </details>
@@ -413,7 +402,6 @@ git branch -a
 - View the full commit history (not just one-line)
 - Note the commit ID (hash) of the very first commit
 - Look at a specific commit in detail using `git show <commit-id>`
-- Return to the latest version
 
 <details markdown="1">
 <summary>💡 Hint</summary>
@@ -428,8 +416,6 @@ Use `git log` without flags for full details. The first commit is at the bottom.
 git log
 # Note the first commit ID (at bottom)
 git show <commit-id>
-# Press 'q' to exit
-git checkout main
 ```
 </details>
 
@@ -624,16 +610,6 @@ ls
 | `git tag` | List tags | `git tag -l "v1.*"` |
 | `git pull` | Get latest updates | `git pull` |
 
-### Key Concepts
-
-- ✅ Version control tracks all changes to your project over time
-- ✅ Clone downloads a repository once; pull updates it
-- ✅ Commits are snapshots of your project
-- ✅ Branches are parallel versions (stable vs. development)
-- ✅ Tags mark important releases
-- ✅ `git status` is your friend - use it often!
-
----
 
 ## 📚 Additional Resources
 

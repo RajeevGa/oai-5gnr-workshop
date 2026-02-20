@@ -376,22 +376,6 @@ E: Could not get lock /var/lib/dpkg/lock-frontend
 ps aux | grep apt
 ```
 
-If nothing should be running but you still get this error, you can remove the lock file:
-```bash
-sudo rm /var/lib/dpkg/lock-frontend
-sudo apt update
-```
-
-⚠️ **Warning:** Only do this if you're sure no other package manager is running!
-
-### Broken Packages After Update
-
-**Solution:** Reconfigure packages and fix installations:
-```bash
-sudo dpkg --configure -a
-sudo apt --fix-broken install
-```
-
 ---
 
 ## 💻 Hands-On Exercises
@@ -405,12 +389,12 @@ Now test your knowledge! Try to solve these problems using what you've learned.
 **Requirements:**
 - Update the package lists
 - Check how many packages can be upgraded
-- Upgrade all packages
+- Decide if you want to upgrae them
 
 <details markdown="1">
 <summary>💡 Hint</summary>
 
-Use `apt update` first, then `apt list --upgradable` to check, then `apt upgrade`.
+Use `apt update` first, then `apt list --upgradable` to check`.
 </details>
 
 <details markdown="1">
@@ -538,35 +522,6 @@ sudo apt autoremove
 
 ---
 
-### Exercise 6: Troubleshooting Practice
-
-**Problem:** Simulate and fix a broken package situation.
-
-**Requirements:**
-- Try to install a non-existent package called `fake-package-xyz`
-- Observe the error message
-- Update your package lists
-- Search for a similar package that might exist
-
-<details markdown="1">
-<summary>💡 Hint</summary>
-
-The error will say "Unable to locate package". Use `apt update` then `apt search`.
-</details>
-
-<details markdown="1">
-<summary>✅ Solution</summary>
-
-```bash
-sudo apt install fake-package-xyz
-# Error: Unable to locate package
-sudo apt update
-apt search fake
-# No results, package doesn't exist
-```
-</details>
-
----
 
 ## ✅ Self-Check Quiz
 
@@ -657,8 +612,6 @@ apt search fake
 **Package Management on Other Systems:**
 - **Debian:** `apt` (same as Ubuntu)
 - **Red Hat/CentOS:** `yum` or `dnf`
-- **Fedora:** `dnf`
-- **Arch:** `pacman`
 - **macOS:** `brew` (Homebrew)
 
 ---

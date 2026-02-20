@@ -502,14 +502,6 @@ rm -rf ~/log-test
 | `docker-compose logs -f` | Follow logs |
 | `docker-compose down` | Stop all services |
 
-### Key Takeaways
-
-- ✅ Docker runs applications in isolated containers
-- ✅ Docker Compose manages multiple containers together
-- ✅ Use `-d` to run in background
-- ✅ Use `docker logs -f` to watch what's happening
-- ✅ `docker-compose up -d` starts everything
-- ✅ `docker-compose down` stops everything
 
 ### What You Need for the Workshop
 
@@ -529,7 +521,6 @@ That's all you need!
 - [Docker Official Tutorial](https://docs.docker.com/get-started/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
 
-**But remember:** You don't need to be a Docker expert for the workshop. The basics you learned here are sufficient!
 
 ---
 

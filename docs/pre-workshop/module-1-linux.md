@@ -81,11 +81,6 @@ Linux organizes files in a tree structure starting from root (`/`):
 └── tmp/             (temporary files)
 ```
 
-**Key concepts:**
-- **Absolute path:** Starts from root `/home/username/Documents`
-- **Relative path:** From current location `Documents/file.txt`
-- **Home shortcut:** `~` equals `/home/username`
-
 ### Seeing What's Around You
 
 Now let's look at what files and folders are in your current location. Type:
@@ -559,12 +554,6 @@ For a quicker summary:
 ls --help
 ```
 
-Not sure what command to use? Search by topic:
-
-```bash
-apropos "search"
-```
-
 ### Checking System Resources
 
 Useful commands for monitoring your system:
@@ -943,6 +932,5 @@ Want to deepen your Linux knowledge?
 
 **Module Complete!** ✅
 
-You now have the Linux skills needed for the workshop! Next, you'll learn about package management in Ubuntu.
 
 [Next: Module 2: Package Management →](module-2-packages)
