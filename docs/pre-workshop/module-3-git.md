@@ -239,10 +239,10 @@ The `*` shows which branch you're currently on. The `remotes/origin/` entries ar
 If the repository has multiple branches, you can switch between them with `git checkout`:
 
 ```bash
-git checkout branch-name
+git checkout <branch-name>
 ```
 
-💡 **Note:** In newer Git versions, you can also use `git switch branch-name`.
+💡 **Note:** In newer Git versions, you can also use `git switch <branch-name>`.
 
 Let's go back to the main branch:
 
@@ -446,7 +446,7 @@ git checkout main
 - Find tags for version 2.30.x (hint: use `-l` with a pattern)
 - Checkout tag `v2.30.0`
 - Verify you're on that tag with `git status`
-- Return to the main branch
+- Return to the master branch
 
 <details markdown="1">
 <summary>💡 Hint</summary>
@@ -465,7 +465,7 @@ git tag | head -20
 git tag -l "v2.30*"
 git checkout v2.30.0
 git status
-git checkout main
+git checkout master
 ```
 </details>
 
@@ -476,7 +476,7 @@ git checkout main
 **Problem:** Simulate getting the latest updates from a repository.
 
 **Requirements:**
-- Make sure you're on the main branch
+- Make sure you're on the master branch
 - Pull the latest changes
 - View the last 5 commits to see what's new
 - Check if any new tags were added
@@ -484,14 +484,14 @@ git checkout main
 <details markdown="1">
 <summary>💡 Hint</summary>
 
-Use `git checkout main`, then `git pull`, then explore with `git log` and `git tag`.
+Use `git checkout master`, then `git pull`, then explore with `git log` and `git tag`.
 </details>
 
 <details markdown="1">
 <summary>✅ Solution</summary>
 
 ```bash
-git checkout main
+git checkout master
 git pull
 git log --oneline -5
 git tag | tail -10

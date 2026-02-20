@@ -15,8 +15,8 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 ## Overview
 
 
-**Day 1:** 5G/6G and O-RAN Networks & Getting Started with OAI  
-**Day 2:** Deep-dive into the RAN Protocol Stack & Experiments with OAI
+**Day 1:** Introduction to 5G/6G and O-RAN Networks & Getting Started with OAI  
+**Day 2:** Deep-dive into the 5G RAN Protocol Stack & Experiments with OAI
 
 
 **What You'll Achieve:**
@@ -29,7 +29,7 @@ Learn 5G by deploying real networks. This hands-on workshop takes you from basic
 
 ## 👥 Who Should Attend?
 
-This workshop is designed for students, faculty, and telecom engineers who want hands-on 5G experience:
+Interested in learning 5G technology in a practical, "learning-by-doing" environment.
 
 - **Undergraduate students** in ECE/CSE (with basics in communication systems & networking)
 - **Graduate students** specializing in communications, signal processing, or cyber-physical systems

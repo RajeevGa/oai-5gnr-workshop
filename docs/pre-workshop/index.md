@@ -7,14 +7,14 @@ has_children: true
 
 # 🔧 Pre-Workshop Preparation
 
-**Duration:** 3- 3.5 hours (self-paced)  
+**Duration:** 2.5-3 hours (self-paced)  
 **Completion Required:** Before attending workshop
 
 ---
 
 ## 📋 Overview
 
-This section prepares you with essential skills for the workshop. You'll learn Linux basics, Git, Docker, and other tools needed to work with OpenAirInterface. Before attending the workshop, you should be comfortable with working in a terminal based Linux environment.
+This section prepares you with essential skills for the workshop. You'll learn Linux basics, Git, Docker, and other tools needed to work with OpenAirInterface. The aim is to make you comfortable with working in a terminal based Linux environment before attending the workshop.
 
 **You require a laptop with Ubuntu 22.04 (a local or cloud based VM is also fine) to complete these modules.**
 

@@ -527,13 +527,17 @@ Looking for specific content? Use `grep`:
 grep "timeout" server.conf
 ```
 
-This shows lines containing "timeout". Search all files in a directory:
+This shows lines containing "timeout". 
+
+Search all files in a directory:
 
 ```bash
 grep -r "localhost" ~/linux-practice
 ```
 
-The `-r` flag means recursive (search subdirectories too). Case-insensitive search:
+The `-r` flag means recursive (search subdirectories too).
+
+Case-insensitive search:
 
 ```bash
 grep -i "TIMEOUT" server.conf

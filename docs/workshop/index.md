@@ -38,10 +38,10 @@ has_children: true
 
 ---
 
-<h2 style="color: red;">📋 What to Bring</h2>
-- Laptop  with minimum of 4 cores, 8GB RAM, 10 GB free space
-- Ubuntu 22.04 installed (VM is also fine)
-- Completed all pre-workshop modules
+<h2 style="color: red;">📋 Requirements</h2>
+- Registered for the workshop
+- Either bring a Laptop  with minimum of 4 cores, 8GB RAM, 10 GB free space and  Ubuntu 22.04 installed (VM is also fine) or willing to form a group with others
+- Gone through all pre-workshop modules
 - Laptop charger
 
 ---

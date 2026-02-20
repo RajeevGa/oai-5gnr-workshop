@@ -564,6 +564,9 @@ ninja
 # Clean
 ninja clean
 
+# Build with Ninja
+ninja
+
 # Run
 ./calc
 ```
@@ -794,7 +797,7 @@ Now you see the problem - `b` is 0!
 **Output:**
 ```
 #0  divide (a=10, b=0) at buggy.c:4
-#1  0x00005555555551a8 in main () at buggy.c:12
+#1  0x00005555555551a8 in main () at buggy.c:13
 ```
 
 Shows: `main` called `divide`, which is where it crashed.
@@ -807,19 +810,19 @@ Instead of waiting for crashes, pause execution at specific points:
 (gdb) quit          # Exit current session
 gdb ./buggy         # Start fresh
 
-# Set breakpoint at line 12 (before the crash)
-(gdb) break 12
-Breakpoint 1 at 0x...: file buggy.c, line 12.
+# Set breakpoint at line 13 (before the crash)
+(gdb) break 13
+Breakpoint 1 at 0x...: file buggy.c, line 13.
 
 # Run
 (gdb) run
 ```
 
-Program starts and pauses at line 12:
+Program starts and pauses at line 13:
 
 ```
-Breakpoint 1, main () at buggy.c:12
-12          result = divide(10, 0);
+Breakpoint 1, main () at buggy.c:13
+13          result = divide(10, 0);
 ```
 
 Now you can inspect BEFORE the crash:
