@@ -16,7 +16,7 @@ has_children: true
 
 This section prepares you with essential skills for the workshop. You'll learn Linux basics, Git, Docker, and other tools needed to work with OpenAirInterface. The aim is to make you comfortable with working in a terminal based Linux environment before attending the workshop.
 
-**You require a laptop with Ubuntu 22.04 (a local or cloud based VM is also fine) to complete these modules.**
+**You require a laptop with Ubuntu 22.04 or 24.04 (a local or cloud based VM is also fine) to complete these modules.**
 
 ---
 
