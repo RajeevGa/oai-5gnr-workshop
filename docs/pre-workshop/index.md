@@ -18,6 +18,14 @@ This section prepares you with essential skills for the workshop. You'll learn L
 
 **You require a laptop with Ubuntu 22.04 or 24.04 (a local or cloud based VM is also fine) to complete these modules.**
 
+### Creating a VM
+
+If you do not have a Ubuntu system, or you would like to keep your system isolated, you can create a VM using VirtualBox.
+-  Here is a tutorial for this <https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview>
+- When creating your VM, use these minimum resource settings instead of the defaults in the tutorial:
+    - RAM: 8 GB, CPUs: 4 cores, Disk: 20 GB
+    - Ubuntu version 22.04 LTS
+
 ---
 
 ## 📚 Complete the Modules in Order
