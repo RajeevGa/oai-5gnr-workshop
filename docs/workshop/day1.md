@@ -15,7 +15,6 @@ nav_order: 1
 - Evolution of mobile communication systems: 1G to 5G
 - Cellular industry ecosystem: standardization bodies, operators, equipment vendors, regulators
 - 6G vision: research themes, expected capabilities, and global initiatives
-- 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollout
 - 5G network architecture and design principles
 - Network Functions Virtualization (NFV): concepts and impact on 5G/6G
 - Open RAN (O-RAN) and the role of open-source in cellular networks
@@ -27,16 +26,14 @@ nav_order: 1
 **10:30 - 11 AM: ☕ BREAK**
 
 ---
+### 11:00 AM - 12:15 PM: IOS-MCN project & OAI in Research 
 
-### 11 AM - 12:15 PM: 5G protocol Stack 
-
-- 5G Core Network architecture and functions  
-- Control plane and user plane separation
-- RRC layer: connection establishment and  state machines
-- Bearer management: DRBs, SRBs, and QoS flows
-- SDAP layer: QoS flow to DRB mapping
-- PDCP layer: header compression, security, ciphering, integrity protection
-- RLC layer: modes (TM, UM, AM), segmentation, and ARQ mechanisms
+- 5G & 6G landscape in India: R&D initiatives, spectrum policy, rollout
+- IOS-MCN Project
+- Research use cases
+   - Rate guarantee schedulers
+   - Reconfigurable Intelligent Surface (RIS)
+   - RAN energy management
 
 ---
 
@@ -48,6 +45,8 @@ nav_order: 1
 
 ### 1:30 - 2:45 PM: End-to-End 5G Network Deployment   
 
+- 5G Core Network architecture and functions  
+- Control plane and user plane separation
 - OAI core network deployment using Docker
 - Core network configuration files and parameters
 - Cloning and building OAI RAN repositories

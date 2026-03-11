@@ -11,15 +11,16 @@ nav_order: 2
 
 ## Morning Session (9:00 AM - 12:15 PM)
 
-### 9:00 - 10:30 AM: MAC, PHY Layers and RAN Procedures 
+### 9:00 - 10:30 AM: Uer plane and RAN Protocol Stack 
 
-- Transport channels: DL-SCH, UL-SCH 
-- OAI MAC scheduler 
-- HARQ mechanisms and retransmissions
-- Physical layer fundamentals: OFDM, frame structure, numerology, resource grids
-- Physical channels: PDSCH, PDCCH, PUSCH, PUCCH, PBCH
-- Physical signals: reference signals, synchronization signals
-- Modulation and coding schemes
+- PDU session and data plance
+- Hands-on experiments
+- RAN protocol stack
+  - SDAP layer: QoS flow to DRB mapping
+  - PDCP layer: header compression, security, ciphering, integrity protection
+  - RLC layer: modes (TM, UM, AM), segmentation, and ARQ mechanisms
+  - MAC Layer : Resource allocation and transport channels 
+  - PHY layer: Frame structure, physical channels and signals
 - RAN Procedures
 
 ---
@@ -28,14 +29,16 @@ nav_order: 2
 
 ---
 
-### 11:00 AM - 12:15 PM: OAI Software Architecture and Research use cases 
+### 11:00 AM - 12:15 PM: Hands-on Session  
 
 - OAI software architecture
-- IOS-MCN Project
-- Rate guarantee schedulers
-- Reconfigurable Intelligent Surface (RIS)-enabled 5G with OAI 
-- UAVs, positioning and sensing   
-
+- Hands-on experiments:
+  - Experiment 1: Bandwidth variation 
+  - Experiment 2: Changing TDD pattern 
+  - Experiment 3: Multi-UE scenarios and scheduling behavior
+- Signal & constellation visualization tools 
+- OAI statistics, KPIs, and logs
+ 
 ---
 
 **12:15 - 1:30 PM:  🍛 BREAK**
@@ -44,14 +47,10 @@ nav_order: 2
 
 ## Afternoon Session (1:30 PM - 3:30 PM)
 
-### 1:30 - 3:30 PM: RAN Experiments
+### 1:30 - 3:30 PM: RAN Experiments & Wrap-up
 
-- Hands-on experiments:
-  - Experiment 1: Bandwidth variation (40 MHz vs 80 MHz)
-  - Experiment 2: Changing TDD pattern 
-  - Experiment 3: Multi-UE scenarios and scheduling behavior
-- Signal & constellation visualization tools 
-- OAI statistics, KPIs, and logs 
+- Continue hands-on experiments
+- Visiting over the air real-time 5G setup
 - OAI community resources and collaboration opportunities
 - Workshop wrap-up and Q&A
 

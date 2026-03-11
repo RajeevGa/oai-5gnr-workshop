@@ -22,6 +22,7 @@ has_children: true
 
 ## Day 1: 5G/6G and O-RAN Networks & Getting Started with OAI
 - Introduction to 5G/6G and O-RAN Networks and the Open-Source Paradigm
+- OAI in Research
 - 5G protocol Stack
 - End-to-End 5G Network Deployment
 
@@ -30,8 +31,9 @@ has_children: true
 ---
 
 ## Day 2: Deep-dive into the RAN Protocol Stack & Experiments with OAI
+- RAN Protocol stack
 - MAC, PHY Layers and RAN Procedures
-- OAI Software Architecture and Research use cases
+- OAI Software Architecture 
 - RAN Experiments
 
 [View Day 2 Details →](day2)
